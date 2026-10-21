@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- launch screen follows the phone dark theme -->
+<resources>
+    <color name="splash_bg">#141a18</color>
+</resources>

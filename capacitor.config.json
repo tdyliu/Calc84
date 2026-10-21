@@ -1,0 +1,14 @@
+{
+  "appId": "com.calc84.app",
+  "appName": "Calc 84",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#edf1ec"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover"
+    }
+  }
+}

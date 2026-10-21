@@ -1,0 +1,12 @@
+# dependencies and build output (all rebuildable)
+node_modules/
+dist/
+www/vendor/
+
+# signing keys and secrets: never commit (the release key lives in ~/.calc84/)
+*.jks
+*.keystore
+keystore.properties
+
+# local tooling
+.claude/

@@ -1,0 +1,1379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#edf1ec">
+<meta name="color-scheme" content="light dark">
+<title>Calc 84</title>
+<link rel="stylesheet" href="vendor/mathlive-static.css">
+<script src="vendor/math.js"></script>
+<script src="vendor/mathlive.min.js"></script>
+<style>
+@font-face{font-family:"Atkinson Next";src:url(vendor/atkinson-hyperlegible-next-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Atkinson Next";src:url(vendor/atkinson-hyperlegible-next-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Atkinson Next";src:url(vendor/atkinson-hyperlegible-next-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+/* Themes. Screen tokens: paper grid grid2 ink graphite sheet err. Keypad tokens: padbg key keyink edge op opink sci redbg red. Accent: hl hlink hlband. Graph: c1–c6.
+   [data-theme] works on any element, so the theme swatches in Options preview themselves. */
+:root,[data-theme=paper]{
+  --alpha:#1d7a4f;
+  --paper:#edf1ec;--grid:#d9e2db;--grid2:#c3d0c6;--ink:#18231f;--graphite:#5d6b65;--sheet:#f7f9f6;--err:#b0392a;
+  --padbg:#f7f9f6;--key:#fbfcfa;--keyink:#18231f;--edge:#cbd5ce;--op:#dde4f7;--opink:#2340a8;--sci:#4f5d57;--red:#b0392a;--redbg:#f4ddd7;
+  --hl:#f5d33f;--hlink:#2a2410;--hlband:#f5d33f;
+  --c1:#2340a8;--c2:#c0392b;--c3:#16805c;--c4:#8e3fae;--c5:#c95a0b;--c6:#6b4a3a;color-scheme:light;
+}
+[data-theme=night]{
+  --alpha:#6fd39e;
+  --paper:#141a18;--grid:#1d2622;--grid2:#27332e;--ink:#e4ebe7;--graphite:#93a19b;--sheet:#1a221f;--err:#f0a08e;
+  --padbg:#1a221f;--key:#1f2825;--keyink:#e4ebe7;--edge:#2e3a35;--op:#22305a;--opink:#c3cefc;--sci:#a7b4ae;--red:#f0a08e;--redbg:#3b231e;
+  --hl:#efcc44;--hlink:#211b05;--hlband:rgba(239,204,68,.34);
+  --c1:#8fa6ff;--c2:#ff8a7a;--c3:#5fd3a6;--c4:#d39bf0;--c5:#ffb26b;--c6:#d2b29f;color-scheme:dark;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){
+  --alpha:#6fd39e;
+  --paper:#141a18;--grid:#1d2622;--grid2:#27332e;--ink:#e4ebe7;--graphite:#93a19b;--sheet:#1a221f;--err:#f0a08e;
+  --padbg:#1a221f;--key:#1f2825;--keyink:#e4ebe7;--edge:#2e3a35;--op:#22305a;--opink:#c3cefc;--sci:#a7b4ae;--red:#f0a08e;--redbg:#3b231e;
+  --hl:#efcc44;--hlink:#211b05;--hlband:rgba(239,204,68,.34);
+  --c1:#8fa6ff;--c2:#ff8a7a;--c3:#5fd3a6;--c4:#d39bf0;--c5:#ffb26b;--c6:#d2b29f;color-scheme:dark;
+}}
+[data-theme=blueprint]{
+  --alpha:#9ff0c8;
+  --paper:#1d4e89;--grid:rgba(255,255,255,.10);--grid2:rgba(255,255,255,.22);--ink:#f2f7ff;--graphite:#b9cdea;--sheet:#183f70;--err:#ffc2b8;
+  --padbg:#163a66;--key:#22558f;--keyink:#f2f7ff;--edge:#2f66a6;--op:rgba(255,255,255,.16);--opink:#fff;--sci:#d3e2f7;--red:#ffc2b8;--redbg:rgba(255,120,100,.22);
+  --hl:#ffd166;--hlink:#2a1d00;--hlband:rgba(255,209,102,.4);
+  --c1:#fff;--c2:#ffd166;--c3:#7ff0d0;--c4:#ff9ec7;--c5:#ffb36b;--c6:#b9cdea;color-scheme:dark;
+}
+[data-theme=chalk]{
+  --alpha:#a8e6cf;
+  --paper:#2f4a3a;--grid:rgba(255,255,255,.05);--grid2:rgba(255,255,255,.11);--ink:#f1efe6;--graphite:#b8c4b5;--sheet:#2a4234;--err:#ffb3a3;
+  --padbg:#4a3627;--key:#5c4433;--keyink:#f6efe4;--edge:#3a2a1e;--op:#3e5c49;--opink:#e8f3df;--sci:#ead9c6;--red:#ffb3a3;--redbg:#6a3a2e;
+  --hl:#f4e27a;--hlink:#2b2508;--hlband:rgba(244,226,122,.32);--k2:#f4e27a;
+  --c1:#f1efe6;--c2:#ffb3a3;--c3:#a8e6cf;--c4:#f4e27a;--c5:#9ec9ff;--c6:#e0b0ff;color-scheme:dark;
+}
+[data-theme=handheld]{
+  --alpha:#5fcf8a;
+  --paper:#c5ccb4;--grid:#b8bfa6;--grid2:#a6af93;--ink:#1f251b;--graphite:#4b5543;--sheet:#e9ece2;--err:#9b1c12;
+  --padbg:#26292e;--key:#3a3e45;--keyink:#f3f4f6;--edge:#16181b;--op:#4b515b;--opink:#fff;--sci:#cfd4dc;--red:#ffb4ab;--redbg:#5a2f2f;
+  --hl:#3d8fe0;--hlink:#fff;--hlband:rgba(61,143,224,.32);--k2:#8cc0f5;
+  --c1:#1f3fae;--c2:#b3261e;--c3:#1b6e46;--c4:#7b2c99;--c5:#b55400;--c6:#4d3a2a;color-scheme:light;
+}
+[data-theme=contrast]{
+  --alpha:#006b2e;
+  --paper:#fff;--grid:#ececec;--grid2:#bdbdbd;--ink:#000;--graphite:#2b2b2b;--sheet:#fff;--err:#b00020;
+  --padbg:#fff;--key:#fff;--keyink:#000;--edge:#000;--op:#000;--opink:#fff;--sci:#000;--red:#b00020;--redbg:#ffe0e6;
+  --hl:#ffde00;--hlink:#000;--hlband:#ffde00;
+  --c1:#0033cc;--c2:#cc0000;--c3:#007a33;--c4:#7a00cc;--c5:#b35900;--c6:#000;color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+/* safe areas: Capacitor injects --safe-area-inset-* on Android; browsers use env() */
+html{--sat:var(--safe-area-inset-top,env(safe-area-inset-top,0px));--sab:var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px));--sal:var(--safe-area-inset-left,env(safe-area-inset-left,0px));--sar:var(--safe-area-inset-right,env(safe-area-inset-right,0px))}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font:400 16px/1.4 "Atkinson Next",system-ui,sans-serif}
+button,input,select{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--opink);outline-offset:2px}
+svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+
+/* Sizing: key heights follow the window height (--kh main keys, --sh scientific keys, --kg gaps) so nothing overflows on short screens.
+   Wide windows and landscape phones put the keypad beside the screen. */
+#app{--kh:clamp(34px,6.8dvh,76px);--sh:clamp(32px,4.8dvh,48px);--kg:clamp(4px,1dvh,8px);height:100dvh;padding:var(--sat) var(--sar) 0 var(--sal);display:flex;flex-direction:column;max-width:720px;margin:0 auto}
+@media (min-width:900px),(min-width:560px) and (max-height:560px){#app{--kh:clamp(32px,9.6dvh,84px);--sh:clamp(28px,6dvh,52px);max-width:1680px;display:grid;grid-template-columns:1fr clamp(300px,36vw,520px)}}
+#screen{flex:1;min-height:0;display:flex;flex-direction:column}
+#tabs{display:flex;align-items:center;gap:0;padding:6px clamp(4px,2vw,10px) 0;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--grid2)}
+#tabs [data-tab]{padding:10px clamp(4px,1.6vw,10px) 9px;font-size:clamp(.88rem,3.7vw,1rem);color:var(--graphite);font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+#tabs [data-tab].on{color:var(--ink);border-bottom-color:var(--ink)}
+#tabs .sp{flex:1}
+#tabs .ic{padding:clamp(4px,1.5vw,8px);flex:none;border-radius:10px;color:var(--graphite)}
+#tabs .ic:hover{color:var(--ink);background:var(--grid)}
+.tab{flex:1;min-height:0;display:flex;flex-direction:column;padding:0 14px;overflow-y:auto}
+.tab>*{flex-shrink:0}
+.tab>.tw,#hist,#cvw{flex-shrink:1}
+
+/* calc: a sheet of graph paper */
+#tab-calc{padding:0;background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),linear-gradient(var(--grid2) 1px,transparent 1px),linear-gradient(90deg,var(--grid2) 1px,transparent 1px);
+  background-size:14px 14px,14px 14px,70px 70px,70px 70px;background-position:-1px -1px}
+#hist{flex:1;overflow-y:auto;display:flex;flex-direction:column;padding:10px 16px 0}
+#hist>:first-child{margin-top:auto}
+.h{padding:8px 0 6px;border-bottom:1px solid var(--grid2)}
+.he{color:var(--graphite);cursor:pointer;word-break:break-all;font-size:1.0625rem}
+.hr{display:block;width:fit-content;max-width:100%;margin-left:auto;overflow-x:auto;cursor:pointer;font-size:1.375rem;padding:0 4px;
+  background:linear-gradient(transparent 56%,var(--hlband) 56%,var(--hlband) 92%,transparent 92%) no-repeat;background-size:0 100%}
+.h:last-child .hr{background-size:100% 100%}
+.hr.swipe{transition:background-size .5s cubic-bezier(.2,.7,.2,1)}
+.he:active,.hr:active{opacity:.55}
+#line{display:flex;align-items:center;gap:10px;padding:10px 16px 4px;border-top:2px solid var(--ink);background:color-mix(in srgb,var(--paper) 86%,transparent)}
+#ind{font-size:.75rem;color:var(--graphite);display:flex;flex-direction:column;min-width:2.5em;line-height:1.3}
+#ind b{background:var(--hl);color:var(--hlink);border-radius:4px;padding:0 3px;font-weight:700;width:fit-content}
+#expr{flex:1;min-width:0;border:0;outline:0;background:none;font-size:clamp(1.4rem,4.4dvh,2.1rem);padding:6px 0;caret-color:var(--opink)}
+math-field#mf{flex:1;min-width:0;font-size:clamp(1.3rem,4dvh,1.9rem);background:transparent;border:0;outline:0;color:var(--ink);padding:6px 0;
+  --caret-color:var(--opink);--selection-background-color:var(--op);--selection-color:var(--ink);--contains-highlight-background-color:transparent;--primary-color:var(--opink);--smart-fence-color:var(--graphite)}
+math-field#mf::part(virtual-keyboard-toggle),math-field#mf::part(menu-toggle){display:none}
+#preview{text-align:right;color:var(--graphite);font-size:1.25rem;min-height:1.4rem;padding:0 16px 4px;overflow-x:auto;background:color-mix(in srgb,var(--paper) 86%,transparent)}
+#preview.err{color:var(--err);font-size:.95rem}
+table.mat{display:inline-table;border-collapse:collapse;border-left:2px solid currentColor;border-right:2px solid currentColor;vertical-align:middle}
+table.mat td{padding:1px 8px;text-align:right}
+
+/* keypad: quiet keys, one bright key */
+#pad{position:relative;padding:var(--kg) 12px calc(var(--kg) + 4px + var(--sab));display:flex;flex-direction:column;gap:var(--kg);min-height:0;overflow-y:auto;background:var(--padbg);color:var(--keyink);border-top:1px solid var(--grid2)}
+@media (min-width:900px),(min-width:560px) and (max-height:560px){#pad{border-top:0;border-left:1px solid var(--grid2);justify-content:flex-end;padding:var(--kg) 14px calc(var(--kg) + var(--sab))}#screen{padding-bottom:var(--sab)}}
+/* scientific keys: the 2nd function is printed small above, like the TI faceplate */
+#sci{display:grid;grid-template-columns:repeat(6,1fr);gap:2px 3px}
+#sci button{height:var(--sh);border-radius:10px;color:var(--sci);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;gap:1px}
+#sci button span{font-size:.95rem}
+#sci button small{font-size:.66rem;color:var(--k2,var(--opink));opacity:.85;min-height:.75rem}
+#sci button:hover{color:var(--keyink);background:color-mix(in srgb,var(--key) 70%,transparent)}
+#sci button:active{background:var(--key)}
+#sci button.menu{border:1px solid var(--edge);background:color-mix(in srgb,var(--key) 55%,transparent);color:var(--keyink)}
+#sci button.menu span{font-weight:500;font-size:.85rem}
+#sci button.on{background:var(--hl);color:var(--hlink);font-weight:700}
+#sci.sec small:not(:empty){background:var(--hlband);color:var(--keyink);opacity:1;border-radius:4px;padding:0 3px}
+#sci.sec button:not(.on) span{opacity:.4}
+/* Alpha letters: small green corner letters, lit up while Alpha is on */
+#pad{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+#pad button{position:relative}
+#pad button.held .al{background:var(--alpha);color:var(--padbg);border-radius:4px;padding:2px 3px;transform:scale(1.5)}
+#pad .al{position:absolute;top:3px;right:6px;font:700 .62rem/1 "Atkinson Next",sans-serif;font-style:normal;color:var(--alpha)}
+#main .al{top:6px;right:9px;font-size:.72rem}
+#pad.alp .al{background:var(--alpha);color:var(--padbg);border-radius:4px;padding:2px 3px;top:2px;right:3px;font-size:.8rem}
+#pad.alp #main button:not(.ac):not(.eq):not([data-k="18"]){color:color-mix(in srgb,currentColor 45%,transparent)}
+#pad.alp #sci button:not(.alk) small{opacity:.25}
+#pad.alp #sci .alk.on{background:var(--alpha);color:var(--padbg)}
+#ind button{padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:2px;width:fit-content}
+#ind .ab{background:var(--alpha);color:var(--paper)}
+/* short screens: the 2nd label moves into the key's top-left corner instead of its own line */
+@media (max-height:700px){#sci button{padding-top:7px}#sci button small{position:absolute;top:2px;left:5px;font-size:.56rem;min-height:0}}
+#grip{height:14px;color:var(--sci);font-size:.75rem;line-height:1}
+#main{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--kg)}
+#main button{height:var(--kh);border-radius:clamp(10px,calc(var(--kh)*.24),18px);background:var(--key);border:1px solid var(--edge);border-bottom-width:3px;font-size:clamp(1.1rem,calc(var(--kh)*.36),1.75rem);font-weight:500;transition:transform .06s}
+#main button:active{transform:translateY(2px);border-bottom-width:1px}
+#main .op{background:var(--op);color:var(--opink);border-color:transparent}
+#main .ac{background:var(--redbg);color:var(--red);border-color:transparent;font-size:1.2rem;font-weight:700}
+#main .eq{background:var(--hl);color:var(--hlink);border-color:color-mix(in srgb,var(--hl) 70%,#000);font-weight:700}
+#sheet{position:absolute;inset:0;background:var(--sheet);color:var(--ink);display:flex;flex-direction:column;z-index:5;border-top:2px solid var(--ink)}
+#sheet h3{margin:0;padding:10px 12px 0;font-size:1rem}
+#cats{display:flex;gap:2px;overflow-x:auto;padding:8px 10px;flex:none;border-bottom:1px solid var(--grid2)}
+#cats button{padding:6px 12px;border-radius:10px;white-space:nowrap;color:var(--graphite);font-weight:500}
+#cats button.on{background:var(--ink);color:var(--sheet)}
+#cats .x{margin-left:auto}
+#items{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));align-content:start;gap:6px;padding:10px}
+#items button{text-align:left;padding:8px 10px;border-radius:12px;background:var(--paper);border:1px solid var(--grid2)}
+#items button:hover{border-color:var(--ink)}
+#items small{display:block;color:var(--graphite);font-size:.75rem}
+
+/* shared bits */
+.bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px 0}
+.bar button{padding:6px 12px;border-radius:10px;background:var(--sheet);border:1px solid var(--grid2)}
+.bar button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.bar small,.lbl{color:var(--graphite);font-size:.8125rem}
+.fld{min-width:0;padding:6px 10px;border-radius:10px;border:1px solid var(--grid2);background:var(--sheet);outline:0}
+.fld:focus{border-color:var(--opink);box-shadow:0 0 0 2px var(--op)}
+.sm{width:5.5em}
+#ylist{display:flex;flex-direction:column;gap:4px;overflow:auto;max-height:40%}
+.yrow{display:flex;align-items:center;gap:8px}
+.yrow .fld{flex:1}
+.dot{width:20px;height:20px;border-radius:50%;border:3px solid var(--c);flex:none}
+.dot.on{background:var(--c)}
+#cvw{flex:1;min-height:200px;position:relative}
+#tab-calc>#cvw{flex:0 0 36%;min-height:150px;margin:10px 14px 0}
+#cv{position:absolute;inset:0;width:100%;height:100%;border-radius:14px;background:var(--sheet);border:1px solid var(--grid2);touch-action:none}
+#tinfo{font-variant-numeric:tabular-nums}
+.tw{flex:1;overflow:auto;min-height:110px;padding-bottom:8px}
+table.grid{border-collapse:collapse;font-variant-numeric:tabular-nums;background:var(--sheet)}
+table.grid th,table.grid td{border:1px solid var(--grid2);min-width:84px;text-align:right;padding:6px 8px}
+table.grid th{position:sticky;top:0;background:var(--paper);color:var(--graphite);font-weight:500}
+table.grid td.in{padding:0}
+table.grid input{width:100%;border:0;background:none;padding:8px;text-align:right;outline:0}
+table.grid input:focus{background:var(--hlband);color:var(--ink)}
+.bad{color:var(--red)!important}
+#sout{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:2px 14px;font-variant-numeric:tabular-nums}
+
+/* options */
+#opts{border:0;padding:0;border-radius:20px;background:var(--sheet);color:var(--ink);width:min(440px,calc(100vw - 32px));max-height:calc(100dvh - 32px);box-shadow:0 18px 60px rgba(10,20,15,.35)}
+#opts::backdrop{background:rgba(12,20,16,.45)}
+#opts form{padding:6px 20px 20px}
+#opts header{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--sheet);padding:12px 0 4px}
+#opts h2{font-size:1.25rem;margin:0}
+#opts fieldset{border:0;margin:0;padding:12px 0;border-bottom:1px solid var(--grid2)}
+#opts legend{padding:0;margin-bottom:8px;font-weight:700;float:left;width:100%}
+#opts fieldset>:not(legend){clear:both}
+#opts p{margin:6px 0 0;color:var(--graphite);font-size:.8125rem}
+.seg{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;border-radius:12px;background:var(--paper);border:1px solid var(--grid2)}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0;inset:0;margin:0}
+.seg span{display:block;padding:6px 12px;border-radius:9px;color:var(--graphite);cursor:pointer}
+.seg input:checked+span{background:var(--ink);color:var(--sheet)}
+.seg input:focus-visible+span{outline:2px solid var(--opink);outline-offset:1px}
+/* theme swatches: each preview carries its own data-theme, so it is drawn in that theme's real tokens */
+.sws{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.sw{position:relative;cursor:pointer}
+.sw input{position:absolute;opacity:0;inset:0;margin:0}
+.swp{display:grid;grid-template-rows:1fr 26px;height:76px;border-radius:12px;overflow:hidden;border:2px solid var(--grid2)}
+.swp .scr{position:relative;background-color:var(--paper);background-image:linear-gradient(var(--grid2) 1px,transparent 1px),linear-gradient(90deg,var(--grid2) 1px,transparent 1px);background-size:10px 10px;color:var(--ink);font-weight:700;padding:4px 8px;font-size:1.05rem}
+.swp .scr i{position:absolute;left:6px;right:30%;bottom:7px;height:7px;background:var(--hlband)}
+.swp .kp2{display:flex;gap:4px;align-items:center;padding:0 6px;background:var(--padbg)}
+.swp .kp2 b{flex:1;height:14px;border-radius:4px;background:var(--key);border:1px solid var(--edge)}
+.swp .kp2 b:nth-child(3){background:var(--op);border-color:transparent}
+.swp .kp2 b:last-child{background:var(--hl);border-color:transparent}
+.swp.sys{background:linear-gradient(135deg,#edf1ec 50%,#141a18 50%)}
+.swp.sys .scr,.swp.sys .kp2{background:transparent}
+.sw span.swn{display:block;font-size:.8125rem;margin-top:4px;color:var(--graphite)}
+.sw input:checked+.swp{border-color:var(--ink);box-shadow:0 0 0 2px var(--hl)}
+.sw input:checked~.swn{color:var(--ink);font-weight:700}
+.sw input:focus-visible+.swp{outline:2px solid var(--opink);outline-offset:2px}
+.chk{display:flex;align-items:center;gap:10px;padding:4px 0}
+.chk input{width:18px;height:18px;accent-color:var(--ink)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;padding-top:14px}
+.acts button{padding:8px 14px;border-radius:10px;border:1px solid var(--grid2);background:var(--sheet)}
+.acts .danger{color:var(--red)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app">
+ <main id="screen">
+  <nav id="tabs" aria-label="Screens">
+   <button data-tab="calc">Calc</button><button data-tab="graph">Graph</button><button data-tab="table">Table</button><button data-tab="matrix">Matrix</button><button data-tab="stats">Stats</button>
+   <span class="sp"></span>
+   <button class="ic" id="kpt" aria-label="Show or hide keypad" title="Show or hide keypad"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M7 14h10"/></svg></button>
+   <button class="ic" id="optb" aria-label="Options" title="Options"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+  </nav>
+  <section id="tab-calc" class="tab">
+   <div id="hist"></div>
+   <div id="line"><div id="ind"></div><math-field id="mf" class="kp" aria-label="Expression"></math-field><input id="expr" class="kp" inputmode="none" autocomplete="off" spellcheck="false" aria-label="Expression"></div>
+   <div id="preview" aria-live="polite"></div>
+  </section>
+  <section id="tab-graph" class="tab" hidden>
+   <div class="bar"><button id="yeq" class="on">Y=</button><button id="wbtn">Window</button><button data-z="std">ZStd</button><button data-z="trig">ZTrig</button><button data-z="fit">ZFit</button></div>
+   <div id="ylist"></div>
+   <div id="wedit" class="bar" hidden></div>
+   <div id="cvw"><canvas id="cv" aria-label="Graph"></canvas></div>
+   <div class="bar"><span id="tinfo">Tap a curve to trace it. Drag to pan, pinch or scroll to zoom.</span></div>
+   <div class="bar" id="gcalc"><button data-t="-1" aria-label="Trace left">◀</button><button data-t="1" aria-label="Trace right">▶</button><button data-c="zero">Zero</button><button data-c="min">Min</button><button data-c="max">Max</button><button data-c="isect">Intersect</button><button data-c="dydx">dy/dx</button><button data-c="tangent">Tangent</button><button data-c="area">∫ dx</button></div>
+  </section>
+  <section id="tab-table" class="tab" hidden>
+   <div class="bar"><small>Start</small><input id="tstart" class="fld kp sm" inputmode="none"><small>Step</small><input id="tstep" class="fld kp sm" inputmode="none"></div>
+   <div class="tw"><table class="grid" id="ttab"></table></div>
+  </section>
+  <section id="tab-matrix" class="tab" hidden>
+   <div class="bar" id="mchips" style="flex-wrap:nowrap;overflow-x:auto"></div>
+   <div class="bar"><small>Rows</small><button data-dim="0,-1" aria-label="Fewer rows">−</button><b id="mr"></b><button data-dim="0,1" aria-label="More rows">+</button><small>Columns</small><button data-dim="1,-1" aria-label="Fewer columns">−</button><b id="mc"></b><button data-dim="1,1" aria-label="More columns">+</button></div>
+   <div class="tw"><table class="grid" id="mtab"></table></div>
+   <div class="bar" id="mops"></div>
+  </section>
+  <section id="tab-stats" class="tab" hidden>
+   <div class="bar"><button id="s1">1-Var Stats</button><small>X</small><select id="sx" class="fld"></select><button id="s2">LinReg ax+b</button><small>Y</small><select id="sy" class="fld"></select><button id="sclr">Clear X list</button></div>
+   <div id="sout"></div>
+   <div class="tw"><table class="grid" id="ltab"></table></div>
+  </section>
+ </main>
+ <div id="pad">
+  <div id="sci"></div>
+  <button id="grip" aria-label="Show or hide scientific keys">⌃</button>
+  <div id="main"></div>
+  <div id="sheet" hidden><div id="cats"></div><div id="items"></div></div>
+ </div>
+</div>
+
+<dialog id="opts" aria-label="Options">
+ <form method="dialog">
+  <header><h2>Options</h2><button value="close" class="ic" aria-label="Close options"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></header>
+  <fieldset><legend>Math input</legend>
+   <div class="seg"><label><input type="radio" name="pretty" value="1"><span>Textbook (2D)</span></label><label><input type="radio" name="pretty" value="0"><span>One line</span></label></div>
+   <p>Textbook stacks fractions, exponents and roots the way they’re written on paper.</p></fieldset>
+  <fieldset><legend>Angles</legend>
+   <div class="seg"><label><input type="radio" name="deg" value="0"><span>Radians</span></label><label><input type="radio" name="deg" value="1"><span>Degrees</span></label></div></fieldset>
+  <fieldset><legend>Answers</legend>
+   <div class="seg"><label><input type="radio" name="ans" value="dec"><span>Decimal</span></label><label><input type="radio" name="ans" value="frac"><span>Fraction when exact</span></label></div></fieldset>
+  <fieldset><legend>Number format</legend>
+   <div class="seg"><label><input type="radio" name="nf" value="norm"><span>Normal</span></label><label><input type="radio" name="nf" value="sci"><span>Scientific</span></label><label><input type="radio" name="nf" value="eng"><span>Engineering</span></label></div>
+   <p>Engineering keeps exponents in multiples of 3, matching kilo, mega, milli and micro.</p></fieldset>
+  <fieldset><legend>Decimal places</legend>
+   <select name="fix" class="fld"><option value="-1">Automatic (up to 10 digits)</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></fieldset>
+  <fieldset><legend>Theme</legend>
+   <div class="sws" id="sws"></div></fieldset>
+  <fieldset><legend>Behavior</legend>
+   <label class="chk"><input type="checkbox" name="preview">Show the answer while typing</label>
+   <label class="chk"><input type="checkbox" name="split">Show the graph on the Calc screen</label>
+   <label class="chk"><input type="checkbox" name="hold">Hold a key to type its green letter</label>
+   <label class="chk"><input type="checkbox" name="haptic">Vibrate on key press (phones)</label></fieldset>
+  <div class="acts"><button type="button" id="clrh">Clear history</button><button type="button" id="reset" class="danger">Reset calculator…</button></div>
+ </form>
+</dialog>
+
+<script>
+const m = math.create(math.all);
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const LET = [...'ABCDEFGHIJ'], AZ = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+const def = () => ({
+  hist: [], vars: Object.fromEntries([...AZ.map(c => [c, 0]), ['Ans', 0]]),
+  mats: Object.fromEntries(LET.map(k => [k, [[0, 0], [0, 0]]])),
+  lists: {L1: [], L2: [], L3: [], L4: [], L5: [], L6: []},
+  ys: ['', '', '', '', '', ''], on: [1, 1, 1, 1, 1, 1], win: {xmin: -10, xmax: 10, ymin: -10, ymax: 10},
+  tbl: {start: 0, step: 1}, deg: false, sci: true, kp: true, tab: 'calc',
+  opt: {pretty: true, ans: 'dec', nf: 'norm', fix: -1, theme: 'system', preview: true, haptic: true, split: false, hold: true}
+});
+let S = def();
+try { const L = JSON.parse(localStorage.getItem('calc84'), m.reviver); if (L) { Object.assign(S, L); S.opt = {...def().opt, ...L.opt} } } catch {}
+const save = () => { try { localStorage.setItem('calc84', JSON.stringify(S, m.replacer)) } catch {} };
+
+/* ---------- numerics ---------- */
+const LG = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+function lgam(x) {
+  if (x < 0.5) return Math.log(Math.PI / Math.abs(Math.sin(Math.PI * x))) - lgam(1 - x);
+  x -= 1; let a = LG[0]; const t = x + 7.5;
+  for (let i = 1; i < 9; i++) a += LG[i] / (x + i);
+  return 0.5 * Math.log(2 * Math.PI) + (x + 0.5) * Math.log(t) - t + Math.log(a);
+}
+function betacf(a, b, x) { // Numerical Recipes continued fraction
+  const T = 1e-300, qab = a + b, qap = a + 1, qam = a - 1;
+  let c = 1, d = 1 - qab * x / qap; if (Math.abs(d) < T) d = T; d = 1 / d; let h = d;
+  for (let k = 1; k <= 300; k++) {
+    const k2 = 2 * k; let aa = k * (b - k) * x / ((qam + k2) * (a + k2));
+    d = 1 + aa * d; if (Math.abs(d) < T) d = T; c = 1 + aa / c; if (Math.abs(c) < T) c = T; d = 1 / d; h *= d * c;
+    aa = -(a + k) * (qab + k) * x / ((a + k2) * (qap + k2));
+    d = 1 + aa * d; if (Math.abs(d) < T) d = T; c = 1 + aa / c; if (Math.abs(c) < T) c = T; d = 1 / d;
+    const del = d * c; h *= del; if (Math.abs(del - 1) < 3e-16) break;
+  }
+  return h;
+}
+function ibeta(x, a, b) { // regularized incomplete beta I_x(a,b)
+  if (x <= 0) return 0; if (x >= 1) return 1;
+  const bt = Math.exp(lgam(a + b) - lgam(a) - lgam(b) + a * Math.log(x) + b * Math.log(1 - x));
+  return x < (a + 1) / (a + b + 2) ? bt * betacf(a, b, x) / a : 1 - bt * betacf(b, a, 1 - x) / b;
+}
+function igam(a, x) { // regularized lower incomplete gamma P(a,x)
+  if (x <= 0) return 0; const gln = lgam(a);
+  if (x < a + 1) {
+    let ap = a, sum = 1 / a, del = sum;
+    for (let n = 0; n < 1000; n++) { ap++; del *= x / ap; sum += del; if (Math.abs(del) < Math.abs(sum) * 1e-16) break }
+    return sum * Math.exp(-x + a * Math.log(x) - gln);
+  }
+  let b = x + 1 - a, c = 1e300, d = 1 / b, h = d;
+  for (let i = 1; i < 1000; i++) {
+    const an = -i * (i - a); b += 2; d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300;
+    c = b + an / c; if (Math.abs(c) < 1e-300) c = 1e-300; d = 1 / d; const del = d * c; h *= del; if (Math.abs(del - 1) < 1e-16) break;
+  }
+  return 1 - Math.exp(-x + a * Math.log(x) - gln) * h;
+}
+const Phi = z => z > 40 ? 1 : z < -40 ? 0 : 0.5 * (1 + m.erf(z / Math.SQRT2));
+const Tcdf = (t, v) => { const p = 0.5 * ibeta(v / (v + t * t), v / 2, 0.5); return t > 0 ? 1 - p : p };
+const invert = (F, p, lo, hi) => {
+  if (!(p > 0 && p < 1)) throw Error('Area must be between 0 and 1');
+  for (let i = 0; i < 300; i++) { const c = (lo + hi) / 2; if (F(c) < p) lo = c; else hi = c }
+  return (lo + hi) / 2;
+};
+const binpmf = (n, p, k) => k < 0 || k > n || k % 1 ? 0 : Math.exp(lgam(n + 1) - lgam(k + 1) - lgam(n - k + 1)) * p ** k * (1 - p) ** (n - k);
+const poipmf = (l, k) => k < 0 || k % 1 ? 0 : Math.exp(-l + k * Math.log(l) - lgam(k + 1));
+const cumul = (pmf, k) => { let s = 0; for (let i = 0; i <= Math.floor(k); i++) s += pmf(i); return Math.min(1, s) };
+
+const deriv = (g, x, h) => { h = h || 1e-5 * Math.max(1, Math.abs(x)); return (g(x + h) - g(x - h)) / (2 * h) };
+function integrate(g, a, b) {
+  if (a === b) return 0; if (a > b) return -integrate(g, b, a);
+  const asr = (a, b, fa, fm, fb, w, eps, d) => {
+    const c = (a + b) / 2, l = (a + c) / 2, r = (c + b) / 2, fl = g(l), fr = g(r);
+    const L = (c - a) / 6 * (fa + 4 * fl + fm), R = (b - c) / 6 * (fm + 4 * fr + fb);
+    return d <= 0 || Math.abs(L + R - w) <= 15 * eps ? L + R + (L + R - w) / 15 : asr(a, c, fa, fl, fm, L, eps / 2, d - 1) + asr(c, b, fm, fr, fb, R, eps / 2, d - 1);
+  };
+  let s = 0; const n = 16, h = (b - a) / n;
+  for (let i = 0; i < n; i++) {
+    const x0 = a + i * h, f0 = g(x0), f1 = g(x0 + h), fm = g(x0 + h / 2);
+    s += asr(x0, x0 + h, f0, fm, f1, h / 6 * (f0 + 4 * fm + f1), 1e-11, 14);
+  }
+  return s;
+}
+function bisect(g, a, b) {
+  let fa = g(a);
+  for (let i = 0; i < 200; i++) {
+    const c = (a + b) / 2, fc = g(c);
+    if (fc === 0 || (b - a) / 2 < 1e-15 * Math.max(1, Math.abs(c))) return c;
+    if (Math.sign(fc) === Math.sign(fa)) { a = c; fa = fc } else b = c;
+  }
+  return (a + b) / 2;
+}
+function root(g, x0 = 0) {
+  let x = x0;
+  for (let i = 0; i < 100; i++) { // Newton
+    const y = g(x); if (y === 0) return x;
+    const nx = x - y / deriv(g, x); if (!isFinite(nx)) break;
+    if (Math.abs(nx - x) <= 1e-14 * Math.max(1, Math.abs(x))) { x = nx; break }
+    x = nx;
+  }
+  if (Math.abs(g(x)) < 1e-9) return x;
+  let pl = g(x0), pr = pl, l = x0, r = x0; // fallback: scan outward for a sign change
+  for (let s = 1e-3; s < 1e8; s *= 1.2) {
+    const nr = x0 + s, nl = x0 - s, fr = g(nr), fl = g(nl);
+    if (isFinite(fr) && isFinite(pr) && Math.sign(fr) !== Math.sign(pr)) return bisect(g, r, nr);
+    if (isFinite(fl) && isFinite(pl) && Math.sign(fl) !== Math.sign(pl)) return bisect(g, nl, l);
+    pr = fr; pl = fl; r = nr; l = nl;
+  }
+  throw Error('No solution found');
+}
+function limitAt(g, a) {
+  // 'u' = undefined on that side, NaN = doesn't settle
+  const side = xs => { const ys = xs.map(g).filter(isFinite); if (ys.length < 3) return 'u'; const [p, q] = ys.slice(-2);
+    if (Math.abs(q) > 1e9 && Math.abs(q) > Math.abs(p)) return Math.sign(q) * Infinity;
+    return Math.abs(q - p) <= 1e-5 * Math.max(1, Math.abs(q)) ? q : NaN };
+  const ks = [3, 4, 5, 6, 7, 8];
+  let l, r;
+  if (!isFinite(a)) l = r = side(ks.map(k => Math.sign(a) * 10 ** (k + 3)));
+  else { l = side(ks.map(k => a - 10 ** -k)); r = side(ks.map(k => a + 10 ** -k)); if (l === 'u') l = r; if (r === 'u') r = l }
+  if (l === 'u' || Number.isNaN(l) || Number.isNaN(r)) throw Error("The limit doesn't settle on a value");
+  if (l !== r && (!isFinite(l) || !isFinite(r) || Math.abs(l - r) > 1e-4 * Math.max(1, Math.abs(l)))) throw Error(`Left side → ${fnum(l)}, right side → ${fnum(r)}: no limit`);
+  return isFinite(l) ? +((l + r) / 2).toPrecision(8) : l;
+}
+function rref(M) {
+  const A = m.clone(m.isMatrix(M) ? M.toArray() : M).map(r => r.map(num)), R = A.length, C = A[0].length;
+  for (let r = 0, lead = 0; r < R && lead < C; lead++) {
+    let p = r; for (let i = r + 1; i < R; i++) if (Math.abs(A[i][lead]) > Math.abs(A[p][lead])) p = i;
+    if (Math.abs(A[p][lead]) < 1e-10) continue;
+    [A[p], A[r]] = [A[r], A[p]];
+    const lv = A[r][lead]; A[r] = A[r].map(v => v / lv);
+    for (let j = 0; j < R; j++) if (j !== r) { const f = A[j][lead]; A[j] = A[j].map((v, k) => v - f * A[r][k]) }
+    r++;
+  }
+  return A.map(r => r.map(v => Math.abs(v) < 1e-12 ? 0 : v));
+}
+
+/* ---------- expression engine ---------- */
+const D = Math.PI / 180;
+const isArr = x => Array.isArray(x) || m.isMatrix(x);
+const is1D = x => Array.isArray(x) ? !Array.isArray(x[0]) : m.isMatrix(x) && x.size().length === 1;
+const each = f => x => isArr(x) ? m.map(x, v => f(v)) : f(x);
+const num = v => typeof v === 'number' ? v : typeof v === 'boolean' ? +v : m.isComplex(v) ? (Math.abs(v.im) < 1e-12 ? v.re : NaN) : m.isFraction(v) || m.isBigNumber(v) ? +v : NaN;
+const rad = x => S.deg && typeof x === 'number' ? x * D : x, deg = y => S.deg && typeof y === 'number' ? y / D : y;
+let cur = {}; // scope seen by the lazy (rawArgs) functions below
+const bound = (ex, base, v) => x => { const s = {...base, [v]: x}, prev = cur; cur = s; try { return num(ex.evaluate(s)) } finally { cur = prev } };
+function raw(fn) { // f(expr, VAR, ...nums): expr is re-evaluated with VAR bound
+  const f = args => {
+    const base = cur, v = args[1] && args[1].name;
+    if (!v) throw Error('2nd argument must be a variable, e.g. X');
+    const rest = args.slice(2).map(a => num(a.compile().evaluate(base)));
+    return fn(bound(args[0].compile(), base, v), ...rest);
+  };
+  f.rawArgs = true; return f;
+}
+const diff = args => { // exact derivative; its args arrive untransformed (see tf)
+  const v = args[1] && args[1].name; if (!v) throw Error('2nd argument must be a variable, e.g. X');
+  if (args.length < 3) return m.derivative(args[0], v);
+  const base = cur, a = num(args[2].transform(tf).compile().evaluate(base)), g = bound(args[0].transform(tf).compile(), base, v);
+  if (S.deg) return deriv(g, a); // degree mode: d/d(degrees), like the TI
+  try { return bound(m.derivative(args[0], v).transform(tf).compile(), base, v)(a) } catch { return deriv(g, a) }
+};
+diff.rawArgs = true;
+m.import({
+  ln: x => m.log(x), logb: (x, b) => b === undefined ? m.log10(x) : m.log(x, b), logBASE: (x, b) => m.log(x, b),
+  dsin: each(x => m.sin(rad(x))), dcos: each(x => m.cos(rad(x))), dtan: each(x => m.tan(rad(x))),
+  dasin: each(x => deg(m.asin(x))), dacos: each(x => deg(m.acos(x))), datan: each(x => deg(m.atan(x))),
+  dsec: each(x => m.sec(rad(x))), dcsc: each(x => m.csc(rad(x))), dcot: each(x => m.cot(rad(x))),
+  par: (...r) => 1 / r.reduce((s, x) => s + 1 / x, 0), dB: x => 10 * Math.log10(x), eigvals: A => m.eigs(A).values,
+  // TI semantics: lists are elementwise, matrices use matrix algebra
+  tiMul: (a, b) => is1D(a) && is1D(b) ? m.dotMultiply(a, b) : m.multiply(a, b),
+  tiDiv: (a, b) => is1D(b) ? m.dotDivide(a, b) : m.divide(a, b),
+  tiPow: (a, b) => is1D(a) || is1D(b) ? m.dotPow(a, b) : isArr(a) && b < 0 ? m.pow(m.inv(a), -b) : m.pow(a, b),
+  nCr: (n, r) => m.combinations(n, r), nPr: (n, r) => m.permutations(n, r),
+  int: x => m.floor(x), iPart: x => m.fix(x), fPart: x => m.subtract(x, m.fix(x)),
+  rand: () => Math.random(),
+  randInt: (a, b, n) => n === undefined ? m.randomInt(a, b + 1) : Array.from({length: n}, () => m.randomInt(a, b + 1)),
+  randNorm: (mu, s, n) => { const g = () => mu + s * Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(2 * Math.PI * Math.random()); return n === undefined ? g() : Array.from({length: n}, g) },
+  diff,
+  nDeriv: raw((g, x, h) => deriv(g, x, h)),
+  fnInt: raw((g, a, b) => integrate(g, a, b)),
+  limit: raw((g, a) => limitAt(g, a)),
+  solve: raw((g, x0) => root(g, x0)),
+  summation: raw((g, a, b) => { let s = 0; for (let k = a; k <= b; k++) s += g(k); return s }),
+  productSeq: raw((g, a, b) => { let s = 1; for (let k = a; k <= b; k++) s *= g(k); return s }),
+  seq: raw((g, a, b, st = 1) => { const r = []; for (let k = a; st > 0 ? k <= b + 1e-12 : k >= b - 1e-12; k += st) r.push(g(k)); return r }),
+  normalpdf: (x, mu = 0, s = 1) => Math.exp(-(((x - mu) / s) ** 2) / 2) / (s * Math.sqrt(2 * Math.PI)),
+  normalcdf: (lo, hi, mu = 0, s = 1) => Phi((hi - mu) / s) - Phi((lo - mu) / s),
+  invNorm: (p, mu = 0, s = 1) => mu + s * invert(Phi, p, -40, 40),
+  tpdf: (t, v) => Math.exp(lgam((v + 1) / 2) - lgam(v / 2)) / Math.sqrt(v * Math.PI) * (1 + t * t / v) ** (-(v + 1) / 2),
+  tcdf: (lo, hi, v) => Tcdf(hi, v) - Tcdf(lo, v),
+  invT: (p, v) => invert(t => Tcdf(t, v), p, -1e8, 1e8),
+  chi2pdf: (x, k) => x < 0 ? 0 : Math.exp((k / 2 - 1) * Math.log(x) - x / 2 - (k / 2) * Math.LN2 - lgam(k / 2)),
+  chi2cdf: (lo, hi, k) => igam(k / 2, Math.max(0, hi) / 2) - igam(k / 2, Math.max(0, lo) / 2),
+  Fpdf: (x, a, b) => x < 0 ? 0 : Math.exp(a / 2 * Math.log(a) + b / 2 * Math.log(b) + (a / 2 - 1) * Math.log(x) - (a + b) / 2 * Math.log(a * x + b) - lgam(a / 2) - lgam(b / 2) + lgam((a + b) / 2)),
+  Fcdf: (lo, hi, a, b) => { const F = x => x <= 0 ? 0 : ibeta(a * x / (a * x + b), a / 2, b / 2); return F(hi) - F(lo) },
+  binompdf: (n, p, x) => x === undefined ? Array.from({length: n + 1}, (_, k) => binpmf(n, p, k)) : each(k => binpmf(n, p, k))(x),
+  binomcdf: (n, p, x) => x === undefined ? Array.from({length: n + 1}, (_, k) => cumul(i => binpmf(n, p, i), k)) : each(k => cumul(i => binpmf(n, p, i), k))(x),
+  poissonpdf: (l, x) => each(k => poipmf(l, k))(x),
+  poissoncdf: (l, x) => each(k => cumul(i => poipmf(l, i), k))(x),
+  geometpdf: (p, x) => each(k => (1 - p) ** (k - 1) * p)(x),
+  geometcdf: (p, x) => each(k => 1 - (1 - p) ** Math.floor(k))(x),
+  rref, augment: (a, b) => m.concat(a, b),
+  dim: x => { const s = m.size(x), a = Array.isArray(s) ? s : s.toArray(); return a.length === 1 ? a[0] : a },
+  stdDev: x => m.std(x), sortA: x => m.sort(x, 'asc'), sortD: x => m.sort(x, 'desc'), cumSum: x => m.cumsum(x),
+}, {override: true});
+
+const OPS = {multiply: 'tiMul', divide: 'tiDiv', pow: 'tiPow'};
+const FNS = {sin: 'dsin', cos: 'dcos', tan: 'dtan', asin: 'dasin', acos: 'dacos', atan: 'datan', sec: 'dsec', csc: 'dcsc', cot: 'dcot', log: 'logb'};
+function tf(n) {
+  if (n.isFunctionNode && n.fn.name === 'diff') return n.clone(); // a new node stops transform() descending: derivative needs plain mathjs nodes
+  const name = n.isOperatorNode ? OPS[n.fn] : n.isFunctionNode ? FNS[n.fn.name] : null;
+  return name ? new m.FunctionNode(name, n.args.map(a => a.transform(tf))) : n;
+}
+function prep(s) {
+  s = s.replace(/►Frac/g, '')
+    .replace(/(?<![A-Za-z_])[A-Z]{2,}(?![a-z0-9(])/g, w => w.split('').join(' ')) // TI: AB means A*B
+    .replace(/×/g, '*').replace(/÷/g, '/').replace(/[−–]/g, '-').replace(/ᴇ/g, 'e')
+    .replace(/π/g, ' pi ').replace(/√/g, 'sqrt').replace(/∛/g, 'cbrt')
+    .replace(/²/g, '^2').replace(/³/g, '^3').replace(/⁻¹/g, '^(-1)').replace(/°/g, ' deg')
+    .replace(/\[\s*([A-J])\s*\]/g, ' M$1 ').replace(/\s*ᵀ/g, "'").replace(/{/g, '[').replace(/}/g, ']').replace(/\]\s*\[/g, ']*[') // {1,2}{3,4} multiplies, not indexes
+    .replace(/\brand\b(?!\s*\()/g, 'rand()').replace(/Ans/g, ' Ans ').replace(/\)\s*(?=[\d.])/g, ')*'); // (2)3 = 6
+  const open = (s.match(/\(/g) || []).length - (s.match(/\)/g) || []).length;
+  return open > 0 ? s + ')'.repeat(open) : s; // TI lets you omit closing parens
+}
+const compile = s => m.parse(prep(s)).transform(tf).compile();
+let gs = null;
+function buildScope() {
+  const s = {...S.vars};
+  for (const k of LET) s['M' + k] = m.matrix(S.mats[k]);
+  Object.assign(s, S.lists);
+  S.ys.forEach((_, i) => s['Y' + (i + 1)] = x => { const f = yfun(i); if (!f) throw Error(`Y${i + 1} is empty`); return f(num(x)) });
+  return s;
+}
+const gscope = () => gs || (gs = buildScope());
+function evalStr(s) {
+  gs = null; const sc = buildScope(); cur = sc;
+  let v = compile(s).evaluate(sc);
+  if (m.isResultSet(v)) v = v.entries.at(-1);
+  return v;
+}
+function store(t, v) {
+  let k; t = t.replace(/\s+/g, '');
+  if ((k = t.match(/^\[([A-J])\]$/))) {
+    const a = isArr(v) ? m.clone(v.valueOf()) : [[v]];
+    S.mats[k[1]] = Array.isArray(a[0]) ? a.map(r => r.map(num)) : [a.map(num)];
+  } else if ((k = t.match(/^L([1-6])$/))) S.lists['L' + k[1]] = isArr(v) ? m.flatten(m.clone(v.valueOf())).map(num) : [num(v)];
+  else if (/^[A-Z]$/.test(t)) S.vars[t] = v;
+  else throw Error('Can only store to A–Z, [A]–[J], L1–L6');
+}
+const symb = v => ({sym: v.toString({implicit: 'hide'}), tex: v.toTex({implicit: 'hide'})}); // formula answers
+function run(src) {
+  let s = src.trim(), t = null;
+  const fr = /►Frac\s*$/.test(s); s = s.replace(/►Frac\s*$/, '');
+  const k = s.lastIndexOf('→'); if (k >= 0) { t = s.slice(k + 1).trim(); s = s.slice(0, k) }
+  if (!s.trim()) throw Error('Nothing to evaluate');
+  let v = evalStr(s);
+  if (m.isNode(v)) return {v: symb(v), fr};
+  if (t) store(t, v);
+  if (v !== undefined && typeof v !== 'function') S.vars.Ans = v;
+  return {v, fr};
+}
+
+/* ---------- textbook (LaTeX) input → expression text ---------- */
+const TFN = {sin: 'sin', cos: 'cos', tan: 'tan', sec: 'sec', csc: 'csc', cot: 'cot', arcsin: 'asin', arccos: 'acos', arctan: 'atan', sinh: 'sinh', cosh: 'cosh', tanh: 'tanh', ln: 'ln', log: 'log', exp: 'exp', det: 'det', gcd: 'gcd', min: 'min', max: 'max'};
+const TSYM = {'\\times': '×', '\\cdot': '×', '\\ast': '×', '*': '×', '\\div': '÷', '/': '÷', '\\pi': 'π', '\\infty': 'Infinity', '\\exponentialE': 'e', '\\imaginaryI': 'i',
+  '\\rightarrow': '→', '\\to': '→', '\\blacktriangleright': '►', '\\degree': '°', '\\circ': '°', '\\lbrace': '{', '\\{': '{', '\\rbrace': '}', '\\}': '}',
+  '\\lbrack': '[', '\\rbrack': ']', '\\lparen': '(', '\\rparen': ')', '\\le': '<=', '\\ge': '>=', '\\ne': '!=', '\\neq': '!=', '\\intercal': 'ᵀ'};
+const TSKIP = new Set(['\\,', '\\;', '\\:', '\\!', '\\ ', '\\quad', '\\qquad', '~', '\\displaystyle', '\\limits', '\\nolimits', '\\Big', '\\big', '\\bigg', '\\Bigg']);
+const BARS = ['|', '\\vert', '\\rvert', '\\lvert'];
+function tex2txt(src) {
+  const T = [];
+  for (let i = 0; i < src.length;) {
+    const c = src[i];
+    if (c === '\\') { let j = i + 1; if (/[a-zA-Z]/.test(src[j] || '')) while (/[a-zA-Z]/.test(src[j] || '')) j++; else j++; T.push(src.slice(i, j)); i = j }
+    else { if (!/\s/.test(c)) T.push(c); i++ }
+  }
+  let i = 0;
+  const peek = (k = 0) => T[i + k], next = () => T[i++], letter = t => /^[A-Za-z]$/.test(t || '');
+  const need = t => { if (T[i] !== t) throw Error('Unfinished expression'); i++ };
+  const seq = stop => { let s = ''; while (i < T.length && !stop()) s += item(); return s };
+  // a bare (unbraced) argument is one digit: \frac13 = 1/3
+  const group = () => { if (peek() !== '{') return /^[0-9.]$/.test(peek() || '') ? next() : item(); i++; const s = seq(() => peek() === '}'); need('}'); return s };
+  const rawGroup = () => { // \mathrm{Ans} → "Ans"
+    if (peek() !== '{') return TSYM[peek()] || next() || '';
+    i++; let s = '';
+    // MathLive nests styles (\operatorname{\mathrm{inch}}): keep symbols, drop style commands
+    for (let d = 1; i < T.length;) { const t = next(); if (t === '{') d++; else if (t === '}' && !--d) break; else if (t !== '_' && t !== '}' && (TSYM[t] || !t.startsWith('\\'))) s += TSYM[t] || t }
+    return s;
+  };
+  const subVar = s => { const k = s.split(/=|→/); if (k.length !== 2 || !k[0].trim()) throw Error('Write the variable like X=1'); return k.map(x => x.trim()) };
+  const delim = t => ({'\\lbrack': '[', '\\rbrack': ']', '\\lbrace': '{', '\\{': '{', '\\rbrace': '}', '\\}': '}', '\\lparen': '(', '\\rparen': ')'})[t] || (BARS.includes(t) ? '|' : t);
+  const bounds = () => { let lo, hi; for (let k = 0; k < 3; k++) { if (peek() === '_') { i++; lo = group() } else if (peek() === '^') { i++; hi = group() } else if (TSKIP.has(peek())) i++ } return [lo, hi] };
+  const fnArg = () => { if (peek() === '(') return ''; const a = item(); return a.trim().startsWith('(') ? a : `(${a})` };
+  function item() {
+    const t = next();
+    if (t === '{') { const s = seq(() => peek() === '}'); need('}'); return `(${s})` }
+    if (/^[0-9.]$/.test(t)) { let s = t; while (/^[0-9.]$/.test(peek() || '')) s += next(); return s }
+    if (letter(t)) return ` ${t} `; // TeX letters are separate variables
+    if (t === '^') {
+      for (const [cmd, out] of [['\\intercal', 'ᵀ'], ['\\circ', '°']]) {
+        if (peek() === cmd) { i++; return out }
+        if (peek() === '{' && peek(1) === cmd && peek(2) === '}') { i += 3; return out }
+      }
+      return `^(${group()})`;
+    }
+    if (t === '_') return group().replace(/\s/g, ''); // L_1 → L1
+    if (TSKIP.has(t)) return '';
+    if (TSYM[t]) return TSYM[t];
+    if (t === '\\left' || t === '\\mleft') {
+      const o = delim(next()), inner = seq(() => peek() === '\\right' || peek() === '\\mright'); next(); const c = delim(next());
+      return o === '|' ? ` abs(${inner})` : (o === '.' ? '' : o) + inner + (c === '.' ? '' : c);
+    }
+    if (t === '\\right' || t === '\\mright') { next(); return '' }
+    if (BARS.includes(t)) { const s = seq(() => BARS.includes(peek())); next(); return ` abs(${s})` }
+    if (['\\mathrm', '\\operatorname', '\\text', '\\textrm', '\\mathit', '\\mathbf'].includes(t)) { const s = rawGroup(); return /^[A-Za-z]\w+$/.test(s) ? ` ${s}` : s }
+    if (t === '\\frac' || t === '\\dfrac' || t === '\\tfrac') {
+      const a = group(), b = group(), dv = b.replace(/\s/g, '').match(/^d([A-Za-z])$/);
+      if (a.trim() === 'd' && dv) { // d/dX(f) or d/dX(f)|_{X=a}
+        const body = item();
+        if (TSKIP.has(peek()) && BARS.includes(peek(1))) i++;
+        if (BARS.includes(peek()) && peek(1) === '_') { i += 2; const [v, at] = subVar(group()); return ` diff(${body},${v},${at})` }
+        return ` diff(${body},${dv[1]})`;
+      }
+      return `((${a})/(${b}))`;
+    }
+    if (t === '\\sqrt') { if (peek() === '[') { i++; const n = seq(() => peek() === ']'); need(']'); return ` nthRoot(${group()},${n})` } return ` sqrt(${group()})` }
+    if (t === '\\int') {
+      const [lo, hi] = bounds();
+      if (lo === undefined || hi === undefined) throw Error('Give the integral a lower and an upper bound');
+      const isD = () => ((peek() === 'd' || peek() === '\\differentialD') && letter(peek(1))) || (peek() === '\\mathrm' && peek(1) === '{' && peek(2) === 'd' && peek(3) === '}' && letter(peek(4)));
+      const body = seq(isD);
+      if (i >= T.length) throw Error('End the integral with dX');
+      i += peek() === '\\mathrm' ? 4 : 1;
+      return ` fnInt(${body},${next()},${lo},${hi})`;
+    }
+    if (t === '\\sum' || t === '\\prod') {
+      const [lo, hi] = bounds();
+      if (lo === undefined || hi === undefined) throw Error('Give the sum a start like X=1 and an end');
+      const [v, a] = subVar(lo);
+      return ` ${t === '\\sum' ? 'summation' : 'productSeq'}(${item()},${v},${a},${hi})`;
+    }
+    if (t === '\\lim') { const [lo] = bounds(); if (lo === undefined) throw Error('Write the limit like X→2'); const [v, a] = subVar(lo); return ` limit(${item()},${v},${a})` }
+    if (t === '\\begin') {
+      rawGroup(); const rows = [[]];
+      for (;;) {
+        rows.at(-1).push(seq(() => ['&', '\\\\', '\\end'].includes(peek())));
+        const d = next();
+        if (d === '\\\\') rows.push([]); else if (d === '\\end') { rawGroup(); break } else if (d === undefined) throw Error('Unfinished matrix');
+      }
+      return `[${rows.filter(r => r.join('').trim()).map(r => `[${r.join(',')}]`).join(',')}]`;
+    }
+    if (t === '\\placeholder') { if (peek() === '[') while (i < T.length && next() !== ']'); rawGroup(); throw Error('Fill in the empty box first') }
+    const fn = t.startsWith('\\') && TFN[t.slice(1)];
+    if (fn) {
+      let name = fn;
+      if (peek() === '^' && ['sin', 'cos', 'tan'].includes(fn)) { const at = i; i++; if (group().replace(/\s/g, '') === '-1') name = 'a' + fn; else i = at }
+      if (name === 'log' && peek() === '_') { i++; const b = group(), a = fnArg(); if (!a) throw Error('Put the log argument in parentheses'); return ` log(${a.trim().slice(1, -1)},${b})` }
+      return ` ${name}${fnArg()}`;
+    }
+    if (t.startsWith('\\')) throw Error(`Can't evaluate ${t}`);
+    if (t === '&') throw Error('Misplaced matrix separator');
+    return t;
+  }
+  return seq(() => false).replace(/►\s*Frac/g, '►Frac').trim();
+}
+
+/* ---------- formatting ---------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+function fnum(v) {
+  if (typeof v === 'number') {
+    if (!isFinite(v)) return isNaN(v) ? 'undefined' : v > 0 ? '∞' : '-∞';
+    if (S.opt.nf !== 'norm' && v !== 0) { // TI MODE: SCI / ENG
+      let s = m.format(v, {notation: S.opt.nf === 'eng' ? 'engineering' : 'exponential', precision: S.opt.fix >= 0 ? S.opt.fix + 1 : 10});
+      if (S.opt.fix < 0) s = s.replace(/(\.\d*?)0+(?=e)/, '$1').replace(/\.(?=e)/, ''); // drop padding zeros
+      return s.replace(/e\+?/, 'ᴇ');
+    }
+    if (S.opt.fix >= 0 && Math.abs(v) < 1e10 && (v === 0 || Math.abs(v) >= 1e-5)) return v.toFixed(S.opt.fix);
+    if (Number.isInteger(v) && Math.abs(v) < 1e10) return String(v);
+    return m.format(v, {precision: 10, lowerExp: -5, upperExp: 10}).replace(/e\+?/, 'ᴇ');
+  }
+  if (typeof v === 'boolean') return v ? '1' : '0';
+  if (typeof v === 'function') return 'ƒ';
+  if (v === undefined) return '';
+  if (typeof v === 'string') return v;
+  return m.format(v, {precision: 10});
+}
+function frac(x) { // continued fractions, TI-style denominator limit
+  if (typeof x !== 'number' || Number.isInteger(x) || !isFinite(x)) return fnum(x);
+  let h = 1, h0 = 0, k = 0, k0 = 1, b = x;
+  for (let i = 0; i < 64; i++) {
+    const a = Math.floor(b); [h, h0] = [a * h + h0, h]; [k, k0] = [a * k + k0, k];
+    if (k > 9999) break;
+    if (Math.abs(x - h / k) < 1e-12 * Math.max(1, Math.abs(x))) return `${h}/${k}`;
+    b = 1 / (b - a);
+  }
+  return fnum(x);
+}
+const cl = x => typeof x === 'number' && Math.abs(x) < 1e-12 ? 0 : x;
+const texHTML = s => MathLive.convertLatexToMarkup(s);
+function numTex(x, fr) {
+  const s = fr ? frac(x) : fnum(x); let k;
+  if ((k = s.match(/^(-?)(\d+)\/(\d+)$/))) return `${k[1]}\\frac{${k[2]}}{${k[3]}}`;
+  if ((k = s.match(/^(-?[\d.]+)ᴇ(-?\d+)$/))) return `${k[1]}\\times10^{${k[2]}}`;
+  if (s === '∞' || s === '-∞') return s.replace('∞', '\\infty');
+  if (/^[a-zƒ]+$/i.test(s)) return `\\text{${s}}`;
+  return s;
+}
+function valTex(v, fr) {
+  if (typeof v === 'string' || m.isUnit(v)) return `\\text{${fnum(v).replace(/[\\{}^_&%$#]/g, ' ')}}`;
+  if (m.isMatrix(v)) v = v.toArray();
+  if (Array.isArray(v)) {
+    if (!Array.isArray(v[0])) return `\\lbrace ${v.map(x => numTex(x, fr)).join(',\\ ')}\\rbrace`;
+    return `\\begin{bmatrix}${v.map(r => r.map(c => numTex(cl(c), fr)).join('&')).join('\\\\')}\\end{bmatrix}`;
+  }
+  return numTex(v, fr);
+}
+function show(v, fr) {
+  fr = fr || S.opt.ans === 'frac';
+  if (m.isNode(v)) v = symb(v);
+  if (v && v.sym !== undefined) return S.opt.pretty ? texHTML(v.tex) : esc(v.sym);
+  if (S.opt.pretty) { try { return texHTML(valTex(v, fr)) } catch {} }
+  const f = fr ? frac : fnum;
+  if (m.isMatrix(v)) v = v.toArray();
+  if (Array.isArray(v)) {
+    if (!Array.isArray(v[0])) return esc(`{${v.map(f).join(', ')}}`);
+    return `<table class="mat">${v.map(r => `<tr>${r.map(c => `<td>${esc(f(cl(c)))}</td>`).join('')}</tr>`).join('')}</table>`;
+  }
+  return esc(f(v));
+}
+function valText(v) { // one-line text that re-parses to v (for tapping a result)
+  if (v && v.sym !== undefined) return `(${v.sym})`;
+  if (m.isMatrix(v)) v = v.toArray();
+  if (Array.isArray(v) && !Array.isArray(v[0])) return '{' + v.map(x => m.format(x, {precision: 14})).join(',') + '}';
+  const t = m.format(v, {precision: 14});
+  return m.isComplex(v) || /^-/.test(t) ? `(${t})` : t;
+}
+function valTexIns(v) { // textbook version of valText
+  if (v && v.tex !== undefined) return `\\left(${v.tex}\\right)`;
+  const n = x => { const t = m.format(x, {precision: 14}), k = t.match(/^(-?[\d.]+)e([-+]?\d+)$/); return k ? `${k[1]}\\times10^{${+k[2]}}` : t };
+  if (m.isMatrix(v)) v = v.toArray();
+  if (Array.isArray(v)) return Array.isArray(v[0]) ? `\\begin{bmatrix}${v.map(r => r.map(n).join('&')).join('\\\\')}\\end{bmatrix}` : `\\lbrace ${v.map(n).join(',')}\\rbrace`;
+  const t = n(v); return /^-|[+i]/.test(t) ? `\\left(${t}\\right)` : t;
+}
+
+/* ---------- the entry line (textbook math-field or one-line input) ---------- */
+const ex = $('#expr'), mf = $('#mf'), pv = $('#preview'), hl = $('#hist');
+MathfieldElement.soundsDirectory = null;
+mf.mathVirtualKeyboardPolicy = 'manual';
+mf.menuItems = [];
+mf.smartFence = true;
+let justEval = false, second = false, tgt = ex;
+const fire = el => el.dispatchEvent(new Event('input', {bubbles: true}));
+function ins(el, t) {
+  el.focus({preventScroll: true});
+  const a = el.selectionStart ?? el.value.length, b = el.selectionEnd ?? a;
+  el.value = el.value.slice(0, a) + t + el.value.slice(b);
+  el.setSelectionRange(a + t.length, a + t.length); fire(el);
+}
+const TOK = /(?:[A-Za-z_]\w*\(|[√∛]\(|\[[A-J]\]|Ans|►Frac|⁻¹|L[1-6])$/;
+function del(el) {
+  let a = el.selectionStart, b = el.selectionEnd; const v = el.value;
+  if (a === b) { const t = v.slice(0, a).match(TOK); a = Math.max(0, a - (t ? t[0].length : 1)) }
+  el.value = v.slice(0, a) + v.slice(b); el.setSelectionRange(a, a); fire(el);
+}
+const TPL = {
+  'diff(': '\\frac{d}{dX}\\left(#?\\right)', 'nDeriv(': '\\frac{d}{dX}\\left(#?\\right)\\Big|_{X=#?}', 'fnInt(': '\\int_{#?}^{#?}\\left(#?\\right)dX',
+  'limit(': '\\lim_{X\\to#?}\\left(#?\\right)', 'summation(': '\\sum_{X=#?}^{#?}\\left(#?\\right)', 'productSeq(': '\\prod_{X=#?}^{#?}\\left(#?\\right)',
+  'abs(': '\\left|#?\\right|', 'nthRoot(': '\\sqrt[#?]{#?}', 'logBASE(': '\\log_{#?}\\left(#?\\right)',
+  '[[0,0],[0,0]]': '\\begin{bmatrix}#?&#?\\\\#?&#?\\end{bmatrix}', '[[0,0,0],[0,0,0],[0,0,0]]': '\\begin{bmatrix}#?&#?&#?\\\\#?&#?&#?\\\\#?&#?&#?\\end{bmatrix}',
+  '÷': '\\frac{#@}{#?}', '×': '\\times ', '−': '-', '²': '^2', '³': '^3', '^': '^{#?}', '⁻¹': '^{-1}', '√(': '\\sqrt{#?}', '∛(': '\\sqrt[3]{#?}', 'π': '\\pi ',
+  'ᵀ': '^{\\intercal}', '→': '\\rightarrow ', 'Ans': '\\mathrm{Ans}', '►Frac': '\\blacktriangleright\\mathrm{Frac}', 'E': '\\mathrm{E}', '{': '\\lbrace ', '}': '\\rbrace ',
+  '°': '\\degree ', 'e^(': 'e^{#?}', '10^(': '10^{#?}', 'asin(': '\\sin^{-1}\\left(#?\\right)', 'acos(': '\\cos^{-1}\\left(#?\\right)', 'atan(': '\\tan^{-1}\\left(#?\\right)',
+};
+function texFor(t) {
+  if (TPL[t]) return TPL[t];
+  let k; t = t.trim() || t;
+  if (/^[A-Za-z]{2,}$/.test(t)) return `\\operatorname{${t}}`; // units, constants, "to": one word (MathLive merges adjacent \mathrm)
+  if ((k = t.match(/^\[([A-J])\]$/))) return `\\left\\lbrack ${k[1]}\\right\\rbrack `;
+  if (/^L[1-6]$/.test(t)) return `\\mathrm{${t}}`;
+  if ((k = t.match(/^(Y\d)\($/))) return `\\mathrm{${k[1]}}\\left(#?\\right)`;
+  if ((k = t.match(/^([A-Za-z]\w*)\($/))) return (TFN[k[1]] === k[1] ? `\\${k[1]}` : `\\operatorname{${k[1]}}`) + '\\left(#?\\right)';
+  return t;
+}
+const line = {
+  pretty: () => S.opt.pretty,
+  el: () => S.opt.pretty ? mf : ex,
+  raw: () => S.opt.pretty ? mf.value : ex.value,
+  text: () => S.opt.pretty ? tex2txt(mf.value) : ex.value,
+  clear() { if (S.opt.pretty) mf.value = ''; else ex.value = ''; preview() },
+  insert(t) {
+    if (!S.opt.pretty) return ins(ex, t);
+    mf.focus(); mf.insert(texFor(t), {selectionMode: 'placeholder', format: 'latex'}); preview();
+  },
+  del() { if (!S.opt.pretty) return del(ex); mf.executeCommand('deleteBackward'); preview() },
+  move(d) { if (S.opt.pretty) { mf.focus(); return mf.executeCommand(d < 0 ? 'moveToPreviousChar' : 'moveToNextChar') } ex.focus(); const p = Math.max(0, d < 0 ? ex.selectionStart - 1 : ex.selectionEnd + 1); ex.setSelectionRange(p, p) },
+};
+let freshHist = false, histAll = false; // startup: typeset only the newest 30 entries; the rest when you scroll up
+function renderHist(keepPos) {
+  const from = histAll ? 0 : Math.max(0, S.hist.length - 30), below = hl.scrollHeight - hl.scrollTop;
+  hl.innerHTML = '<div></div>' + S.hist.slice(from).map((h, j) => {
+    const i = from + j, e = S.opt.pretty && h.l ? texHTML(h.l) : esc(h.e);
+    return `<div class="h"><div class="he" data-i="${i}">${e}</div><div class="hr" data-i="${i}">${show(h.v, h.f)}</div></div>`;
+  }).join('');
+  hl.scrollTop = keepPos ? hl.scrollHeight - below : hl.scrollHeight;
+  if (!histAll && from && hl.clientHeight && hl.scrollHeight <= hl.clientHeight) { histAll = true; return renderHist() } // nothing to scroll: show it all
+  if (freshHist) { // the one animation: highlighter swipes under the new answer
+    freshHist = false; const r = hl.lastElementChild?.querySelector('.hr');
+    if (r) { r.style.backgroundSize = '0 100%'; requestAnimationFrame(() => requestAnimationFrame(() => { r.classList.add('swipe'); r.style.backgroundSize = '' })) }
+  }
+}
+const fit = () => ex.style.fontSize = Math.max(1.1, Math.min(2.1, 32 / Math.max(1, ex.value.length))) + 'rem';
+function preview() {
+  fit(); pv.className = ''; pv.innerHTML = '';
+  if (!S.opt.preview) return;
+  try {
+    const s = line.text();
+    if (!s.trim() || /→|rand/.test(s)) return;
+    const fr = /►Frac\s*$/.test(s), v = evalStr(s.replace(/►Frac\s*$/, ''));
+    const h = show(v, fr);
+    if (S.opt.pretty || h !== esc(s.trim())) pv.innerHTML = h;
+  } catch {}
+}
+function enter() {
+  let s, l = null;
+  try { s = line.text(); if (S.opt.pretty) l = mf.value } catch (e) { pv.className = 'err'; return pv.textContent = e.message }
+  if (!s.trim()) { if (!S.hist.length) return; ({e: s, l} = S.hist.at(-1)) } // TI: ENTER on an empty line repeats the last entry
+  try {
+    const {v, fr} = run(s);
+    S.hist.push({e: s, l, v, f: fr}); if (S.hist.length > 200) S.hist.shift();
+    if (S.opt.pretty) mf.value = ''; else ex.value = '';
+    fit(); justEval = true; pv.innerHTML = ''; freshHist = true; renderHist(); save();
+  } catch (e) { pv.className = 'err'; pv.textContent = e.message }
+}
+const ind = () => $('#ind').innerHTML = `<button id="angle" aria-label="Angle mode ${S.deg ? 'degrees' : 'radians'}, tap to switch">${S.deg ? 'DEG' : 'RAD'}</button>${second ? '<b>2nd</b>' : alpha ? `<b class="ab">${alpha === 2 ? 'A-lock' : 'α'}</b>` : ''}`;
+$('#ind').addEventListener('pointerdown', e => e.preventDefault()); // keep the caret
+$('#ind').addEventListener('click', e => { if (e.target.id === 'angle') { S.deg = !S.deg; ind(); preview(); sched(); save() } });
+hl.addEventListener('pointerdown', e => e.preventDefault());
+hl.addEventListener('scroll', () => { if (!histAll && hl.scrollTop < 40 && S.hist.length > 30) { histAll = true; renderHist(true) } }, {passive: true});
+hl.addEventListener('click', e => {
+  const el = e.target.closest('.he,.hr'); if (!el) return;
+  const h = S.hist[el.dataset.i], isE = el.classList.contains('he'); tab('calc');
+  if (!S.opt.pretty) return ins(ex, isE ? h.e : valText(h.v));
+  let t;
+  if (isE) { try { t = h.l || m.parse(prep(h.e)).toTex() } catch { t = h.e } } else t = valTexIns(h.v);
+  mf.focus(); mf.insert(t, {format: 'latex'}); preview();
+});
+ex.addEventListener('input', preview);
+mf.addEventListener('input', preview);
+ex.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); enter() }
+  else if (e.key === 'Escape') line.clear();
+  else if (justEval && !ex.value && /^[-+*/^!]$/.test(e.key)) ins(ex, 'Ans');
+  if (e.key !== 'Enter') justEval = false;
+});
+mf.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); enter() }
+  else if (e.key === 'Escape') line.clear();
+  else if (justEval && !mf.value && /^[-+*/^!]$/.test(e.key)) line.insert('Ans');
+  if (e.key !== 'Enter') justEval = false;
+}, {capture: true});
+
+/* ---------- keypad ---------- */
+const SCI = [
+  {l: '2nd', a: '2nd'}, {l: 'Alpha', a: 'alpha', l2: 'A-lock', aria: 'Alpha: type letters'}, {l: '◀', a: 'left', aria: 'Cursor left'}, {l: '▶', a: 'right', aria: 'Cursor right'}, {l: 'X', t: 'X', l2: 'Ans', t2: 'Ans'}, {l: ',', t: ',', l2: 'sto→', t2: '→'},
+  {l: 'sin', t: 'sin(', l2: 'sin⁻¹', t2: 'asin('}, {l: 'cos', t: 'cos(', l2: 'cos⁻¹', t2: 'acos('}, {l: 'tan', t: 'tan(', l2: 'tan⁻¹', t2: 'atan('},
+  {l: 'ln', t: 'ln(', l2: 'eˣ', t2: 'e^('}, {l: 'log', t: 'log(', l2: '10ˣ', t2: '10^('}, {l: 'π', t: 'π', l2: 'i', t2: 'i'},
+  {l: 'x²', t: '²', l2: 'x³', t2: '³'}, {l: 'xʸ', t: '^', l2: 'ⁿ√', t2: 'nthRoot('}, {l: '√', t: '√(', l2: '∛', t2: '∛('}, {l: 'x⁻¹', t: '⁻¹', l2: '►Frac', t2: '►Frac'}, {l: '!', t: '!', l2: '|x|', t2: 'abs('}, {l: 'e', t: 'e', l2: 'EE', t2: 'E'},
+  // group keys open a menu, like the TI's MATH and 2nd MATRIX keys
+  {l: 'Math', cat: 'MATH', l2: 'Prob', cat2: 'PRB', menu: 1}, {l: 'Calc', cat: 'CALC', l2: 'Vars', cat2: 'VARS', menu: 1}, {l: 'Matrix', cat: 'MATRIX', l2: 'Cplx', cat2: 'CPLX', menu: 1},
+  {l: 'List', cat: 'LIST', l2: '{', t2: '{', menu: 1}, {l: 'Distr', cat: 'DISTR', l2: 'Stats', a2: 'stats', menu: 1}, {l: 'Eng', cat: 'ENG', l2: 'Units', cat2: 'UNITS', menu: 1},
+];
+const BKSP = '<svg class="i" viewBox="0 0 24 24"><path d="M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M17 9l-6 6M11 9l6 6"/></svg>';
+const MAIN = [{l: 'AC', a: 'AC', c: 'ac', aria: 'Clear'}, {l: '(', t: '(', c: 'op'}, {l: ')', t: ')', c: 'op'}, {l: '÷', t: '÷', c: 'op', aria: 'Divide'},
+  ...[7, 8, 9].map(d => ({l: d, t: '' + d})), {l: '×', t: '×', c: 'op', aria: 'Multiply'},
+  ...[4, 5, 6].map(d => ({l: d, t: '' + d})), {l: '−', t: '−', c: 'op', aria: 'Minus'},
+  ...[1, 2, 3].map(d => ({l: d, t: '' + d})), {l: '+', t: '+', c: 'op', aria: 'Plus'},
+  {l: 0, t: '0'}, {l: '.', t: '.', aria: 'Decimal point'}, {l: BKSP, a: 'del', aria: 'Backspace'}, {l: '=', a: '=', c: 'eq', aria: 'Equals'}];
+const ANSOPS = ['+', '−', '×', '÷', '^', '²', '³', '⁻¹', '!', 'ᵀ', '→', '►Frac'];
+// Alpha letters, in reading order: sin…e on the scientific keys get A–L, ( ) ÷ and the digit rows get M–Z (1 2 3 = X Y Z)
+[...'ABCDEFGHIJKL'].forEach((c, j) => SCI[6 + j].al = c);
+[[1, 'M'], [2, 'N'], [3, 'O'], [4, 'P'], [5, 'Q'], [6, 'R'], [7, 'S'], [8, 'T'], [9, 'U'], [10, 'V'], [11, 'W'], [12, 'X'], [13, 'Y'], [14, 'Z']].forEach(([i, c]) => MAIN[i].al = c);
+let alpha = 0; // 0 off, 1 next key only, 2 locked
+const alTag = k => k.al ? `<em class="al" aria-hidden="true">${k.al}</em>` : '';
+const renderSci = () => {
+  $('#sci').innerHTML = SCI.map((k, i) => `<button data-s="${i}" class="${(k.a === '2nd' && second) || (k.a === 'alpha' && alpha) ? 'on' : k.menu ? 'menu' : ''}${k.a === 'alpha' ? ' alk' : ''}" aria-label="${k.aria || k.l}${k.l2 ? `, 2nd: ${k.l2}` : ''}${k.al ? `, alpha: ${k.al}` : ''}">${alTag(k)}<small>${k.l2 || ''}</small><span>${k.a === 'alpha' && alpha === 2 ? 'A-lock' : k.l}</span></button>`).join('');
+  $('#sci').classList.toggle('sec', second);
+  pad.classList.toggle('alp', !!alpha);
+  ind();
+};
+$('#main').innerHTML = MAIN.map((k, i) => `<button data-k="${i}" class="${k.c || ''}" aria-label="${k.aria || k.l}${k.al ? `, alpha: ${k.al}` : ''}">${alTag(k)}${k.l}</button>`).join('');
+const isLine = t => t === ex || t === mf;
+function press(k) {
+  if (S.opt.haptic) navigator.vibrate?.(5);
+  if (k.a === '2nd') { second = !second; return renderSci() }
+  if (k.a === 'alpha') { alpha = second ? (alpha === 2 ? 0 : 2) : alpha ? 0 : 1; second = false; return renderSci() } // 2nd+Alpha = A-lock, like the TI
+  if (alpha && k.al) { if (alpha === 1) alpha = 0; second = false; renderSci(); k = {t: k.al} }
+  if (second && k.l2) { second = false; renderSci(); k = {t: k.t2, a: k.a2, cat: k.cat2} } // use the key's 2nd function
+  if (k.cat) return openSheet(k.cat);
+  if (k.a === 'stats') return tab('stats');
+  let t = tgt;
+  if (!t.isConnected || !t.offsetParent || (isLine(t) && t !== line.el())) { tab('calc'); t = tgt = line.el() }
+  if (k.a === 'AC') { justEval = false; return isLine(t) ? line.clear() : (t.value = '', fire(t)) }
+  if (k.a === 'del') return isLine(t) ? line.del() : del(t);
+  if (k.a === 'left' || k.a === 'right') {
+    const d = k.a === 'left' ? -1 : 1;
+    if (isLine(t)) return line.move(d);
+    t.focus(); const p = Math.max(0, d < 0 ? t.selectionStart - 1 : t.selectionEnd + 1); return t.setSelectionRange(p, p);
+  }
+  if (k.a === '=') return isLine(t) ? enter() : commit(t);
+  const txt = k.t;
+  if (isLine(t)) {
+    if (justEval && !line.raw() && ANSOPS.includes(txt)) line.insert('Ans'); // TI: an operator right after ENTER continues from Ans
+    line.insert(txt);
+  } else ins(t, txt);
+  justEval = false;
+  if (second) { second = false; renderSci() }
+}
+const pad = $('#pad');
+pad.addEventListener('pointerdown', e => e.preventDefault()); // keep the caret in the field
+pad.addEventListener('mousedown', e => e.preventDefault());
+// hold a key ~0.4 s to type its alpha letter (option); the release then doesn't also press the key
+let holdT = 0, held = false;
+pad.addEventListener('pointerdown', e => {
+  held = false; clearTimeout(holdT);
+  const b = e.target.closest('button'), k = b && (b.dataset.s ? SCI[b.dataset.s] : b.dataset.k ? MAIN[b.dataset.k] : null);
+  if (S.opt.hold && k?.al) holdT = setTimeout(() => { held = true; if (S.opt.haptic) navigator.vibrate?.(18); b.classList.add('held'); setTimeout(() => b.classList.remove('held'), 350); press({t: k.al}) }, 420);
+});
+for (const ev of ['pointerup', 'pointercancel', 'pointerleave']) pad.addEventListener(ev, () => clearTimeout(holdT));
+pad.addEventListener('contextmenu', e => e.preventDefault()); // no long-press menu on phones
+pad.addEventListener('click', e => {
+  if (held) { held = false; return }
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.s) press(SCI[b.dataset.s]);
+  else if (b.dataset.k) press(MAIN[b.dataset.k]);
+});
+const sciShow = on => { $('#sci').hidden = !on; $('#grip').textContent = on ? '⌃' : '⌄'; sched() };
+$('#grip').onclick = () => { const on = $('#sci').hidden; if (S.tab === 'calc') { S.sci = on; save() } sciShow(on) };
+$('#kpt').onclick = () => { S.kp = !S.kp; pad.hidden = !S.kp; sched(); save() };
+document.addEventListener('focusin', e => { if (e.target.classList?.contains('kp')) tgt = e.target });
+
+/* ---------- function menu ---------- */
+const F = (l, t, d = '') => [l, t, d];
+const MENU = {
+  MATH: [F('►Frac', '►Frac', 'answer as a fraction'), F('abs(', 'abs('), F('round(', 'round(', 'round(x, digits)'), F('int(', 'int(', 'round down'), F('iPart(', 'iPart('), F('fPart(', 'fPart('),
+    F('∛', '∛('), F('ⁿ√', 'nthRoot(', 'nthRoot(x, n)'), F('logBASE(', 'logBASE(', 'log of x in base b'), F('solve(', 'solve(', 'solve(expr, X, guess) finds expr = 0'),
+    F('gcd(', 'gcd('), F('lcm(', 'lcm('), F('mod(', 'mod('), F('min(', 'min('), F('max(', 'max('), F('°', '°', 'degrees in any mode')],
+  CALC: [F('d/dX', 'diff(', 'exact derivative formula'), F('d/dX at a point', 'nDeriv(', 'slope at X = a'), F('∫ from a to b', 'fnInt(', 'definite integral'),
+    F('lim', 'limit(', 'limit as X → a'), F('Σ', 'summation(', 'sum for X = a…b'), F('Π', 'productSeq(', 'product for X = a…b'), F('solve(', 'solve(', 'root near a guess')],
+  PRB: [F('nCr(', 'nCr(', 'combinations'), F('nPr(', 'nPr(', 'permutations'), F('!', '!', 'factorial'), F('rand', 'rand', 'random 0 to 1'), F('randInt(', 'randInt(', 'randInt(lo, hi, count)'), F('randNorm(', 'randNorm(', 'randNorm(μ, σ, count)')],
+  DISTR: [F('normalpdf(', 'normalpdf(', 'x, μ, σ'), F('normalcdf(', 'normalcdf(', 'lo, hi, μ, σ'), F('invNorm(', 'invNorm(', 'area, μ, σ'), F('tpdf(', 'tpdf(', 'x, df'), F('tcdf(', 'tcdf(', 'lo, hi, df'),
+    F('invT(', 'invT(', 'area, df'), F('χ²pdf(', 'chi2pdf(', 'x, df'), F('χ²cdf(', 'chi2cdf(', 'lo, hi, df'), F('Fpdf(', 'Fpdf(', 'x, df1, df2'), F('Fcdf(', 'Fcdf(', 'lo, hi, df1, df2'),
+    F('binompdf(', 'binompdf(', 'n, p, x'), F('binomcdf(', 'binomcdf(', 'n, p, x'), F('poissonpdf(', 'poissonpdf(', 'λ, x'), F('poissoncdf(', 'poissoncdf(', 'λ, x'), F('geometpdf(', 'geometpdf(', 'p, x'), F('geometcdf(', 'geometcdf(', 'p, x')],
+  MATRIX: [...LET.map(k => F(`[${k}]`, `[${k}]`)), F('2×2 matrix', '[[0,0],[0,0]]', 'type it in place'), F('3×3 matrix', '[[0,0,0],[0,0,0],[0,0,0]]', 'type it in place'), F('det(', 'det('), F('ᵀ', 'ᵀ', 'transpose'), F('⁻¹', '⁻¹', 'inverse'),
+    F('identity(', 'identity(', 'identity(n)'), F('rref(', 'rref('), F('dim(', 'dim('), F('augment(', 'augment(', 'augment(A, B)'), F('zeros(', 'zeros(', 'zeros(rows, cols)'),
+    F('trace(', 'trace(', 'sum of the diagonal'), F('eigvals(', 'eigvals(', 'eigenvalues'), F('dot(', 'dot(', 'dot product'), F('cross(', 'cross(', 'cross product of 3-vectors'), F('norm(', 'norm(', 'length of a vector')],
+  CPLX: [F('i', 'i', 'imaginary unit'), F('real(', 're('), F('imag(', 'im('), F('conj(', 'conj(', 'conjugate'), F('|z|', 'abs(', 'magnitude'), F('angle(', 'arg(', 'argument, in radians'), F('eˣ', 'e^(', 'e^(iθ) for polar form')],
+  ENG: [F('sinh(', 'sinh('), F('cosh(', 'cosh('), F('tanh(', 'tanh('), F('sinh⁻¹(', 'asinh('), F('cosh⁻¹(', 'acosh('), F('tanh⁻¹(', 'atanh('),
+    F('sec(', 'sec('), F('csc(', 'csc('), F('cot(', 'cot('), F('∥', 'par(', 'parallel: 1/(1/a+1/b+…)'), F('dB(', 'dB(', '10·log₁₀ of a power ratio'),
+    F('hex(', 'hex(', 'show in base 16'), F('bin(', 'bin(', 'show in base 2'), F('oct(', 'oct(', 'show in base 8')],
+  CONST: [F('c', 'speedOfLight', 'speed of light'), F('g', 'gravity', 'standard gravity'), F('G', 'gravitationConstant', 'gravitational constant'), F('h', 'planckConstant', 'Planck constant'),
+    F('ħ', 'reducedPlanckConstant', 'reduced Planck'), F('q', 'elementaryCharge', 'elementary charge'), F('mₑ', 'electronMass', 'electron mass'), F('mₚ', 'protonMass', 'proton mass'),
+    F('Nᴀ', 'avogadro', 'Avogadro'), F('k', 'boltzmann', 'Boltzmann'), F('R', 'molarGasConstant', 'gas constant'), F('ε₀', 'vacuumElectricPermittivity', 'permittivity of free space'),
+    F('μ₀', 'vacuumMagneticPermeability', 'permeability of free space'), F('σ', 'stefanBoltzmann', 'Stefan–Boltzmann')],
+  UNITS: [F('convert to', ' to ', 'e.g. 5 inch to cm'),
+    ...[['mm'], ['cm'], ['m'], ['km'], ['in', 'inch'], ['ft'], ['yd'], ['mi'], ['g'], ['kg'], ['lb'], ['oz'], ['s'], ['min', 'minute'], ['h', 'hour'], ['day'],
+      ['N', 'newton'], ['J', 'joule'], ['kWh'], ['W', 'watt'], ['hp'], ['Pa'], ['kPa'], ['MPa'], ['bar'], ['psi'], ['atm'], ['°C', 'degC'], ['°F', 'degF'], ['K', 'kelvin'],
+      ['V', 'volt'], ['A', 'ampere'], ['Ω', 'ohm'], ['F', 'farad'], ['H', 'henry'], ['Hz', 'hertz'], ['C', 'coulomb'], ['rad'], ['deg']].map(([l, t = l]) => F(l, t))],
+  LIST: [...[1, 2, 3, 4, 5, 6].map(i => F('L' + i, 'L' + i)), F('{', '{'), F('}', '}'), F('mean(', 'mean('), F('median(', 'median('), F('stdDev(', 'stdDev(', 'sample'), F('variance(', 'variance(', 'sample'),
+    F('sum(', 'sum('), F('prod(', 'prod('), F('min(', 'min('), F('max(', 'max('), F('sortA(', 'sortA('), F('sortD(', 'sortD('), F('dim(', 'dim(', 'length'), F('cumSum(', 'cumSum('), F('seq(', 'seq(', 'seq(expr, X, a, b, step)')],
+  VARS: [F('Ans', 'Ans', 'last answer'), ...AZ.map(c => F(c, c)), ...[1, 2, 3, 4, 5, 6].map(i => F(`Y${i}(`, `Y${i}(`, 'graph function'))],
+};
+const CATN = {MATH: 'Math', CALC: 'Calculus', MATRIX: 'Matrix', LIST: 'List', DISTR: 'Distributions', PRB: 'Probability', CPLX: 'Complex', ENG: 'Engineering', CONST: 'Constants', UNITS: 'Units', VARS: 'Variables'};
+let cat = 'MATH';
+function openSheet(c = cat) {
+  cat = c;
+  $('#cats').innerHTML = Object.keys(MENU).map(c => `<button data-cat="${c}" class="${c === cat ? 'on' : ''}">${CATN[c]}</button>`).join('') + '<button data-x class="x" aria-label="Close menu">✕</button>';
+  $('#cats .on')?.scrollIntoView({inline: 'center', block: 'nearest'});
+  $('#items').innerHTML = MENU[cat].map(([l, , d], i) => `<button data-it="${i}">${esc(l)}${d ? `<small>${esc(d)}</small>` : ''}</button>`).join('');
+  if ($('#sheet').hidden) overlay();
+  $('#sheet').hidden = false;
+}
+// Android Back (and browser Back) closes the open menu or Options instead of leaving the app
+const overlay = () => history.pushState({over: 1}, '');
+const unOverlay = () => { if (history.state?.over) history.back() };
+addEventListener('popstate', () => { $('#sheet').hidden = true; if (dlg.open) dlg.close() });
+$('#sheet').addEventListener('click', e => {
+  e.stopPropagation();
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.cat) return openSheet(b.dataset.cat);
+  $('#sheet').hidden = true; unOverlay();
+  if (b.dataset.it) press({t: MENU[cat][b.dataset.it][1]});
+});
+
+/* ---------- options ---------- */
+const dlg = $('#opts'), form = dlg.querySelector('form');
+const THEMES = [['system', 'Match system'], ['paper', 'Paper'], ['night', 'Night'], ['blueprint', 'Blueprint'], ['chalk', 'Chalkboard'], ['handheld', 'Handheld'], ['contrast', 'High contrast']];
+$('#sws').innerHTML = THEMES.map(([v, n]) => `<label class="sw"><input type="radio" name="theme" value="${v}"><span class="swp${v === 'system' ? ' sys' : ''}"${v === 'system' ? '' : ` data-theme="${v}"`}><span class="scr">84<i></i></span><span class="kp2"><b></b><b></b><b></b><b></b></span></span><span class="swn">${n}</span></label>`).join('');
+function applyOpts() {
+  const r = document.documentElement;
+  S.opt.theme = {light: 'paper', dark: 'night'}[S.opt.theme] || S.opt.theme; // older saved names
+  if (S.opt.theme === 'system') delete r.dataset.theme; else r.dataset.theme = S.opt.theme;
+  mf.hidden = !S.opt.pretty; ex.hidden = S.opt.pretty;
+  if (isLine(tgt)) tgt = line.el();
+  renderSci(); renderHist(); preview(); sched(); syncBars();
+}
+// status bar / navigation bar: dark icons on light themes, light icons on dark themes (phone app only)
+function lum(name) {
+  const x = document.createElement('canvas').getContext('2d'); x.fillStyle = css(name);
+  const h = x.fillStyle.match(/^#(..)(..)(..)$/), [r, g, b] = h ? h.slice(1).map(v => parseInt(v, 16)) : x.fillStyle.match(/[\d.]+/g).map(Number);
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+}
+function syncBars() {
+  document.querySelector('meta[name=theme-color]').content = css('--paper');
+  const SB = window.Capacitor?.Plugins?.SystemBars; if (!SB) return;
+  SB.setStyle({bar: 'StatusBar', style: lum('--paper') < .5 ? 'DARK' : 'LIGHT'}).catch(() => {});
+  SB.setStyle({bar: 'NavigationBar', style: lum('--padbg') < .5 ? 'DARK' : 'LIGHT'}).catch(() => {});
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { syncBars(); sched() }); // phone switched light/dark
+$('#optb').onclick = () => {
+  form.pretty.value = S.opt.pretty ? '1' : '0'; form.deg.value = S.deg ? '1' : '0'; form.ans.value = S.opt.ans; form.nf.value = S.opt.nf;
+  form.fix.value = S.opt.fix; form.theme.value = S.opt.theme; form.preview.checked = S.opt.preview; form.haptic.checked = S.opt.haptic; form.split.checked = S.opt.split; form.hold.checked = S.opt.hold;
+  dlg.showModal(); overlay();
+};
+dlg.addEventListener('close', unOverlay);
+form.addEventListener('change', e => {
+  const n = e.target.name, v = e.target.value;
+  if (n === 'deg') S.deg = v === '1';
+  else if (n === 'pretty') { S.opt.pretty = v === '1'; line.clear() }
+  else if (n === 'fix') S.opt.fix = +v;
+  else if (['preview', 'haptic', 'split', 'hold'].includes(n)) { S.opt[n] = e.target.checked; placeGraph() }
+  else S.opt[n] = v;
+  applyOpts(); save();
+});
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close() }); // tap outside closes
+$('#clrh').onclick = () => { S.hist = []; renderHist(); save() };
+$('#reset').onclick = () => { if (confirm('Erase history, variables, lists, matrices, graphs and options?')) { try { localStorage.removeItem('calc84') } catch {} location.reload() } };
+
+/* ---------- tabs & field navigation ---------- */
+function tab(name) {
+  S.tab = name;
+  $$('.tab').forEach(s => s.hidden = s.id !== 'tab-' + name);
+  $$('#tabs [data-tab]').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  if (name === 'calc') tgt = line.el();
+  sciShow(name === 'calc' ? S.sci : matchMedia('(min-width:900px),(min-width:560px) and (max-height:560px)').matches); // stacked phones: give other screens the room
+  placeGraph();
+  if (name === 'table') renderTable();
+  if (name === 'matrix') renderMat();
+  if (name === 'stats') renderLists();
+  save();
+}
+$('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) tab(b.dataset.tab) });
+function nextOf(t) {
+  const d = t.dataset;
+  if (d.mr !== undefined) { const M = S.mats[mcur], r = +d.mr, c = +d.mc; return c + 1 < M[0].length ? `[data-mr="${r}"][data-mc="${c + 1}"]` : `[data-mr="${r + 1}"][data-mc="0"]` }
+  if (d.l) return `[data-l="${d.l}"][data-r="${+d.r + 1}"]`;
+  if (d.y) return `[data-y="${+d.y + 1}"]`;
+  return null;
+}
+function commit(t) { const n = nextOf(t); t.blur(); if (n) $(n)?.focus() }
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && !isLine(e.target) && e.target.classList?.contains('kp')) { e.preventDefault(); commit(e.target) } });
+// tapping a filled cell selects it so typing replaces it (TI-style); a second tap places the caret
+let freshCell = null;
+document.addEventListener('focusin', e => { const t = e.target; if (t.closest?.('table.grid')) { t.select(); freshCell = t } });
+document.addEventListener('click', e => { if (e.target === freshCell) e.target.select(); freshCell = null });
+
+/* ---------- graph ---------- */
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const col = i => css(`--c${i + 1}`);
+const cache = {};
+function yfun(i) {
+  const src = S.ys[i]; if (!src || !src.trim()) return null;
+  if (!cache[i] || cache[i].src !== src) { let c = null; try { c = compile(src) } catch {} cache[i] = {src, c} }
+  const c = cache[i].c; if (!c) return null;
+  return x => { const s = {...gscope(), X: x, x}, prev = cur; cur = s; try { return num(c.evaluate(s)) } catch { return NaN } finally { cur = prev } };
+}
+$('#ylist').innerHTML = S.ys.map((y, i) => `<div class="yrow"><button class="dot ${S.on[i] ? 'on' : ''}" style="--c:var(--c${i + 1})" data-on="${i}" aria-label="Show Y${i + 1} on the graph" aria-pressed="${!!S.on[i]}"></button><small class="lbl">Y${i + 1}=</small><input class="fld kp" inputmode="none" data-y="${i}" value="${esc(y)}" autocomplete="off" spellcheck="false" aria-label="Y${i + 1}"></div>`).join('');
+$('#ylist').addEventListener('input', e => { const i = e.target.dataset.y; if (i !== undefined) { S.ys[i] = e.target.value; sched(); save() } });
+$('#ylist').addEventListener('click', e => { const b = e.target.closest('[data-on]'); if (b) { const i = b.dataset.on; S.on[i] = S.on[i] ? 0 : 1; b.classList.toggle('on', !!S.on[i]); b.setAttribute('aria-pressed', !!S.on[i]); sched(); save() } });
+$('#yeq').onclick = e => { e.target.classList.toggle('on', !($('#ylist').hidden = !$('#ylist').hidden)); sched() };
+const WK = ['xmin', 'xmax', 'ymin', 'ymax'];
+$('#wedit').innerHTML = WK.map(k => `<small>${k}</small><input class="fld kp sm" inputmode="none" data-w="${k}" aria-label="${k}">`).join('');
+const fillWin = () => WK.forEach(k => $(`[data-w="${k}"]`).value = +S.win[k].toPrecision(6));
+$('#wbtn').onclick = e => { const w = $('#wedit'); w.hidden = !w.hidden; e.target.classList.toggle('on', !w.hidden); fillWin(); sched() };
+$('#wedit').addEventListener('input', e => {
+  const k = e.target.dataset.w;
+  try { const v = num(evalStr(e.target.value)); if (isFinite(v)) { S.win[k] = v; sched(); save() } } catch {}
+});
+function zoom(z) {
+  if (z === 'std') S.win = {xmin: -10, xmax: 10, ymin: -10, ymax: 10};
+  if (z === 'trig') { const a = S.deg ? 360 : 2 * Math.PI; S.win = {xmin: -a, xmax: a, ymin: -4, ymax: 4} }
+  if (z === 'fit') {
+    gs = null; let lo = Infinity, hi = -Infinity;
+    S.ys.forEach((_, i) => {
+      const f = S.on[i] && yfun(i); if (!f) return;
+      for (let k = 0; k <= 200; k++) { const y = f(S.win.xmin + (S.win.xmax - S.win.xmin) * k / 200); if (isFinite(y)) { lo = Math.min(lo, y); hi = Math.max(hi, y) } }
+    });
+    if (isFinite(lo)) { if (lo === hi) { lo -= 1; hi += 1 } const p = (hi - lo) * 0.08; S.win = {...S.win, ymin: lo - p, ymax: hi + p} }
+  }
+  fillWin(); sched(); save();
+}
+$$('[data-z]').forEach(b => b.onclick = () => zoom(b.dataset.z));
+
+const cv = $('#cv'), info = t => $('#tinfo').textContent = t;
+let raf = 0, tr = null, tang = null, area = null, pick = null; // trace point, tangent line, shaded ∫ region, ∫-bound picking
+const sched = () => raf || (raf = requestAnimationFrame(draw));
+const nice = r => { const p = 10 ** Math.floor(Math.log10(r)), n = r / p; return (n < 1.5 ? 1 : n < 3.5 ? 2 : n < 7.5 ? 5 : 10) * p };
+const lbl = v => String(+v.toPrecision(6));
+function draw() {
+  raf = 0;
+  const W = cv.clientWidth, H = cv.clientHeight; if (!W || !H) return;
+  const r = devicePixelRatio || 1;
+  if (cv.width !== Math.round(W * r) || cv.height !== Math.round(H * r)) { cv.width = Math.round(W * r); cv.height = Math.round(H * r) }
+  const c = cv.getContext('2d'); c.setTransform(r, 0, 0, r, 0, 0); c.clearRect(0, 0, W, H);
+  const {xmin, xmax, ymin, ymax} = S.win; if (!(xmax > xmin && ymax > ymin)) return;
+  const X = x => (x - xmin) / (xmax - xmin) * W, Y = y => (ymax - y) / (ymax - ymin) * H;
+  const sx = nice((xmax - xmin) / 8), sy = nice((ymax - ymin) / 6);
+  c.lineWidth = 1; c.strokeStyle = css('--grid'); c.beginPath();
+  for (let x = Math.ceil(xmin / sx) * sx; x <= xmax; x += sx) { c.moveTo(Math.round(X(x)) + .5, 0); c.lineTo(Math.round(X(x)) + .5, H) }
+  for (let y = Math.ceil(ymin / sy) * sy; y <= ymax; y += sy) { c.moveTo(0, Math.round(Y(y)) + .5); c.lineTo(W, Math.round(Y(y)) + .5) }
+  c.stroke();
+  const ax = Math.min(Math.max(X(0), 0), W - 1), ay = Math.min(Math.max(Y(0), 0), H - 1);
+  c.strokeStyle = css('--graphite'); c.beginPath(); c.moveTo(Math.round(ax) + .5, 0); c.lineTo(Math.round(ax) + .5, H); c.moveTo(0, Math.round(ay) + .5); c.lineTo(W, Math.round(ay) + .5); c.stroke();
+  c.fillStyle = css('--graphite'); c.font = '11px "Atkinson Next",system-ui,sans-serif';
+  for (let x = Math.ceil(xmin / sx) * sx; x <= xmax; x += sx) if (Math.abs(x) > sx / 2) c.fillText(lbl(x), X(x) + 2, Math.min(Math.max(ay + 12, 12), H - 3));
+  for (let y = Math.ceil(ymin / sy) * sy; y <= ymax; y += sy) if (Math.abs(y) > sy / 2) c.fillText(lbl(y), Math.min(Math.max(ax + 3, 2), W - 40), Y(y) - 2);
+  gs = null;
+  if (area) { // shade ∫ region
+    const f = yfun(area.i);
+    if (f) {
+      const pa = Math.max(0, X(Math.min(area.a, area.b))), pb = Math.min(W, X(Math.max(area.a, area.b)));
+      c.fillStyle = col(area.i); c.globalAlpha = .22; c.beginPath(); c.moveTo(pa, Y(0));
+      for (let px = pa; px <= pb; px++) { const y = f(xmin + px / W * (xmax - xmin)); if (isFinite(y)) c.lineTo(px, Math.min(Math.max(Y(y), -1e4), H + 1e4)) }
+      c.lineTo(pb, Y(0)); c.closePath(); c.fill(); c.globalAlpha = 1;
+    }
+  }
+  c.lineWidth = 2.25;
+  S.ys.forEach((_, i) => {
+    const f = S.on[i] && yfun(i); if (!f) return;
+    c.strokeStyle = col(i); c.beginPath(); let pen = false, p0 = 0;
+    for (let px = 0; px <= W; px++) {
+      const y = f(xmin + px / W * (xmax - xmin));
+      if (!isFinite(y)) { pen = false; continue }
+      const py = Math.min(Math.max(Y(y), -1e4), H + 1e4);
+      if (pen && Math.abs(py - p0) > H * 4) pen = false; // asymptote: don't join
+      pen ? c.lineTo(px, py) : (c.moveTo(px, py), pen = true); p0 = py;
+    }
+    c.stroke();
+  });
+  if (tang) { const f = yfun(tang.i); if (f) { const y0 = f(tang.x), k = deriv(f, tang.x); c.strokeStyle = css('--ink'); c.lineWidth = 1.25; c.setLineDash([6, 4]); c.beginPath(); c.moveTo(0, Y(y0 + k * (xmin - tang.x))); c.lineTo(W, Y(y0 + k * (xmax - tang.x))); c.stroke(); c.setLineDash([]) } }
+  if (tr) {
+    const f = yfun(tr.i), y = f ? f(tr.x) : NaN;
+    if (isFinite(y)) { c.fillStyle = col(tr.i); c.strokeStyle = css('--sheet'); c.lineWidth = 2; c.beginPath(); c.arc(X(tr.x), Y(y), 6, 0, 7); c.fill(); c.stroke() }
+    $('#tinfo').innerHTML = `<b style="color:${col(tr.i)}">Y${tr.i + 1}</b> ${esc(tr.lab)} X=${fnum(cl(tr.x))}  Y=${fnum(Math.abs(y) < 1e-10 ? 0 : y)}`;
+  }
+  if (!$('#wedit').hidden && !$('#wedit').contains(document.activeElement)) fillWin();
+  if (tr && cvw.parentElement.id === 'tab-calc') { c.fillStyle = css('--ink'); c.font = '12px "Atkinson Next",system-ui,sans-serif'; c.fillText($('#tinfo').textContent, 8, 16) } // the trace readout lives on the Graph tab
+}
+const cvw = $('#cvw'), gslot = $('#tinfo').parentElement;
+function placeGraph() { // optional mini graph at the top of the Calc screen; it is the same canvas, moved
+  if (S.tab === 'calc' && S.opt.split) $('#tab-calc').prepend(cvw); else $('#tab-graph').insertBefore(cvw, gslot);
+  sched();
+}
+new ResizeObserver(sched).observe($('#cvw'));
+function traceAt(px, py) {
+  const W = cv.clientWidth, H = cv.clientHeight, {xmin, xmax, ymin, ymax} = S.win; let x = xmin + px / W * (xmax - xmin);
+  gs = null;
+  if (pick) { // choosing ∫ bounds; snap taps to 1/200 of the window so bounds land on round numbers
+    const sn = nice((xmax - xmin) / 200); x = +(Math.round(x / sn) * sn).toPrecision(12);
+    if (pick.a === undefined) { pick.a = x; return info(`Lower bound X=${fnum(x)}. Now tap the upper bound.`) }
+    const f = yfun(pick.i), val = integrate(f, pick.a, x);
+    area = {i: pick.i, a: pick.a, b: x}; tr = {i: pick.i, x, lab: `∫ from ${fnum(pick.a)} to ${fnum(x)} = ${fnum(val)} ·`}; pick = null;
+    return sched();
+  }
+  let best = null, bd = 60;
+  S.ys.forEach((_, i) => { const f = S.on[i] && yfun(i); if (!f) return; const d = Math.abs((ymax - f(x)) / (ymax - ymin) * H - py); if (d < bd) { bd = d; best = i } });
+  tr = best === null ? null : {i: best, x, lab: ''};
+  if (!tr) { tang = area = null; info('Tap a curve to trace it. Drag to pan, pinch or scroll to zoom.') }
+  sched();
+}
+function zoomAt(w, px, py, k) {
+  const W = cv.clientWidth, H = cv.clientHeight, x0 = w.xmin + px / W * (w.xmax - w.xmin), y0 = w.ymax - py / H * (w.ymax - w.ymin);
+  return {xmin: x0 - (x0 - w.xmin) * k, xmax: x0 + (w.xmax - x0) * k, ymin: y0 - (y0 - w.ymin) * k, ymax: y0 + (w.ymax - y0) * k};
+}
+const pts = new Map(); let drag = null;
+const snap = moved => drag = {moved, win: {...S.win}, pts: new Map([...pts].map(([k, p]) => [k, {...p}]))};
+cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); pts.set(e.pointerId, {x: e.offsetX, y: e.offsetY}); snap(pts.size > 1) });
+cv.addEventListener('pointermove', e => {
+  if (!pts.has(e.pointerId)) return;
+  pts.set(e.pointerId, {x: e.offsetX, y: e.offsetY});
+  const w = drag.win, W = cv.clientWidth, H = cv.clientHeight;
+  if (pts.size === 1) {
+    const p0 = drag.pts.get(e.pointerId); if (!p0) return;
+    const dx = e.offsetX - p0.x, dy = e.offsetY - p0.y;
+    if (Math.hypot(dx, dy) > 6) drag.moved = true;
+    if (!drag.moved) return;
+    const kx = (w.xmax - w.xmin) / W, ky = (w.ymax - w.ymin) / H;
+    S.win = {xmin: w.xmin - dx * kx, xmax: w.xmax - dx * kx, ymin: w.ymin + dy * ky, ymax: w.ymax + dy * ky};
+  } else if (pts.size === 2) {
+    const [a, b] = [...pts.values()], [a0, b0] = [...drag.pts.values()]; if (!b0) return;
+    const k = Math.hypot(a0.x - b0.x, a0.y - b0.y) / Math.max(1, Math.hypot(a.x - b.x, a.y - b.y));
+    const cx = (a0.x + b0.x) / 2, cy = (a0.y + b0.y) / 2, z = zoomAt(w, cx, cy, k);
+    const kx = (z.xmax - z.xmin) / W, ky = (z.ymax - z.ymin) / H, dx = (a.x + b.x) / 2 - cx, dy = (a.y + b.y) / 2 - cy;
+    S.win = {xmin: z.xmin - dx * kx, xmax: z.xmax - dx * kx, ymin: z.ymin + dy * ky, ymax: z.ymax + dy * ky};
+  }
+  sched();
+});
+const up = e => {
+  if (!pts.delete(e.pointerId)) return;
+  if (!pts.size) { if (!drag.moved && e.type === 'pointerup') traceAt(e.offsetX, e.offsetY); save() } else snap(true);
+};
+cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+cv.addEventListener('wheel', e => { e.preventDefault(); S.win = zoomAt(S.win, e.offsetX, e.offsetY, Math.exp(e.deltaY * 0.0015)); sched(); save() }, {passive: false});
+function zeroNear(f, a, b, x0) {
+  const N = 400; let best = null, px = a, py = f(a);
+  for (let i = 1; i <= N; i++) {
+    const x = a + (b - a) * i / N, y = f(x);
+    if (isFinite(y) && isFinite(py) && (y === 0 || Math.sign(y) !== Math.sign(py))) {
+      const z = bisect(f, px, x);
+      if (Math.abs(f(z)) < 1e-6 && (best === null || Math.abs(z - x0) < Math.abs(best - x0))) best = z; // skips poles
+    }
+    px = x; py = y;
+  }
+  if (best === null) throw Error('none nearby');
+  return best;
+}
+function extNear(f, a, b) {
+  const N = 400, h = (b - a) / N; let bi = 0, bv = Infinity;
+  for (let i = 0; i <= N; i++) { const v = f(a + i * h); if (v < bv) { bv = v; bi = i } }
+  let lo = a + (bi - 1) * h, hi = a + (bi + 1) * h; const g = (Math.sqrt(5) - 1) / 2;
+  for (let k = 0; k < 100; k++) { const c = hi - g * (hi - lo), d = lo + g * (hi - lo); if (f(c) < f(d)) hi = d; else lo = c }
+  return (lo + hi) / 2;
+}
+$('#gcalc').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (!tr) return info('Tap a curve first, then choose what to find.');
+  gs = null; const f = yfun(tr.i), w = (S.win.xmax - S.win.xmin) / 8, a = tr.x - w, bb = tr.x + w, k = b.dataset.c;
+  try {
+    if (b.dataset.t) { tr.x += b.dataset.t * (S.win.xmax - S.win.xmin) / 100; tr.lab = '' }
+    else if (k === 'dydx') tr.lab = `dy/dx = ${fnum(deriv(f, tr.x))} ·`;
+    else if (k === 'tangent') { const s = deriv(f, tr.x), c0 = f(tr.x) - s * tr.x; tang = {i: tr.i, x: tr.x}; tr.lab = `Tangent y = ${fnum(s)}X ${c0 < 0 ? '−' : '+'} ${fnum(Math.abs(c0))} ·` }
+    else if (k === 'area') { pick = {i: tr.i}; area = null; return info('Tap the lower bound on the graph.') }
+    else if (k === 'zero') { tr.x = zeroNear(f, a, bb, tr.x); tr.lab = 'Zero' }
+    else if (k === 'isect') {
+      let g = null, gd = Infinity;
+      S.ys.forEach((_, j) => { const h = j !== tr.i && S.on[j] && yfun(j); if (h) { const d = Math.abs(h(tr.x) - f(tr.x)); if (d < gd) { gd = d; g = h } } });
+      if (!g) throw Error('needs a second graph');
+      tr.x = zeroNear(t => f(t) - g(t), a, bb, tr.x); tr.lab = 'Intersection';
+    } else { const s = k === 'max' ? -1 : 1; tr.x = extNear(t => s * f(t), a, bb); tr.lab = k === 'max' ? 'Maximum' : 'Minimum' }
+  } catch (err) { tr.lab = `(${err.message})` }
+  sched();
+});
+
+/* ---------- table ---------- */
+function renderTable() {
+  $('#tstart').value = S.tbl.start; $('#tstep').value = S.tbl.step; gs = null;
+  const fs = S.ys.map((_, i) => [S.on[i] && yfun(i), i]).filter(([f]) => f);
+  let h = `<tr><th>X</th>${fs.map(([, i]) => `<th style="color:${col(i)}">Y${i + 1}</th>`).join('')}</tr>`;
+  for (let r = 0; r < 60; r++) { const x = +(S.tbl.start + r * S.tbl.step).toPrecision(12); h += `<tr><td>${fnum(x)}</td>${fs.map(([f]) => `<td>${fnum(f(x))}</td>`).join('')}</tr>` }
+  if (!fs.length) h += '<tr><td colspan="1" style="text-align:left">Enter a function in Graph → Y= to fill this table.</td></tr>';
+  $('#ttab').innerHTML = h;
+}
+$('#tab-table .bar').addEventListener('input', e => {
+  try { const v = num(evalStr(e.target.value)); if (isFinite(v)) { S.tbl[e.target.id === 'tstart' ? 'start' : 'step'] = v; save(); const a = document.activeElement, val = e.target.value; renderTable(); a.value = val } } catch {}
+});
+
+/* ---------- matrices ---------- */
+let mcur = 'A';
+const MOPS = [['Insert [X]', '[X]'], ['det', 'det([X])'], ['Inverse', '[X]⁻¹'], ['Transpose', '[X]ᵀ'], ['rref', 'rref([X])'], ['Square', '[X]²']];
+function renderMat() {
+  $('#mchips').innerHTML = LET.map(k => `<button data-m="${k}" class="${k === mcur ? 'on' : ''}" style="white-space:nowrap">[${k}] <small>${S.mats[k].length}×${S.mats[k][0].length}</small></button>`).join('');
+  const M = S.mats[mcur]; $('#mr').textContent = M.length; $('#mc').textContent = M[0].length;
+  $('#mtab').innerHTML = M.map((row, r) => `<tr>${row.map((v, c) => `<td class="in"><input class="kp" inputmode="none" data-mr="${r}" data-mc="${c}" value="${esc(fnum(v))}" aria-label="Row ${r + 1}, column ${c + 1}"></td>`).join('')}</tr>`).join('');
+  $('#mops').innerHTML = MOPS.map(([l], i) => `<button data-op="${i}">${l.replace('X', mcur)}</button>`).join('');
+}
+$('#mchips').addEventListener('click', e => { const b = e.target.closest('[data-m]'); if (b) { mcur = b.dataset.m; renderMat() } });
+$('#tab-matrix').addEventListener('click', e => {
+  const b = e.target.closest('[data-dim],[data-op]'); if (!b) return;
+  if (b.dataset.dim) {
+    const [ax, d] = b.dataset.dim.split(',').map(Number), M = S.mats[mcur];
+    const R = Math.min(10, Math.max(1, M.length + (ax ? 0 : d))), C = Math.min(10, Math.max(1, M[0].length + (ax ? d : 0)));
+    S.mats[mcur] = Array.from({length: R}, (_, r) => Array.from({length: C}, (_, c) => M[r]?.[c] ?? 0));
+    save(); return renderMat();
+  }
+  const op = MOPS[b.dataset.op][1].replace('X', mcur), wasEmpty = !line.raw();
+  tab('calc');
+  // empty line → evaluate right away; otherwise insert at the cursor
+  for (const piece of op.match(/\[[A-J]\]|det\(|rref\(|⁻¹|ᵀ|²|\)/g)) if (piece !== ')' || !S.opt.pretty) line.insert(piece);
+  if (wasEmpty && b.dataset.op !== '0') enter();
+});
+$('#mtab').addEventListener('focusout', e => {
+  const t = e.target; if (t.dataset.mr === undefined || t.value === t.defaultValue) return;
+  try { const v = num(evalStr(t.value.trim() || '0')); if (isNaN(v)) throw 0; S.mats[mcur][t.dataset.mr][t.dataset.mc] = v; t.value = t.defaultValue = fnum(v); t.classList.remove('bad'); save() }
+  catch { t.classList.add('bad') }
+});
+
+/* ---------- lists & stats ---------- */
+$('#sx').innerHTML = $('#sy').innerHTML = [1, 2, 3, 4, 5, 6].map(i => `<option>L${i}</option>`).join('');
+$('#sy').value = 'L2';
+function renderLists() {
+  const ks = Object.keys(S.lists), n = Math.max(...ks.map(k => S.lists[k].length)) + 1;
+  let h = `<tr>${ks.map(k => `<th>${k}</th>`).join('')}</tr>`;
+  for (let r = 0; r < n; r++) h += `<tr>${ks.map(k => `<td class="in"><input class="kp" inputmode="none" data-l="${k}" data-r="${r}" value="${r < S.lists[k].length ? esc(fnum(S.lists[k][r])) : ''}" aria-label="${k} row ${r + 1}"></td>`).join('')}</tr>`;
+  $('#ltab').innerHTML = h;
+}
+$('#ltab').addEventListener('focusout', e => {
+  const t = e.target; if (!t.dataset.l || t.value === t.defaultValue) return;
+  const L = S.lists[t.dataset.l], r = +t.dataset.r, s = t.value.trim(); let grew = false;
+  if (!s) { if (r < L.length) { L.splice(r, 1); grew = true } }
+  else {
+    try { const v = num(evalStr(s)); if (isNaN(v)) throw 0; if (r < L.length) L[r] = v; else { L.push(v); grew = true } t.value = t.defaultValue = fnum(v) }
+    catch { return t.classList.add('bad') }
+  }
+  t.classList.remove('bad'); save();
+  if (grew) { const rt = e.relatedTarget, sel = rt?.dataset?.l ? `[data-l="${rt.dataset.l}"][data-r="${rt.dataset.r}"]` : null; renderLists(); if (sel) $(sel)?.focus() }
+});
+const med = a => a.length % 2 ? a[(a.length - 1) / 2] : (a[a.length / 2 - 1] + a[a.length / 2]) / 2;
+function oneVar(L) {
+  const s = [...L].sort((a, b) => a - b), n = s.length; if (!n) throw Error('That list is empty. Add numbers in the table below.');
+  const sum = s.reduce((a, b) => a + b, 0), mean = sum / n, ss = s.reduce((a, x) => a + (x - mean) ** 2, 0);
+  const lo = s.slice(0, Math.floor(n / 2)), hi = s.slice(Math.ceil(n / 2)); // TI quartiles exclude the median
+  return [['x̄', mean], ['Σx', sum], ['Σx²', s.reduce((a, x) => a + x * x, 0)], ['Sx', Math.sqrt(ss / (n - 1))], ['σx', Math.sqrt(ss / n)], ['n', n],
+    ['minX', s[0]], ['Q1', lo.length ? med(lo) : NaN], ['Med', med(s)], ['Q3', hi.length ? med(hi) : NaN], ['maxX', s[n - 1]]];
+}
+function linReg(x, y) {
+  const n = x.length; if (n < 2 || n !== y.length) throw Error('X and Y lists need the same length, at least 2.');
+  const mx = x.reduce((a, b) => a + b) / n, my = y.reduce((a, b) => a + b) / n;
+  let sxx = 0, sxy = 0, syy = 0; for (let i = 0; i < n; i++) { sxx += (x[i] - mx) ** 2; sxy += (x[i] - mx) * (y[i] - my); syy += (y[i] - my) ** 2 }
+  const a = sxy / sxx, r = sxy / Math.sqrt(sxx * syy);
+  return [['y = ax + b', ''], ['a', a], ['b', my - a * mx], ['r²', r * r], ['r', r]];
+}
+const sout = rows => $('#sout').innerHTML = rows.map(([k, v]) => `<div><small class="lbl">${k}</small> ${v === '' ? '' : '= ' + fnum(v)}</div>`).join('');
+const statErr = fn => { try { fn() } catch (e) { $('#sout').innerHTML = `<div class="bad">${esc(e.message)}</div>` } };
+$('#s1').onclick = () => statErr(() => sout(oneVar(S.lists[$('#sx').value])));
+$('#s2').onclick = () => statErr(() => sout(linReg(S.lists[$('#sx').value], S.lists[$('#sy').value])));
+$('#sclr').onclick = () => { S.lists[$('#sx').value] = []; save(); renderLists() };
+
+/* ---------- self-test: open index.html#test ---------- */
+function selfTest() {
+  const out = [], ok = (got, want, tol) => Math.abs(got - want) <= tol * Math.max(1, Math.abs(want));
+  const near = (e, want, tol = 1e-7) => { let got; try { got = num(evalStr(e)) } catch (er) { got = er.message } if (!ok(got, want, tol)) out.push(`${e} → ${got}, want ${want}`) };
+  const texNear = (t, want, tol = 1e-7) => { let got, s; try { s = tex2txt(t); got = num(evalStr(s)) } catch (er) { got = er.message } if (!ok(got, want, tol)) out.push(`${t} ⇒ ${s} → ${got}, want ${want}`) };
+  const same = (e, want, tex) => { let got; try { got = JSON.stringify(m.clone(evalStr(tex ? tex2txt(e) : e).valueOf())) } catch (er) { got = er.message } if (got !== JSON.stringify(want)) out.push(`${e} → ${got}`) };
+  const d = S.deg, fx = S.opt.fix; S.deg = false; S.opt.fix = -1;
+  near('normalcdf(-1.96,1.96)', 0.9500042097); near('invNorm(0.975)', 1.959963985); near('tcdf(-2,2,10)', 0.9266117, 1e-6); near('invT(0.975,10)', 2.228138852);
+  near('binomcdf(10,0.5,4)', 0.376953125); near('binompdf(10,0.5,5)', 0.24609375); near('poissoncdf(3,2)', 0.4231900811); near('chi2cdf(0,3.841458821,1)', 0.95);
+  near('Fcdf(0,4.102821015,2,10)', 0.95); near('fnInt(X^2,X,0,3)', 9); near('solve(X^2-2,X,1)', Math.SQRT2); near('nDeriv(X^3,X,2)', 12, 1e-6);
+  near('summation(X,X,1,100)', 5050); near('det([[1,2],[3,4]])', -2); near('log(100)', 2); near('ln(e)', 1); near('nCr(5,2)', 10); near('2^3²', 512);
+  near('diff(X^3,X,2)', 12); near('limit((X^2-1)/(X-1),X,1)', 2); near('limit(sin(X)/X,X,0)', 1); near('limit(1/X,X,Infinity)', 0); near('productSeq(X,X,1,5)', 120);
+  same('[[1,2],[3,4]]⁻¹', [[-2, 1], [1.5, -0.5]]); same('rref([[1,2,3],[4,5,6]])', [[1, 0, -1], [0, 1, 2]]); same('{1,2,3}{4,5,6}', [4, 10, 18]); same('{1,2,3}²', [1, 4, 9]);
+  same('[[1,2],[3,4]]ᵀ', [[1, 3], [2, 4]]); same('{1,2}/{4,8}', [0.25, 0.25]);
+  texNear('\\frac{1}{3}+\\sqrt{4}', 7 / 3); texNear('\\frac13+\\sqrt4', 7 / 3); texNear('X^23', 0); texNear('\\int_{0}^{3}\\left(X^2\\right)dX', 9); texNear('\\frac{d}{dX}\\left(X^3\\right)\\Big|_{X=2}', 12);
+  texNear('\\sum_{X=1}^{100}\\left(X\\right)', 5050); texNear('\\lim_{X\\to0}\\left(\\frac{\\sin\\left(X\\right)}{X}\\right)', 1); texNear('\\log_{2}\\left(8\\right)', 3);
+  texNear('\\sin^{-1}\\left(1\\right)', Math.PI / 2); texNear('2\\mathrm{E}3', 2000); texNear('\\left|-5\\right|', 5); texNear('\\operatorname{normalcdf}\\left(-1,1\\right)', 0.6826894921); texNear('\\operatorname{\\mathrm{par}}\\left(6,3\\right)', 2);
+  texNear('2\\times3^{2}', 18); texNear('\\sqrt[3]{27}', 3); texNear('\\pi', Math.PI); texNear('2\\left(3+1\\right)', 8); texNear('\\frac{\\mathrm{Ans}}{1}', num(S.vars.Ans) || 0);
+  same('\\begin{bmatrix}1&2\\\\3&4\\end{bmatrix}^{-1}', [[-2, 1], [1.5, -0.5]], true); same('\\left\\lbrack A\\right\\rbrack^{\\intercal}', m.transpose(S.mats.A), true);
+  if (!/3/.test(run('diff(X^3,X)').v.sym)) out.push('diff symbolic');
+  const chk = (label, f) => { try { if (!f()) out.push(label) } catch (er) { out.push(`${label}: ${er.message}`) } };
+  chk('inch to cm', () => ok(evalStr('5 inch to cm').toNumber('cm'), 12.7, 1e-9));
+  chk('tex units', () => ok(evalStr(tex2txt(`5${texFor('inch')}${texFor(' to ')}${texFor('cm')}`)).toNumber('cm'), 12.7, 1e-9));
+  chk('kWh, degF, kelvin', () => ok(evalStr('1 kWh to joule').toNumber('joule'), 3.6e6, 1e-9) && ok(evalStr('212 degF to degC').toNumber('degC'), 100, 1e-9) && evalStr('1 kelvin'));
+  chk('constant', () => ok(evalStr('speedOfLight to m/s').toNumber('m/s'), 299792458, 1e-9));
+  chk('eigvals', () => JSON.stringify(m.sort(m.flatten(m.clone(evalStr('eigvals([[2,0],[0,3]])').valueOf())))) === '[2,3]');
+  chk('cross', () => JSON.stringify(evalStr('cross([1,0,0],[0,1,0])').valueOf()) === '[0,0,1]');
+  chk('hex', () => evalStr('hex(255)') === '0xff');
+  near('par(6,3)', 2); near('dB(100)', 20); near('sec(0)', 1);
+  const nf = S.opt.nf; S.opt.nf = 'eng'; chk('eng format ' + fnum(12345) + ' ' + fnum(0.00047), () => fnum(12345) === '12.345ᴇ3' && fnum(0.00047) === '470ᴇ-6'); S.opt.nf = nf;
+  S.deg = true; near('sin(30)', 0.5); near('asin(1)', 90); S.deg = d; S.opt.fix = fx;
+  if (frac(1 / 3) !== '1/3' || frac(-0.125) !== '-1/8') out.push('frac');
+  return out.length ? out : 'all passed';
+}
+
+/* ---------- init ---------- */
+pad.hidden = !S.kp;
+applyOpts(); tab(S.tab);
+if (location.hash === '#test') { const r = selfTest(); console.log('selftest', r); pv.textContent = 'Self-test: ' + (Array.isArray(r) ? r.join(' | ') : r) }
+</script>
+</body>
+</html>

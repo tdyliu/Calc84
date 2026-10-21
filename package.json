@@ -1,0 +1,41 @@
+{
+  "name": "calc84",
+  "productName": "Calc 84",
+  "version": "1.0.0",
+  "description": "Graphing calculator: Google-calculator ergonomics with TI-84 CE features",
+  "main": "electron/main.js",
+  "scripts": {
+    "vendor": "node scripts/vendor.js",
+    "start": "electron .",
+    "dist": "npm run vendor && electron-builder --win nsis",
+    "android": "npm run vendor && cap sync android && cd android && .\\gradlew.bat assembleDebug",
+    "android:release": "npm run vendor && cap sync android && cd android && .\\gradlew.bat assembleRelease"
+  },
+  "build": {
+    "appId": "com.calc84.app",
+    "files": [
+      "electron/**",
+      "www/**"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "artifactName": "Calc84-Setup.exe"
+    }
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "@fontsource/atkinson-hyperlegible-next": "5.3.0",
+    "mathjs": "12.4.1",
+    "mathlive": "0.111.1",
+    "@capacitor/cli": "^8.5.3",
+    "electron": "44.9.0",
+    "electron-builder": "26.15.3"
+  }
+}
