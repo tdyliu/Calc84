@@ -7,7 +7,7 @@
   "scripts": {
     "vendor": "node scripts/vendor.js",
     "start": "electron .",
-    "dist": "npm run vendor && electron-builder --win nsis",
+    "dist": "npm run vendor && electron-builder --win",
     "android": "npm run vendor && cap sync android && cd android && .\\gradlew.bat assembleDebug",
     "android:release": "npm run vendor && cap sync android && cd android && .\\gradlew.bat assembleRelease"
   },
@@ -18,14 +18,22 @@
       "www/**"
     ],
     "win": {
-      "target": "nsis",
-      "icon": "build/icon.png"
+      "target": [
+        "nsis",
+        "portable",
+        "zip"
+      ],
+      "icon": "build/icon.png",
+      "artifactName": "Calc84-${version}-win.${ext}"
     },
     "nsis": {
       "oneClick": true,
       "perMachine": false,
       "createDesktopShortcut": true,
       "artifactName": "Calc84-Setup.exe"
+    },
+    "portable": {
+      "artifactName": "Calc84-Portable.exe"
     }
   },
   "devDependencies": {
