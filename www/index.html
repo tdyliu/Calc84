@@ -83,7 +83,7 @@
   --hl:#e8b730;--hlink:#1a1405;--hlband:rgba(232,183,48,.4);
   --c1:#1d3fa0;--c2:#b3261e;--c3:#1b6e46;--c4:#6b2c8f;--c5:#9a4d00;--c6:#3a3a3a;color-scheme:light;
 }
-[data-theme=ti30]{
+[data-theme=ti36]{
   --alpha:#6fd39a;
   --paper:#c4cbb8;--grid:#b6bea8;--grid2:#a5ae94;--ink:#1c2118;--graphite:#4b5443;--sheet:#eceee8;--err:#9b1c12;
   --padbg:#34373d;--key:#5f636b;--keyink:#fff;--edge:#1d1f23;--op:#26282c;--opink:#fff;--sci:#d4d7dc;--red:#fff;--redbg:#26282c;
@@ -186,11 +186,11 @@ table.mat td{padding:1px 8px;text-align:right}
 /* key sizes per calculator layout (they have more rows than the default), stacked phones then wide windows */
 #pad[data-layout=ti84]{--kh:clamp(30px,6.2dvh,70px);--sh:clamp(26px,4.4dvh,50px)}
 #pad[data-layout=casio]{--kh:clamp(32px,6.6dvh,72px);--sh:clamp(26px,4.5dvh,50px)}
-#pad[data-layout=ti30]{--kh:clamp(32px,6.4dvh,70px);--sh:clamp(28px,4.8dvh,50px)}
+#pad[data-layout=ti36]{--kh:clamp(32px,6.4dvh,70px);--sh:clamp(28px,4.8dvh,50px)}
 @media (min-width:900px),(min-width:560px) and (max-height:560px){
   #pad[data-layout=ti84]{--kh:clamp(30px,8.4dvh,84px);--sh:clamp(24px,6.2dvh,60px)}
   #pad[data-layout=casio]{--kh:clamp(32px,10dvh,92px);--sh:clamp(24px,7dvh,64px)}
-  #pad[data-layout=ti30]{--kh:clamp(32px,9dvh,88px);--sh:clamp(26px,7dvh,64px)}
+  #pad[data-layout=ti36]{--kh:clamp(32px,9dvh,88px);--sh:clamp(26px,7dvh,64px)}
 }
 .dpad{grid-column:span 2;grid-row:span 2;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:2px;
   border-radius:50%;padding:2px;background:color-mix(in srgb,var(--fn,var(--key)) 60%,transparent);aspect-ratio:auto}
@@ -242,6 +242,21 @@ table.grid td.in{padding:0}
 table.grid input{width:100%;border:0;background:none;padding:8px;text-align:right;outline:0}
 table.grid input:focus{background:var(--hlband);color:var(--ink)}
 .bad{color:var(--red)!important}
+#tabs .ics{position:sticky;right:0;display:flex;flex:none;background:var(--paper);padding-left:2px}
+#svmode .sp{flex:1}
+#sveq{padding:4px 0 8px;font-size:1.15rem;color:var(--graphite)}
+.svpoly{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));gap:8px}
+.svpoly label{display:flex;align-items:center;gap:6px}.svpoly span{font-weight:700}.svpoly .fld{flex:1;width:100%}
+.svr{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr) auto) minmax(0,1fr);gap:6px;align-items:center;margin-bottom:8px}
+.svr .fld{width:100%;text-align:right}.svr span{color:var(--graphite);white-space:nowrap}
+#svout{display:flex;flex-direction:column;gap:6px;padding:12px 0 6px}
+.svres{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;text-align:left;padding:10px 12px;border-radius:12px;background:var(--sheet);border:1px solid var(--grid2);font-size:1.25rem;font-variant-numeric:tabular-nums}
+button.svres:hover{border-color:var(--ink)}
+.svres small{color:var(--graphite);font-size:.9rem;min-width:6.5em}
+.svres .dec{color:var(--graphite);font-size:1rem}
+.svres.info{font-size:1rem}
+.svmsg{color:var(--err);margin:0}
+.svhint{color:var(--graphite);font-size:.8125rem;margin:0 0 12px}
 #sout{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:2px 14px;font-variant-numeric:tabular-nums}
 
 /* options */
@@ -289,10 +304,10 @@ table.grid input:focus{background:var(--hlband);color:var(--ink)}
 <div id="app">
  <main id="screen">
   <nav id="tabs" aria-label="Screens">
-   <button data-tab="calc">Calc</button><button data-tab="graph">Graph</button><button data-tab="table">Table</button><button data-tab="matrix">Matrix</button><button data-tab="stats">Stats</button>
+   <button data-tab="calc">Calc</button><button data-tab="graph">Graph</button><button data-tab="table">Table</button><button data-tab="matrix">Matrix</button><button data-tab="stats">Stats</button><button data-tab="solve">Solve</button>
    <span class="sp"></span>
-   <button class="ic" id="kpt" aria-label="Show or hide keypad" title="Show or hide keypad"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M7 14h10"/></svg></button>
-   <button class="ic" id="optb" aria-label="Options" title="Options"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+   <span class="ics"><button class="ic" id="kpt" aria-label="Show or hide keypad" title="Show or hide keypad"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M7 14h10"/></svg></button>
+   <button class="ic" id="optb" aria-label="Options" title="Options"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button></span>
   </nav>
   <section id="tab-calc" class="tab">
    <div id="hist"></div>
@@ -321,6 +336,13 @@ table.grid input:focus{background:var(--hlband);color:var(--ink)}
    <div class="bar"><button id="s1">1-Var Stats</button><small>X</small><select id="sx" class="fld"></select><button id="s2">LinReg ax+b</button><small>Y</small><select id="sy" class="fld"></select><button id="sclr">Clear X list</button></div>
    <div id="sout"></div>
    <div class="tw"><table class="grid" id="ltab"></table></div>
+  </section>
+  <section id="tab-solve" class="tab" hidden>
+   <div class="bar" id="svmode"><button data-sv="poly">Polynomial</button><button data-sv="sys">Linear system</button><span class="sp"></span><small id="svsz">Degree</small><button data-n="2">2</button><button data-n="3">3</button></div>
+   <div id="sveq"></div>
+   <div id="svin"></div>
+   <div id="svout" aria-live="polite"></div>
+   <p class="svhint">Tap an answer to use it on the Calc screen. Boxes take expressions too, like 1/2 or √(3).</p>
   </section>
  </main>
  <div id="pad">
@@ -369,7 +391,8 @@ const def = () => ({
   mats: Object.fromEntries(LET.map(k => [k, [[0, 0], [0, 0]]])),
   lists: {L1: [], L2: [], L3: [], L4: [], L5: [], L6: []},
   ys: ['', '', '', '', '', ''], on: [1, 1, 1, 1, 1, 1], win: {xmin: -10, xmax: 10, ymin: -10, ymax: 10},
-  tbl: {start: 0, step: 1}, deg: false, sci: true, kp: true, tab: 'calc',
+  tbl: {start: 0, step: 1},
+  sv: {mode: 'poly', n: 2, p2: ['1', '-3', '2'], p3: ['1', '-6', '11', '-6'], s2: [['1', '1', '3'], ['1', '-1', '1']], s3: [['1', '1', '1', '6'], ['0', '2', '5', '-4'], ['2', '5', '-1', '27']]}, deg: false, sci: true, kp: true, tab: 'calc',
   opt: {pretty: true, ans: 'dec', nf: 'norm', fix: -1, theme: 'system', preview: true, haptic: true, split: false, hold: true, layout: 'calc84'}
 });
 let S = def();
@@ -814,13 +837,21 @@ function ins(el, t) {
   el.focus({preventScroll: true});
   const a = el.selectionStart ?? el.value.length, b = el.selectionEnd ?? a;
   el.value = el.value.slice(0, a) + t + el.value.slice(b);
-  el.setSelectionRange(a + t.length, a + t.length); fire(el);
+  el.setSelectionRange(a + t.length, a + t.length); fire(el); showCaret(el);
+}
+// browsers don't scroll a text box when code (not typing) moves its caret, so long entries hid what you just typed
+const measure = document.createElement('canvas').getContext('2d');
+function showCaret(el) {
+  const cs = getComputedStyle(el); measure.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+  const x = measure.measureText(el.value.slice(0, el.selectionEnd)).width + parseFloat(cs.paddingLeft), room = 16;
+  if (x - el.scrollLeft > el.clientWidth - room) el.scrollLeft = x - el.clientWidth + room;
+  else if (x - el.scrollLeft < room) el.scrollLeft = Math.max(0, x - room);
 }
 const TOK = /(?:[A-Za-z_]\w*\(|[√∛]\(|\[[A-J]\]|Ans|►Frac|⁻¹|L[1-6])$/;
 function del(el) {
   let a = el.selectionStart, b = el.selectionEnd; const v = el.value;
   if (a === b) { const t = v.slice(0, a).match(TOK); a = Math.max(0, a - (t ? t[0].length : 1)) }
-  el.value = v.slice(0, a) + v.slice(b); el.setSelectionRange(a, a); fire(el);
+  el.value = v.slice(0, a) + v.slice(b); el.setSelectionRange(a, a); fire(el); showCaret(el);
 }
 const TPL = {
   'diff(': '\\frac{d}{dX}\\left(#?\\right)', 'nDeriv(': '\\frac{d}{dX}\\left(#?\\right)\\Big|_{X=#?}', 'fnInt(': '\\int_{#?}^{#?}\\left(#?\\right)dX',
@@ -849,11 +880,11 @@ const line = {
   clear() { if (S.opt.pretty) mf.value = ''; else ex.value = ''; preview() },
   insert(t) {
     if (!S.opt.pretty) return ins(ex, t);
-    mf.focus(); mf.insert(texFor(t), {selectionMode: 'placeholder', format: 'latex'}); preview();
+    mf.focus(); mf.insert(texFor(t), {selectionMode: 'placeholder', format: 'latex', scrollIntoView: true}); preview();
   },
-  del() { if (!S.opt.pretty) return del(ex); mf.executeCommand('deleteBackward'); preview() },
+  del() { if (!S.opt.pretty) return del(ex); mf.executeCommand('deleteBackward'); mf.executeCommand('scrollIntoView'); preview() },
   vert(d) { if (S.opt.pretty) { mf.focus(); return mf.executeCommand(d < 0 ? 'moveUp' : 'moveDown') } const h = S.hist.at(d < 0 ? -1 : 0); if (h && d < 0) { ex.value = h.e; fire(ex) } }, // up: into a numerator/superscript, or bring back the last entry
-  move(d) { if (S.opt.pretty) { mf.focus(); return mf.executeCommand(d < 0 ? 'moveToPreviousChar' : 'moveToNextChar') } ex.focus(); const p = Math.max(0, d < 0 ? ex.selectionStart - 1 : ex.selectionEnd + 1); ex.setSelectionRange(p, p) },
+  move(d) { if (S.opt.pretty) { mf.focus(); mf.executeCommand(d < 0 ? 'moveToPreviousChar' : 'moveToNextChar'); return mf.executeCommand('scrollIntoView') } ex.focus(); const p = Math.max(0, d < 0 ? ex.selectionStart - 1 : ex.selectionEnd + 1); ex.setSelectionRange(p, p); showCaret(ex) },
 };
 let freshHist = false, histAll = false; // startup: typeset only the newest 30 entries; the rest when you scroll up
 function renderHist(keepPos) {
@@ -906,7 +937,7 @@ function recall(h, isE) { // put a history entry's expression (isE) or answer ba
   if (!S.opt.pretty) return ins(ex, isE ? h.e : valText(h.v));
   let t;
   if (isE) { try { t = h.l || m.parse(prep(h.e)).toTex() } catch { t = h.e } } else t = valTexIns(h.v);
-  mf.focus(); mf.insert(t, {format: 'latex'}); preview();
+  mf.focus(); mf.insert(t, {format: 'latex', scrollIntoView: true}); preview();
 }
 ex.addEventListener('input', preview);
 mf.addEventListener('input', preview);
@@ -970,13 +1001,13 @@ const LAYOUTS = {
       N(1, {l2: 'STAT', a2: 'stats'}), N(2, {l2: 'CMPLX', cat2: 'CPLX'}), N(3, {l2: 'ENG', cat2: 'ENG'}), K('+', '+', {c: 'op'}), K('−', '−', {c: 'op'}),
       N(0), K('.', '.', {c: 'num', l2: 'Ran#', t2: 'rand'}), K('×10ˣ', 'E', {c: 'num', l2: 'π', t2: 'π'}), K('Ans', 'Ans', {c: 'num'}), A('=', '=', {c: 'eq', l2: '≈', a2: 'approx'})]},
 
-  // TI-30XS MultiView arrangement (no alpha letters: the x key and recall give variables)
-  ti30: {name: 'TI-30XS style', theme: 'ti30', cols: [5, 5],
+  // TI-36X Pro arrangement (no alpha letters: the x key and recall give variables); solver on 2nd table
+  ti36: {name: 'TI-36X Pro style', theme: 'ti36', cols: [5, 5],
     sci: [A('2nd', '2nd', {c: 'sh'}), A('mode', 'mode', {l2: 'quit', a2: 'quit'}), A('delete', 'del'), ...PAD,
-      K('log', 'log(', {l2: '10ˣ', t2: '10^('}), G('prb', 'PRB'), A('data', 'stats'),
-      K('ln', 'ln(', {l2: 'eˣ', t2: 'e^('}), K('n/d', '÷', {l2: '►Frac', t2: '►Frac'}), A('⇄', 'sd', {aria: 'Fraction or decimal'}), A('table', 'table'), A('clear', 'AC'),
+      K('log', 'log(', {l2: '10ˣ', t2: '10^('}), G('prb', 'PRB'), A('data', 'stats', {l2: 'stat', a2: 'stats'}),
+      K('ln', 'ln(', {l2: 'eˣ', t2: 'e^('}), K('n/d', '÷', {l2: '►Frac', t2: '►Frac'}), A('⇄', 'sd', {aria: 'Fraction or decimal'}), A('table', 'table', {l2: 'solver', a2: 'solve'}), A('clear', 'AC'),
       K('π', 'π', {l2: 'hyp', cat2: 'ENG'}), K('sin', 'sin(', {l2: 'sin⁻¹', t2: 'asin('}), K('cos', 'cos(', {l2: 'cos⁻¹', t2: 'acos('}), K('tan', 'tan(', {l2: 'tan⁻¹', t2: 'atan('}), K('÷', '/', {c: 'op'})],
-    main: [K('^', '^', {c: 'fn', l2: 'ⁿ√', t2: 'nthRoot('}), K('x⁻¹', '⁻¹', {c: 'fn', l2: 'e', t2: 'e'}), K('(', '(', {c: 'fn'}), K(')', ')', {c: 'fn'}), K('×', '×', {c: 'op'}),
+    main: [K('^', '^', {c: 'fn', l2: 'ⁿ√', t2: 'nthRoot('}), K('x⁻¹', '⁻¹', {c: 'fn', l2: 'e', t2: 'e'}), K('(', '(', {c: 'fn', l2: 'd/dx', t2: 'diff('}), K(')', ')', {c: 'fn', l2: '∫dx', t2: 'fnInt('}), K('×', '×', {c: 'op'}),
       K('x²', '²', {c: 'fn', l2: '√', t2: '√('}), N(7), N(8), N(9), K('−', '−', {c: 'op'}),
       K('×10ⁿ', 'E', {c: 'fn'}), N(4), N(5), N(6), K('+', '+', {c: 'op'}),
       K('x', 'X', {c: 'fn', l2: 'recall', cat2: 'VARS'}), N(1), N(2), N(3), K('sto→', '→', {c: 'fn'}),
@@ -1006,6 +1037,7 @@ function renderSci() {
   ind();
 }
 function applyLayout() {
+  if (S.opt.layout === 'ti30') S.opt.layout = 'ti36'; // TI-30XS layout became TI-36X Pro
   L = LAYOUTS[S.opt.layout] || LAYOUTS.calc84; SCI = L.sci; MAIN = L.main; alpha = 0; second = false;
   $('#sci').style.setProperty('--cols', L.cols[0]); $('#main').style.setProperty('--cols', L.cols[1]);
   pad.classList.toggle('phys', !L.flat); pad.dataset.layout = L === LAYOUTS.calc84 ? 'calc84' : S.opt.layout;
@@ -1019,7 +1051,7 @@ function memAdd(sign) { // Casio M+ / M−: evaluate the line (if any), then add
   try { S.vars.M = (sign > 0 ? m.add : m.subtract)(S.vars.M ?? 0, S.vars.Ans); save(); flash(`M = ${fnum(S.vars.M)}`) } catch (e) { flash(e.message) }
 }
 const ACTS = {
-  stats: () => tab('stats'), table: () => tab('table'), graph: () => tab('graph'), quit: () => tab('calc'),
+  stats: () => tab('stats'), solve: () => tab('solve'), table: () => tab('table'), graph: () => tab('graph'), quit: () => tab('calc'),
   tblset: () => { tab('table'); $('#tstart').focus() },
   yeq: () => { tab('graph'); $('#ylist').hidden = false; $('#yeq').classList.add('on'); $('[data-y="0"]').focus(); sched() },
   window: () => { tab('graph'); $('#wedit').hidden = false; $('#wbtn').classList.add('on'); fillWin(); sched() },
@@ -1048,7 +1080,7 @@ function press(k) {
   if (k.a === 'left' || k.a === 'right') {
     const d = k.a === 'left' ? -1 : 1;
     if (isLine(t)) return line.move(d);
-    t.focus(); const p = Math.max(0, d < 0 ? t.selectionStart - 1 : t.selectionEnd + 1); return t.setSelectionRange(p, p);
+    t.focus(); const p = Math.max(0, d < 0 ? t.selectionStart - 1 : t.selectionEnd + 1); t.setSelectionRange(p, p); return showCaret(t);
   }
   if (k.a === '=') return isLine(t) ? enter() : commit(t);
   const txt = k.t;
@@ -1081,6 +1113,7 @@ const sciShow = on => { $('#sci').hidden = !on; $('#grip').textContent = on ? '�
 $('#grip').onclick = () => { const on = $('#sci').hidden; if (S.tab === 'calc') { S.sci = on; save() } sciShow(on) };
 $('#kpt').onclick = () => { S.kp = !S.kp; pad.hidden = !S.kp; sched(); save() };
 document.addEventListener('focusin', e => { if (e.target.classList?.contains('kp')) tgt = e.target });
+document.addEventListener('pointerdown', e => { const t = e.target.closest?.('.kp'); if (t) tgt = t }, true); // a tap picks the box even before focus lands
 
 /* ---------- function menu ---------- */
 const F = (l, t, d = '') => [l, t, d];
@@ -1089,7 +1122,7 @@ const MENU = {
     F('∛', '∛('), F('ⁿ√', 'nthRoot(', 'nthRoot(x, n)'), F('logBASE(', 'logBASE(', 'log of x in base b'), F('solve(', 'solve(', 'solve(expr, X, guess) finds expr = 0'),
     F('gcd(', 'gcd('), F('lcm(', 'lcm('), F('mod(', 'mod('), F('min(', 'min('), F('max(', 'max('), F('°', '°', 'degrees in any mode')],
   CALC: [F('d/dX', 'diff(', 'exact derivative formula'), F('d/dX at a point', 'nDeriv(', 'slope at X = a'), F('∫ from a to b', 'fnInt(', 'definite integral'),
-    F('lim', 'limit(', 'limit as X → a'), F('Σ', 'summation(', 'sum for X = a…b'), F('Π', 'productSeq(', 'product for X = a…b'), F('solve(', 'solve(', 'root near a guess')],
+    F('lim', 'limit(', 'limit as X → a'), F('Σ', 'summation(', 'sum for X = a…b'), F('Π', 'productSeq(', 'product for X = a…b'), F('solve(', 'solve(', 'root near a guess'), ['Equation solver', null, 'polynomials, linear systems', () => tab('solve')]],
   PRB: [F('nCr(', 'nCr(', 'combinations'), F('nPr(', 'nPr(', 'permutations'), F('!', '!', 'factorial'), F('rand', 'rand', 'random 0 to 1'), F('randInt(', 'randInt(', 'randInt(lo, hi, count)'), F('randNorm(', 'randNorm(', 'randNorm(μ, σ, count)')],
   DISTR: [F('normalpdf(', 'normalpdf(', 'x, μ, σ'), F('normalcdf(', 'normalcdf(', 'lo, hi, μ, σ'), F('invNorm(', 'invNorm(', 'area, μ, σ'), F('tpdf(', 'tpdf(', 'x, df'), F('tcdf(', 'tcdf(', 'lo, hi, df'),
     F('invT(', 'invT(', 'area, df'), F('χ²pdf(', 'chi2pdf(', 'x, df'), F('χ²cdf(', 'chi2cdf(', 'lo, hi, df'), F('Fpdf(', 'Fpdf(', 'x, df1, df2'), F('Fcdf(', 'Fcdf(', 'lo, hi, df1, df2'),
@@ -1114,7 +1147,7 @@ const MENU = {
   ZOOM: [['ZStd', null, 'x and y from −10 to 10', () => { tab('graph'); zoom('std') }], ['ZTrig', null, 'one period of sin/cos', () => { tab('graph'); zoom('trig') }],
     ['ZFit', null, 'fit y to the graphs', () => { tab('graph'); zoom('fit') }], ['Zoom in', null, '×2 around the center', () => zoomBy(0.5)], ['Zoom out', null, '×½ around the center', () => zoomBy(2)]],
   APPS: [['Calculate', null, '', () => tab('calc')], ['Graph', null, '', () => tab('graph')], ['Table', null, '', () => tab('table')],
-    ['Matrix', null, '', () => tab('matrix')], ['Statistics', null, '', () => tab('stats')]],
+    ['Matrix', null, '', () => tab('matrix')], ['Statistics', null, '', () => tab('stats')], ['Equation solver', null, '', () => tab('solve')]],
   VARS: [F('Ans', 'Ans', 'last answer'), ...AZ.map(c => F(c, c)), ...[1, 2, 3, 4, 5, 6].map(i => F(`Y${i}(`, `Y${i}(`, 'graph function'))],
 };
 const CATN = {MATH: 'Math', CALC: 'Calculus', MATRIX: 'Matrix', LIST: 'List', DISTR: 'Distributions', PRB: 'Probability', CPLX: 'Complex', ENG: 'Engineering', CONST: 'Constants', UNITS: 'Units', VARS: 'Variables', ZOOM: 'Zoom', APPS: 'Screens'};
@@ -1142,12 +1175,12 @@ $('#sheet').addEventListener('click', e => {
 
 /* ---------- options ---------- */
 const dlg = $('#opts'), form = dlg.querySelector('form');
-const DEVICE_THEMES = ['ti84', 'classwiz', 'ti30'];
-const THEMES = [['system', 'Match system'], ['paper', 'Paper'], ['night', 'Night'], ['blueprint', 'Blueprint'], ['chalk', 'Chalkboard'], ['handheld', 'Handheld'], ['contrast', 'High contrast'], ['ti84', 'TI-84 CE'], ['classwiz', 'ClassWiz'], ['ti30', 'TI-30XS']];
+const DEVICE_THEMES = ['ti84', 'classwiz', 'ti36'];
+const THEMES = [['system', 'Match system'], ['paper', 'Paper'], ['night', 'Night'], ['blueprint', 'Blueprint'], ['chalk', 'Chalkboard'], ['handheld', 'Handheld'], ['contrast', 'High contrast'], ['ti84', 'TI-84 CE'], ['classwiz', 'ClassWiz'], ['ti36', 'TI-36X Pro']];
 $('#sws').innerHTML = THEMES.map(([v, n]) => `<label class="sw"><input type="radio" name="theme" value="${v}"><span class="swp${v === 'system' ? ' sys' : ''}"${v === 'system' ? '' : ` data-theme="${v}"`}><span class="scr">84<i></i></span><span class="kp2"><b></b><b></b><b></b><b></b></span></span><span class="swn">${n}</span></label>`).join('');
 function applyOpts() {
   const r = document.documentElement;
-  S.opt.theme = {light: 'paper', dark: 'night'}[S.opt.theme] || S.opt.theme; // older saved names
+  S.opt.theme = {light: 'paper', dark: 'night', ti30: 'ti36'}[S.opt.theme] || S.opt.theme; // older saved names
   if (S.opt.theme === 'system') delete r.dataset.theme; else r.dataset.theme = S.opt.theme;
   mf.hidden = !S.opt.pretty; ex.hidden = S.opt.pretty;
   if (isLine(tgt)) tgt = line.el();
@@ -1201,6 +1234,7 @@ function tab(name) {
   if (name === 'table') renderTable();
   if (name === 'matrix') renderMat();
   if (name === 'stats') renderLists();
+  if (name === 'solve') renderSolve();
   save();
 }
 $('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) tab(b.dataset.tab) });
@@ -1209,6 +1243,7 @@ function nextOf(t) {
   if (d.mr !== undefined) { const M = S.mats[mcur], r = +d.mr, c = +d.mc; return c + 1 < M[0].length ? `[data-mr="${r}"][data-mc="${c + 1}"]` : `[data-mr="${r + 1}"][data-mc="0"]` }
   if (d.l) return `[data-l="${d.l}"][data-r="${+d.r + 1}"]`;
   if (d.y) return `[data-y="${+d.y + 1}"]`;
+  if (d.svi !== undefined) return '#sv' + (+t.id.slice(2) + 1);
   return null;
 }
 function commit(t) { const n = nextOf(t); t.blur(); if (n) $(n)?.focus() }
@@ -1493,6 +1528,76 @@ $('#s1').onclick = () => statErr(() => sout(oneVar(S.lists[$('#sx').value])));
 $('#s2').onclick = () => statErr(() => sout(linReg(S.lists[$('#sx').value], S.lists[$('#sy').value])));
 $('#sclr').onclick = () => { S.lists[$('#sx').value] = []; save(); renderLists() };
 
+/* ---------- equation solver (like the TI-36X Pro's poly-solv and sys-solv) ---------- */
+const SUB = ['₁', '₂', '₃'], XYZ = ['x', 'y', 'z'];
+const cln = x => Math.abs(x) < 1e-12 ? 0 : +x.toPrecision(12); // hide float noise like 1.0000000000000002
+function polyRoots(c) { // c = [a, b, c(, d)], highest power first; real roots first (ascending), then complex pairs
+  if (c[0] === 0) throw Error('a can’t be 0: that makes it a lower-degree equation');
+  return m.polynomialRoot(...[...c].reverse())
+    .map(r => m.isComplex(r) ? (Math.abs(r.im) < 1e-10 ? cln(r.re) : m.complex(cln(r.re), cln(r.im))) : cln(r))
+    .sort((p, q) => (typeof p !== 'number') - (typeof q !== 'number') || (m.re(p) - m.re(q)) || (m.im(p) - m.im(q)));
+}
+function sysSolve(R, n) { // R = rows of [coefficients…, constant]
+  const A = R.map(r => r.slice(0, n)), b = R.map(r => r[n]);
+  if (Math.abs(m.det(A)) > 1e-12) return m.flatten(m.lusolve(A, b)).map(cln);
+  const contradiction = rref(R).some(r => r.slice(0, n).every(v => Math.abs(v) < 1e-10) && Math.abs(r[n]) > 1e-10);
+  throw Error(contradiction ? 'No solution: the equations contradict each other.' : 'Infinitely many solutions: the equations aren’t independent.');
+}
+const svNum = s => { const x = num(evalStr(String(s).trim() || '0')); if (!isFinite(x)) throw Error(`“${s}” isn’t a real number.`); return x };
+function svShow(v) { // fraction when exact, with its decimal; complex as a + bi
+  if (typeof v !== 'number') return esc(fnum(v));
+  const f = frac(v);
+  return f.includes('/') ? `${texHTML(numTex(v, true))} <span class="dec">≈ ${esc(fnum(v))}</span>` : esc(fnum(v));
+}
+let svVals = [];
+function solveNow() {
+  const {mode, n} = S.sv; let rows;
+  try {
+    if (mode === 'poly') {
+      const c = S.sv['p' + n].map(svNum), roots = polyRoots(c);
+      rows = roots.map((r, i) => [roots.length > 1 ? 'x' + SUB[i] : 'x', r]);
+      if (roots.length < n) rows.push(['', null, 'Repeated root: it counts more than once.']);
+      if (n === 2) { const [a, b, k] = c, h = -b / (2 * a); rows.push(['Vertex', null, `(${fnum(cln(h))}, ${fnum(cln(a * h * h + b * h + k))})`], ['Discriminant', cln(b * b - 4 * a * k)]) }
+    } else rows = sysSolve(S.sv['s' + n].map(r => r.map(svNum)), n).map((v, i) => [XYZ[i], v]);
+  } catch (e) { svVals = []; return $('#svout').innerHTML = `<p class="svmsg">${esc(e.message)}</p>` }
+  svVals = rows.map(r => r[1]);
+  $('#svout').innerHTML = rows.map(([k, v, txt], i) => v === null
+    ? `<div class="svres info"><small>${k}</small> ${esc(txt)}</div>`
+    : `<button class="svres" data-r="${i}" aria-label="${k} = ${esc(fnum(v))}, tap to use"><small>${k} =</small> ${svShow(v)}</button>`).join('');
+}
+function renderSolve() {
+  const {mode, n} = S.sv;
+  $$('#svmode [data-sv]').forEach(b => b.classList.toggle('on', b.dataset.sv === mode));
+  $$('#svmode [data-n]').forEach(b => b.classList.toggle('on', +b.dataset.n === n));
+  $('#svsz').textContent = mode === 'poly' ? 'Degree' : 'Unknowns';
+  let id = 0;
+  const fld = (v, i, j, lbl) => `<input id="sv${id++}" class="fld kp" inputmode="none" data-svi="${i}" data-svj="${j}" value="${esc(v)}" aria-label="${lbl}" autocomplete="off" spellcheck="false">`;
+  if (mode === 'poly') {
+    $('#sveq').innerHTML = texHTML(n === 2 ? 'ax^2+bx+c=0' : 'ax^3+bx^2+cx+d=0');
+    $('#svin').innerHTML = `<div class="svpoly">${S.sv['p' + n].map((v, j) => `<label><span>${'abcd'[j]}</span>${fld(v, 0, j, 'abcd'[j])}</label>`).join('')}</div>`;
+  } else {
+    $('#sveq').innerHTML = texHTML(n === 2 ? 'a_1x+b_1y=c_1' : 'a_1x+b_1y+c_1z=d_1');
+    $('#svin').innerHTML = S.sv['s' + n].map((r, i) => `<div class="svr" style="--n:${n}">${r.map((v, j) =>
+      fld(v, i, j, j < n ? `Equation ${i + 1}, ${XYZ[j]} coefficient` : `Equation ${i + 1}, constant`) + (j < n ? `<span>${XYZ[j]}${j < n - 1 ? ' +' : ' ='}</span>` : '')).join('')}</div>`).join('');
+  }
+  solveNow();
+}
+$('#svmode').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.sv) S.sv.mode = b.dataset.sv; else S.sv.n = +b.dataset.n;
+  renderSolve(); save();
+});
+$('#svin').addEventListener('input', e => {
+  const t = e.target, i = +t.dataset.svi, j = +t.dataset.svj, {mode, n} = S.sv;
+  if (mode === 'poly') S.sv['p' + n][j] = t.value; else S.sv['s' + n][i][j] = t.value;
+  solveNow(); save();
+});
+$('#svout').addEventListener('click', e => { // tap an answer: use it on the Calc screen
+  const b = e.target.closest('[data-r]'); if (!b) return;
+  const v = svVals[b.dataset.r]; tab('calc');
+  if (S.opt.pretty) { mf.focus(); mf.insert(valTexIns(v), {format: 'latex', scrollIntoView: true}); preview() } else ins(ex, valText(v));
+});
+
 /* ---------- self-test: open index.html#test ---------- */
 function selfTest() {
   const out = [], ok = (got, want, tol) => Math.abs(got - want) <= tol * Math.max(1, Math.abs(want));
@@ -1525,6 +1630,14 @@ function selfTest() {
   const nf = S.opt.nf; S.opt.nf = 'eng'; chk('eng format ' + fnum(12345) + ' ' + fnum(0.00047), () => fnum(12345) === '12.345ᴇ3' && fnum(0.00047) === '470ᴇ-6'); S.opt.nf = nf;
   S.deg = true; near('sin(30)', 0.5); near('asin(1)', 90); S.deg = d; S.opt.fix = fx;
   if (frac(1 / 3) !== '1/3' || frac(-0.125) !== '-1/8') out.push('frac');
+  chk('quadratic', () => JSON.stringify(polyRoots([1, 0, -4])) === '[-2,2]');
+  chk('cubic', () => JSON.stringify(polyRoots([1, -6, 11, -6])) === '[1,2,3]');
+  chk('complex roots', () => { const r = polyRoots([1, 0, 1]); return r.length === 2 && r.every(z => m.isComplex(z) && z.re === 0 && Math.abs(z.im) === 1) });
+  chk('cubic with complex pair', () => { const r = polyRoots([1, 0, 0, -8]); return r[0] === 2 && m.isComplex(r[1]) && r[1].re === -1 });
+  chk('2x2 system', () => JSON.stringify(sysSolve([[1, 1, 3], [1, -1, 1]], 2)) === '[2,1]');
+  chk('3x3 system', () => JSON.stringify(sysSolve([[1, 1, 1, 6], [0, 2, 5, -4], [2, 5, -1, 27]], 3)) === '[5,3,-2]');
+  chk('no solution', () => { try { sysSolve([[1, 1, 1], [1, 1, 2]], 2); return false } catch (e) { return /No solution/.test(e.message) } });
+  chk('infinite solutions', () => { try { sysSolve([[1, 1, 1], [2, 2, 2]], 2); return false } catch (e) { return /Infinitely/.test(e.message) } });
   return out.length ? out : 'all passed';
 }
 
