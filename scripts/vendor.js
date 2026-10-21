@@ -12,4 +12,7 @@ for (const w of [400, 500, 700]) {
   const f = `atkinson-hyperlegible-next-latin-${w}-normal.woff2`;
   fs.copyFileSync(path.join(fsrc, f), path.join(out, f));
 }
+// file list for the web version's service worker (www/sw.js) to cache for offline use
+const list = fs.readdirSync(out, { recursive: true }).map(f => 'vendor/' + f.split(path.sep).join('/')).filter(f => /\.\w+$/.test(f));
+fs.writeFileSync(path.join(out, 'precache.json'), JSON.stringify(list));
 console.log('vendored into', out);

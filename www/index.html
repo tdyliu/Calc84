@@ -6,6 +6,9 @@
 <meta name="theme-color" content="#edf1ec">
 <meta name="color-scheme" content="light dark">
 <title>Calc 84</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="stylesheet" href="vendor/mathlive-static.css">
 <script src="vendor/math.js"></script>
 <script src="vendor/mathlive.min.js"></script>
@@ -1373,6 +1376,8 @@ function selfTest() {
 /* ---------- init ---------- */
 pad.hidden = !S.kp;
 applyOpts(); tab(S.tab);
+// web version only: work offline and be installable (the Windows and Android apps already have their files)
+if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !window.Capacitor) navigator.serviceWorker.register('sw.js').catch(() => {});
 if (location.hash === '#test') { const r = selfTest(); console.log('selftest', r); pv.textContent = 'Self-test: ' + (Array.isArray(r) ? r.join(' | ') : r) }
 </script>
 </body>
