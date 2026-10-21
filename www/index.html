@@ -67,6 +67,30 @@
   --hl:#ffde00;--hlink:#000;--hlband:#ffde00;
   --c1:#0033cc;--c2:#cc0000;--c3:#007a33;--c4:#7a00cc;--c5:#b35900;--c6:#000;color-scheme:light;
 }
+[data-theme=ti84]{
+  --alpha:#5fd08a;--alphan:#17703b;
+  --paper:#f6f7f5;--grid:#e4e7e2;--grid2:#cfd4cc;--ink:#111418;--graphite:#555b55;--sheet:#fff;--err:#b3261e;
+  --padbg:#2a2c31;--key:#e7e8ea;--keyink:#131518;--edge:#121316;--op:#cdd2da;--opink:#131518;--sci:#d0d4da;--red:#fff;--redbg:#45484f;
+  --fn:#1b1c20;--fnink:#f2f3f5;--shk:#3b82d6;--shink:#fff;--alk:#3aa565;--alink:#fff;--k2:#79b4ff;--k2n:#1f5fbf;--eq:#cdd2da;--eqink:#131518;
+  --hl:#3b82d6;--hlink:#fff;--hlband:rgba(59,130,214,.28);
+  --c1:#1f4fd8;--c2:#d42a2a;--c3:#111;--c4:#c218c9;--c5:#128a3e;--c6:#e07b00;color-scheme:light;
+}
+[data-theme=classwiz]{
+  --alpha:#ff6b6b;--alphan:#ff8a8a;
+  --paper:#c9d0c3;--grid:#bcc4b5;--grid2:#aab3a2;--ink:#1a1d18;--graphite:#4a5245;--sheet:#eef0ec;--err:#9b1c12;
+  --padbg:#1d2230;--key:#3a4254;--keyink:#f4f5f8;--edge:#10131b;--op:#3a4254;--opink:#fff;--sci:#cfd4de;--red:#fff;--redbg:#c2563a;
+  --fn:#262b38;--fnink:#f4f5f8;--shk:#e8b730;--shink:#1a1405;--alk:#e5484d;--alink:#fff;--k2:#f0c242;--k2n:#f0c242;--eq:#3a4254;--eqink:#fff;
+  --hl:#e8b730;--hlink:#1a1405;--hlband:rgba(232,183,48,.4);
+  --c1:#1d3fa0;--c2:#b3261e;--c3:#1b6e46;--c4:#6b2c8f;--c5:#9a4d00;--c6:#3a3a3a;color-scheme:light;
+}
+[data-theme=ti30]{
+  --alpha:#6fd39a;
+  --paper:#c4cbb8;--grid:#b6bea8;--grid2:#a5ae94;--ink:#1c2118;--graphite:#4b5443;--sheet:#eceee8;--err:#9b1c12;
+  --padbg:#34373d;--key:#5f636b;--keyink:#fff;--edge:#1d1f23;--op:#26282c;--opink:#fff;--sci:#d4d7dc;--red:#fff;--redbg:#26282c;
+  --fn:#26282c;--fnink:#f1f2f4;--shk:#2f9e5b;--shink:#fff;--k2:#6fd39a;--k2n:#9be7b8;--eq:#26282c;--eqink:#fff;
+  --hl:#2f9e5b;--hlink:#fff;--hlband:rgba(47,158,91,.32);
+  --c1:#1d3fa0;--c2:#b3261e;--c3:#1b6e46;--c4:#6b2c8f;--c5:#9a4d00;--c6:#3a3a3a;color-scheme:light;
+}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 /* safe areas: Capacitor injects --safe-area-inset-* on Android; browsers use env() */
@@ -121,7 +145,7 @@ table.mat td{padding:1px 8px;text-align:right}
 #pad{position:relative;padding:var(--kg) 12px calc(var(--kg) + 4px + var(--sab));display:flex;flex-direction:column;gap:var(--kg);min-height:0;overflow-y:auto;background:var(--padbg);color:var(--keyink);border-top:1px solid var(--grid2)}
 @media (min-width:900px),(min-width:560px) and (max-height:560px){#pad{border-top:0;border-left:1px solid var(--grid2);justify-content:flex-end;padding:var(--kg) 14px calc(var(--kg) + var(--sab))}#screen{padding-bottom:var(--sab)}}
 /* scientific keys: the 2nd function is printed small above, like the TI faceplate */
-#sci{display:grid;grid-template-columns:repeat(6,1fr);gap:2px 3px}
+#sci{display:grid;grid-template-columns:repeat(var(--cols,6),1fr);gap:2px 3px}
 #sci button{height:var(--sh);border-radius:10px;color:var(--sci);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;gap:1px}
 #sci button span{font-size:.95rem}
 #sci button small{font-size:.66rem;color:var(--k2,var(--opink));opacity:.85;min-height:.75rem}
@@ -130,8 +154,8 @@ table.mat td{padding:1px 8px;text-align:right}
 #sci button.menu{border:1px solid var(--edge);background:color-mix(in srgb,var(--key) 55%,transparent);color:var(--keyink)}
 #sci button.menu span{font-weight:500;font-size:.85rem}
 #sci button.on{background:var(--hl);color:var(--hlink);font-weight:700}
-#sci.sec small:not(:empty){background:var(--hlband);color:var(--keyink);opacity:1;border-radius:4px;padding:0 3px}
-#sci.sec button:not(.on) span{opacity:.4}
+#pad.sec small:not(:empty){background:var(--hlband);color:var(--keyink);opacity:1;border-radius:4px;padding:0 3px}
+#pad.sec button:not(.on):not(.sh) span{opacity:.4}
 /* Alpha letters: small green corner letters, lit up while Alpha is on */
 #pad{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 #pad button{position:relative}
@@ -139,20 +163,49 @@ table.mat td{padding:1px 8px;text-align:right}
 #pad .al{position:absolute;top:3px;right:6px;font:700 .62rem/1 "Atkinson Next",sans-serif;font-style:normal;color:var(--alpha)}
 #main .al{top:6px;right:9px;font-size:.72rem}
 #pad.alp .al{background:var(--alpha);color:var(--padbg);border-radius:4px;padding:2px 3px;top:2px;right:3px;font-size:.8rem}
-#pad.alp #main button:not(.ac):not(.eq):not([data-k="18"]){color:color-mix(in srgb,currentColor 45%,transparent)}
+#pad.alp button:has(.al) span{opacity:.45}
 #pad.alp #sci button:not(.alk) small{opacity:.25}
 #pad.alp #sci .alk.on{background:var(--alpha);color:var(--padbg)}
 #ind button{padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:2px;width:fit-content}
 #ind .ab{background:var(--alpha);color:var(--paper)}
 /* short screens: the 2nd label moves into the key's top-left corner instead of its own line */
 @media (max-height:700px){#sci button{padding-top:7px}#sci button small{position:absolute;top:2px;left:5px;font-size:.56rem;min-height:0}}
+/* calculator-style layouts: filled keys like a real handheld, plus a round arrow pad */
+#pad.phys #sci{gap:5px 6px}
+#pad.phys #sci button,#pad.phys .fn{background:var(--fn,var(--key));color:var(--fnink,var(--keyink));border:1px solid var(--edge);border-bottom-width:2px;border-radius:9px}
+#pad.phys #sci button span{font-size:clamp(.72rem,calc(var(--sh)*.3),.95rem);font-weight:500;white-space:nowrap}
+#pad.phys .fn{font-size:clamp(.85rem,calc(var(--kh)*.3),1.2rem)}
+#pad.phys #sci button.top{border-radius:5px 5px 12px 12px}
+#pad.phys .sh{background:var(--shk,var(--hl))!important;color:var(--shink,var(--hlink))!important;border-color:transparent!important}
+#pad.phys .alk{background:var(--alk,var(--alpha))!important;color:var(--alink,#fff)!important;border-color:transparent!important}
+#pad.phys button.on{box-shadow:0 0 0 2px var(--keyink) inset;filter:brightness(1.15)}
+#pad.phys small{color:var(--k2,var(--opink))}
+#pad.phys .num small,#pad.phys .op small{color:var(--k2n,var(--k2,var(--opink)))}
+#pad.phys .num .al,#pad.phys .op .al{color:var(--alphan,var(--alpha))}
+#pad.phys #sci .menu span{font-weight:700}
+/* key sizes per calculator layout (they have more rows than the default), stacked phones then wide windows */
+#pad[data-layout=ti84]{--kh:clamp(30px,6.2dvh,70px);--sh:clamp(26px,4.4dvh,50px)}
+#pad[data-layout=casio]{--kh:clamp(32px,6.6dvh,72px);--sh:clamp(26px,4.5dvh,50px)}
+#pad[data-layout=ti30]{--kh:clamp(32px,6.4dvh,70px);--sh:clamp(28px,4.8dvh,50px)}
+@media (min-width:900px),(min-width:560px) and (max-height:560px){
+  #pad[data-layout=ti84]{--kh:clamp(30px,8.4dvh,84px);--sh:clamp(24px,6.2dvh,60px)}
+  #pad[data-layout=casio]{--kh:clamp(32px,10dvh,92px);--sh:clamp(24px,7dvh,64px)}
+  #pad[data-layout=ti30]{--kh:clamp(32px,9dvh,88px);--sh:clamp(26px,7dvh,64px)}
+}
+.dpad{grid-column:span 2;grid-row:span 2;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:2px;
+  border-radius:50%;padding:2px;background:color-mix(in srgb,var(--fn,var(--key)) 60%,transparent);aspect-ratio:auto}
+#pad .dpad button{height:auto!important;min-height:0;border-radius:8px!important;padding:0!important;font-size:.8rem}
+.dpad .d-u{grid-area:1/2}.dpad .d-l{grid-area:2/1}.dpad .d-r{grid-area:2/3}.dpad .d-d{grid-area:3/2}
 #grip{height:14px;color:var(--sci);font-size:.75rem;line-height:1}
-#main{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--kg)}
+#main{display:grid;grid-template-columns:repeat(var(--cols,4),1fr);gap:var(--kg)}
 #main button{height:var(--kh);border-radius:clamp(10px,calc(var(--kh)*.24),18px);background:var(--key);border:1px solid var(--edge);border-bottom-width:3px;font-size:clamp(1.1rem,calc(var(--kh)*.36),1.75rem);font-weight:500;transition:transform .06s}
+#main button{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;gap:1px}
+#main button small{font-size:.62rem;font-weight:500;color:var(--k2n,var(--k2,var(--opink)))}
+#main button small:empty{display:none}
 #main button:active{transform:translateY(2px);border-bottom-width:1px}
 #main .op{background:var(--op);color:var(--opink);border-color:transparent}
 #main .ac{background:var(--redbg);color:var(--red);border-color:transparent;font-size:1.2rem;font-weight:700}
-#main .eq{background:var(--hl);color:var(--hlink);border-color:color-mix(in srgb,var(--hl) 70%,#000);font-weight:700}
+#main .eq{background:var(--eq,var(--hl));color:var(--eqink,var(--hlink));border-color:color-mix(in srgb,var(--eq,var(--hl)) 70%,#000);font-weight:700}
 #sheet{position:absolute;inset:0;background:var(--sheet);color:var(--ink);display:flex;flex-direction:column;z-index:5;border-top:2px solid var(--ink)}
 #sheet h3{margin:0;padding:10px 12px 0;font-size:1rem}
 #cats{display:flex;gap:2px;overflow-x:auto;padding:8px 10px;flex:none;border-bottom:1px solid var(--grid2)}
@@ -281,6 +334,9 @@ table.grid input:focus{background:var(--hlband);color:var(--ink)}
 <dialog id="opts" aria-label="Options">
  <form method="dialog">
   <header><h2>Options</h2><button value="close" class="ic" aria-label="Close options"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></header>
+  <fieldset><legend>Keypad</legend>
+   <div class="seg" id="lays"></div>
+   <p>Calculator layouts copy the key positions of popular calculators, so muscle memory carries over.</p></fieldset>
   <fieldset><legend>Math input</legend>
    <div class="seg"><label><input type="radio" name="pretty" value="1"><span>Textbook (2D)</span></label><label><input type="radio" name="pretty" value="0"><span>One line</span></label></div>
    <p>Textbook stacks fractions, exponents and roots the way they’re written on paper.</p></fieldset>
@@ -314,7 +370,7 @@ const def = () => ({
   lists: {L1: [], L2: [], L3: [], L4: [], L5: [], L6: []},
   ys: ['', '', '', '', '', ''], on: [1, 1, 1, 1, 1, 1], win: {xmin: -10, xmax: 10, ymin: -10, ymax: 10},
   tbl: {start: 0, step: 1}, deg: false, sci: true, kp: true, tab: 'calc',
-  opt: {pretty: true, ans: 'dec', nf: 'norm', fix: -1, theme: 'system', preview: true, haptic: true, split: false, hold: true}
+  opt: {pretty: true, ans: 'dec', nf: 'norm', fix: -1, theme: 'system', preview: true, haptic: true, split: false, hold: true, layout: 'calc84'}
 });
 let S = def();
 try { const L = JSON.parse(localStorage.getItem('calc84'), m.reviver); if (L) { Object.assign(S, L); S.opt = {...def().opt, ...L.opt} } } catch {}
@@ -719,7 +775,7 @@ function valTex(v, fr) {
   return numTex(v, fr);
 }
 function show(v, fr) {
-  fr = fr || S.opt.ans === 'frac';
+  fr = fr === 'dec' ? false : fr || S.opt.ans === 'frac'; // 'dec': this entry forced to decimal
   if (m.isNode(v)) v = symb(v);
   if (v && v.sym !== undefined) return S.opt.pretty ? texHTML(v.tex) : esc(v.sym);
   if (S.opt.pretty) { try { return texHTML(valTex(v, fr)) } catch {} }
@@ -796,6 +852,7 @@ const line = {
     mf.focus(); mf.insert(texFor(t), {selectionMode: 'placeholder', format: 'latex'}); preview();
   },
   del() { if (!S.opt.pretty) return del(ex); mf.executeCommand('deleteBackward'); preview() },
+  vert(d) { if (S.opt.pretty) { mf.focus(); return mf.executeCommand(d < 0 ? 'moveUp' : 'moveDown') } const h = S.hist.at(d < 0 ? -1 : 0); if (h && d < 0) { ex.value = h.e; fire(ex) } }, // up: into a numerator/superscript, or bring back the last entry
   move(d) { if (S.opt.pretty) { mf.focus(); return mf.executeCommand(d < 0 ? 'moveToPreviousChar' : 'moveToNextChar') } ex.focus(); const p = Math.max(0, d < 0 ? ex.selectionStart - 1 : ex.selectionEnd + 1); ex.setSelectionRange(p, p) },
 };
 let freshHist = false, histAll = false; // startup: typeset only the newest 30 entries; the rest when you scroll up
@@ -842,12 +899,15 @@ hl.addEventListener('pointerdown', e => e.preventDefault());
 hl.addEventListener('scroll', () => { if (!histAll && hl.scrollTop < 40 && S.hist.length > 30) { histAll = true; renderHist(true) } }, {passive: true});
 hl.addEventListener('click', e => {
   const el = e.target.closest('.he,.hr'); if (!el) return;
-  const h = S.hist[el.dataset.i], isE = el.classList.contains('he'); tab('calc');
+  recall(S.hist[el.dataset.i], el.classList.contains('he'));
+});
+function recall(h, isE) { // put a history entry's expression (isE) or answer back on the entry line
+  tab('calc');
   if (!S.opt.pretty) return ins(ex, isE ? h.e : valText(h.v));
   let t;
   if (isE) { try { t = h.l || m.parse(prep(h.e)).toTex() } catch { t = h.e } } else t = valTexIns(h.v);
   mf.focus(); mf.insert(t, {format: 'latex'}); preview();
-});
+}
 ex.addEventListener('input', preview);
 mf.addEventListener('input', preview);
 ex.addEventListener('keydown', e => {
@@ -863,36 +923,115 @@ mf.addEventListener('keydown', e => {
   if (e.key !== 'Enter') justEval = false;
 }, {capture: true});
 
-/* ---------- keypad ---------- */
-const SCI = [
-  {l: '2nd', a: '2nd'}, {l: 'Alpha', a: 'alpha', l2: 'A-lock', aria: 'Alpha: type letters'}, {l: '◀', a: 'left', aria: 'Cursor left'}, {l: '▶', a: 'right', aria: 'Cursor right'}, {l: 'X', t: 'X', l2: 'Ans', t2: 'Ans'}, {l: ',', t: ',', l2: 'sto→', t2: '→'},
-  {l: 'sin', t: 'sin(', l2: 'sin⁻¹', t2: 'asin('}, {l: 'cos', t: 'cos(', l2: 'cos⁻¹', t2: 'acos('}, {l: 'tan', t: 'tan(', l2: 'tan⁻¹', t2: 'atan('},
-  {l: 'ln', t: 'ln(', l2: 'eˣ', t2: 'e^('}, {l: 'log', t: 'log(', l2: '10ˣ', t2: '10^('}, {l: 'π', t: 'π', l2: 'i', t2: 'i'},
-  {l: 'x²', t: '²', l2: 'x³', t2: '³'}, {l: 'xʸ', t: '^', l2: 'ⁿ√', t2: 'nthRoot('}, {l: '√', t: '√(', l2: '∛', t2: '∛('}, {l: 'x⁻¹', t: '⁻¹', l2: '►Frac', t2: '►Frac'}, {l: '!', t: '!', l2: '|x|', t2: 'abs('}, {l: 'e', t: 'e', l2: 'EE', t2: 'E'},
-  // group keys open a menu, like the TI's MATH and 2nd MATRIX keys
-  {l: 'Math', cat: 'MATH', l2: 'Prob', cat2: 'PRB', menu: 1}, {l: 'Calc', cat: 'CALC', l2: 'Vars', cat2: 'VARS', menu: 1}, {l: 'Matrix', cat: 'MATRIX', l2: 'Cplx', cat2: 'CPLX', menu: 1},
-  {l: 'List', cat: 'LIST', l2: '{', t2: '{', menu: 1}, {l: 'Distr', cat: 'DISTR', l2: 'Stats', a2: 'stats', menu: 1}, {l: 'Eng', cat: 'ENG', l2: 'Units', cat2: 'UNITS', menu: 1},
-];
+/* ---------- keypad layouts ----------
+   A layout is two grids: "sci" (function keys) and "main" (number block). A key is
+   {l: label, t: text to insert | a: action | cat: menu group, l2/t2/a2/cat2: its 2nd function, al: alpha letter, c: style}.
+   Arrow keys tagged d: u/l/r/d (in that order) are drawn together as a pad spanning 2×2 cells. */
+const K = (l, t, o = {}) => ({l, t, ...o}), A = (l, a, o = {}) => ({l, a, ...o}), G = (l, cat, o = {}) => ({l, cat, menu: 1, ...o});
 const BKSP = '<svg class="i" viewBox="0 0 24 24"><path d="M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M17 9l-6 6M11 9l6 6"/></svg>';
-const MAIN = [{l: 'AC', a: 'AC', c: 'ac', aria: 'Clear'}, {l: '(', t: '(', c: 'op'}, {l: ')', t: ')', c: 'op'}, {l: '÷', t: '÷', c: 'op', aria: 'Divide'},
-  ...[7, 8, 9].map(d => ({l: d, t: '' + d})), {l: '×', t: '×', c: 'op', aria: 'Multiply'},
-  ...[4, 5, 6].map(d => ({l: d, t: '' + d})), {l: '−', t: '−', c: 'op', aria: 'Minus'},
-  ...[1, 2, 3].map(d => ({l: d, t: '' + d})), {l: '+', t: '+', c: 'op', aria: 'Plus'},
-  {l: 0, t: '0'}, {l: '.', t: '.', aria: 'Decimal point'}, {l: BKSP, a: 'del', aria: 'Backspace'}, {l: '=', a: '=', c: 'eq', aria: 'Equals'}];
-const ANSOPS = ['+', '−', '×', '÷', '^', '²', '³', '⁻¹', '!', 'ᵀ', '→', '►Frac'];
-// Alpha letters, in reading order: sin…e on the scientific keys get A–L, ( ) ÷ and the digit rows get M–Z (1 2 3 = X Y Z)
-[...'ABCDEFGHIJKL'].forEach((c, j) => SCI[6 + j].al = c);
-[[1, 'M'], [2, 'N'], [3, 'O'], [4, 'P'], [5, 'Q'], [6, 'R'], [7, 'S'], [8, 'T'], [9, 'U'], [10, 'V'], [11, 'W'], [12, 'X'], [13, 'Y'], [14, 'Z']].forEach(([i, c]) => MAIN[i].al = c);
+const PAD = [A('▲', 'up', {d: 'u', aria: 'Cursor up'}), A('◀', 'left', {d: 'l', aria: 'Cursor left'}), A('▶', 'right', {d: 'r', aria: 'Cursor right'}), A('▼', 'down', {d: 'd', aria: 'Cursor down'})];
+const N = (d, o = {}) => K('' + d, '' + d, {c: 'num', ...o});
+const LAYOUTS = {
+  calc84: {name: 'Calc 84', theme: null, cols: [6, 4], flat: true,
+    sci: [A('2nd', '2nd'), A('Alpha', 'alpha', {l2: 'A-lock', aria: 'Alpha: type letters'}), A('◀', 'left', {aria: 'Cursor left'}), A('▶', 'right', {aria: 'Cursor right'}), K('X', 'X', {l2: 'Ans', t2: 'Ans'}), K(',', ',', {l2: 'sto→', t2: '→'}),
+      K('sin', 'sin(', {l2: 'sin⁻¹', t2: 'asin(', al: 'A'}), K('cos', 'cos(', {l2: 'cos⁻¹', t2: 'acos(', al: 'B'}), K('tan', 'tan(', {l2: 'tan⁻¹', t2: 'atan(', al: 'C'}),
+      K('ln', 'ln(', {l2: 'eˣ', t2: 'e^(', al: 'D'}), K('log', 'log(', {l2: '10ˣ', t2: '10^(', al: 'E'}), K('π', 'π', {l2: 'i', t2: 'i', al: 'F'}),
+      K('x²', '²', {l2: 'x³', t2: '³', al: 'G'}), K('xʸ', '^', {l2: 'ⁿ√', t2: 'nthRoot(', al: 'H'}), K('√', '√(', {l2: '∛', t2: '∛(', al: 'I'}), K('x⁻¹', '⁻¹', {l2: '►Frac', t2: '►Frac', al: 'J'}), K('!', '!', {l2: '|x|', t2: 'abs(', al: 'K'}), K('e', 'e', {l2: 'EE', t2: 'E', al: 'L'}),
+      G('Math', 'MATH', {l2: 'Prob', cat2: 'PRB'}), G('Calc', 'CALC', {l2: 'Vars', cat2: 'VARS'}), G('Matrix', 'MATRIX', {l2: 'Cplx', cat2: 'CPLX'}),
+      G('List', 'LIST', {l2: '{', t2: '{'}), G('Distr', 'DISTR', {l2: 'Stats', a2: 'stats'}), G('Eng', 'ENG', {l2: 'Units', cat2: 'UNITS'})],
+    main: [A('AC', 'AC', {c: 'ac', aria: 'Clear'}), K('(', '(', {c: 'op', al: 'M'}), K(')', ')', {c: 'op', al: 'N'}), K('÷', '÷', {c: 'op', aria: 'Divide', al: 'O'}),
+      N(7, {al: 'P'}), N(8, {al: 'Q'}), N(9, {al: 'R'}), K('×', '×', {c: 'op', aria: 'Multiply', al: 'S'}),
+      N(4, {al: 'T'}), N(5, {al: 'U'}), N(6, {al: 'V'}), K('−', '−', {c: 'op', aria: 'Minus', al: 'W'}),
+      N(1, {al: 'X'}), N(2, {al: 'Y'}), N(3, {al: 'Z'}), K('+', '+', {c: 'op', aria: 'Plus'}),
+      N(0), K('.', '.', {c: 'num', aria: 'Decimal point'}), A(BKSP, 'del', {c: 'num', aria: 'Backspace'}), A('=', '=', {c: 'eq', aria: 'Equals'})]},
+
+  // TI-84 Plus CE arrangement, with the TI's own alpha letter positions
+  ti84: {name: 'TI-84 Plus CE style', theme: 'ti84', cols: [5, 5],
+    sci: [A('y=', 'yeq', {c: 'top'}), A('window', 'window', {c: 'top', l2: 'tblset', a2: 'tblset'}), A('zoom', 'zoom', {c: 'top'}), A('trace', 'trace', {c: 'top', l2: 'calc', a2: 'gcalc'}), A('graph', 'graph', {c: 'top', l2: 'table', a2: 'table'}),
+      A('2nd', '2nd', {c: 'sh'}), A('mode', 'mode', {l2: 'quit', a2: 'quit'}), A('del', 'del'), ...PAD,
+      A('alpha', 'alpha', {c: 'alk', l2: 'A-lock'}), K('X,T,θ,n', 'X'), A('stat', 'stats', {l2: 'list', cat2: 'LIST'}),
+      G('math', 'MATH', {l2: 'prob', cat2: 'PRB', al: 'A'}), G('calc', 'CALC', {l2: 'cplx', cat2: 'CPLX', al: 'B'}), G('eng', 'ENG', {l2: 'units', cat2: 'UNITS', al: 'C'}), G('vars', 'VARS', {l2: 'distr', cat2: 'DISTR'}), A('clear', 'AC')],
+    main: [K('x⁻¹', '⁻¹', {c: 'fn', l2: 'matrix', cat2: 'MATRIX', al: 'D'}), K('sin', 'sin(', {c: 'fn', l2: 'sin⁻¹', t2: 'asin(', al: 'E'}), K('cos', 'cos(', {c: 'fn', l2: 'cos⁻¹', t2: 'acos(', al: 'F'}), K('tan', 'tan(', {c: 'fn', l2: 'tan⁻¹', t2: 'atan(', al: 'G'}), K('^', '^', {c: 'fn', l2: 'π', t2: 'π', al: 'H'}),
+      K('x²', '²', {c: 'fn', l2: '√', t2: '√(', al: 'I'}), K(',', ',', {c: 'fn', l2: 'EE', t2: 'E', al: 'J'}), K('(', '(', {c: 'fn', l2: '{', t2: '{', al: 'K'}), K(')', ')', {c: 'fn', l2: '}', t2: '}', al: 'L'}), K('÷', '/', {c: 'op', l2: 'e', t2: 'e', al: 'M'}),
+      K('log', 'log(', {c: 'fn', l2: '10ˣ', t2: '10^(', al: 'N'}), N(7, {al: 'O'}), N(8, {al: 'P'}), N(9, {al: 'Q'}), K('×', '×', {c: 'op', l2: '[', t2: '[', al: 'R'}),
+      K('ln', 'ln(', {c: 'fn', l2: 'eˣ', t2: 'e^(', al: 'S'}), N(4, {al: 'T'}), N(5, {al: 'U'}), N(6, {al: 'V'}), K('−', '−', {c: 'op', l2: ']', t2: ']', al: 'W'}),
+      K('sto→', '→', {c: 'fn', l2: 'rcl', cat2: 'VARS', al: 'X'}), N(1, {l2: 'L1', t2: 'L1', al: 'Y'}), N(2, {l2: 'L2', t2: 'L2', al: 'Z'}), N(3, {l2: 'L3', t2: 'L3'}), K('+', '+', {c: 'op'}),
+      A('on', 'AC', {c: 'fn'}), N(0), K('.', '.', {c: 'num', l2: 'i', t2: 'i'}), K('(−)', '-', {c: 'num', l2: 'ans', t2: 'Ans', aria: 'Negative'}), A('enter', '=', {c: 'eq', l2: 'entry', a2: 'entry'})]},
+
+  // Casio fx-570 / fx-991 (ClassWiz-like) arrangement: SHIFT labels gold, ALPHA labels red
+  casio: {name: 'Casio fx-570 style', theme: 'classwiz', cols: [6, 5],
+    sci: [A('SHIFT', '2nd', {c: 'sh'}), A('ALPHA', 'alpha', {c: 'alk'}), ...PAD, A('MENU', 'apps', {l2: 'SETUP', a2: 'mode'}), A('ON', 'AC'),
+      G('OPTN', 'MATH', {l2: 'PROB', cat2: 'PRB'}), G('CALC', 'CALC', {l2: 'SOLVE', t2: 'solve('}), K('x', 'X'), K('∫▫', 'fnInt(', {l2: 'd/dx', t2: 'diff('}),
+      K('▫⁄▫', '÷', {l2: '►Frac', t2: '►Frac', aria: 'Fraction'}), K('√▫', '√(', {l2: '∛', t2: '∛('}), K('x²', '²', {l2: 'x³', t2: '³'}), K('x▫', '^', {l2: 'ⁿ√', t2: 'nthRoot('}), K('log▫▫', 'logBASE(', {l2: '10ˣ', t2: '10^('}), K('ln', 'ln(', {l2: 'eˣ', t2: 'e^('}),
+      K('(−)', '-', {al: 'A', aria: 'Negative'}), K('°′″', '°', {al: 'B'}), K('x⁻¹', '⁻¹', {l2: 'x!', t2: '!', al: 'C'}), K('sin', 'sin(', {l2: 'sin⁻¹', t2: 'asin(', al: 'D'}), K('cos', 'cos(', {l2: 'cos⁻¹', t2: 'acos(', al: 'E'}), K('tan', 'tan(', {l2: 'tan⁻¹', t2: 'atan(', al: 'F'}),
+      K('STO', '→', {l2: 'RCL', cat2: 'VARS'}), A('ENG', 'eng'), K('(', '('), K(')', ')', {al: 'X'}), A('S⇔D', 'sd', {al: 'Y', aria: 'Fraction or decimal'}), A('M+', 'mplus', {l2: 'M−', a2: 'mminus', al: 'M'})],
+    main: [N(7, {l2: 'CONST', cat2: 'CONST'}), N(8, {l2: 'CONV', cat2: 'UNITS'}), N(9), A('DEL', 'del', {c: 'ac'}), A('AC', 'AC', {c: 'ac'}),
+      N(4, {l2: 'MATRIX', cat2: 'MATRIX'}), N(5, {l2: 'LIST', cat2: 'LIST'}), N(6, {l2: 'DIST', cat2: 'DISTR'}), K('×', '×', {c: 'op', l2: 'nPr', t2: 'nPr('}), K('÷', '/', {c: 'op', l2: 'nCr', t2: 'nCr('}),
+      N(1, {l2: 'STAT', a2: 'stats'}), N(2, {l2: 'CMPLX', cat2: 'CPLX'}), N(3, {l2: 'ENG', cat2: 'ENG'}), K('+', '+', {c: 'op'}), K('−', '−', {c: 'op'}),
+      N(0), K('.', '.', {c: 'num', l2: 'Ran#', t2: 'rand'}), K('×10ˣ', 'E', {c: 'num', l2: 'π', t2: 'π'}), K('Ans', 'Ans', {c: 'num'}), A('=', '=', {c: 'eq', l2: '≈', a2: 'approx'})]},
+
+  // TI-30XS MultiView arrangement (no alpha letters: the x key and recall give variables)
+  ti30: {name: 'TI-30XS style', theme: 'ti30', cols: [5, 5],
+    sci: [A('2nd', '2nd', {c: 'sh'}), A('mode', 'mode', {l2: 'quit', a2: 'quit'}), A('delete', 'del'), ...PAD,
+      K('log', 'log(', {l2: '10ˣ', t2: '10^('}), G('prb', 'PRB'), A('data', 'stats'),
+      K('ln', 'ln(', {l2: 'eˣ', t2: 'e^('}), K('n/d', '÷', {l2: '►Frac', t2: '►Frac'}), A('⇄', 'sd', {aria: 'Fraction or decimal'}), A('table', 'table'), A('clear', 'AC'),
+      K('π', 'π', {l2: 'hyp', cat2: 'ENG'}), K('sin', 'sin(', {l2: 'sin⁻¹', t2: 'asin('}), K('cos', 'cos(', {l2: 'cos⁻¹', t2: 'acos('}), K('tan', 'tan(', {l2: 'tan⁻¹', t2: 'atan('}), K('÷', '/', {c: 'op'})],
+    main: [K('^', '^', {c: 'fn', l2: 'ⁿ√', t2: 'nthRoot('}), K('x⁻¹', '⁻¹', {c: 'fn', l2: 'e', t2: 'e'}), K('(', '(', {c: 'fn'}), K(')', ')', {c: 'fn'}), K('×', '×', {c: 'op'}),
+      K('x²', '²', {c: 'fn', l2: '√', t2: '√('}), N(7), N(8), N(9), K('−', '−', {c: 'op'}),
+      K('×10ⁿ', 'E', {c: 'fn'}), N(4), N(5), N(6), K('+', '+', {c: 'op'}),
+      K('x', 'X', {c: 'fn', l2: 'recall', cat2: 'VARS'}), N(1), N(2), N(3), K('sto→', '→', {c: 'fn'}),
+      A('on', 'AC', {c: 'fn'}), N(0), K('.', '.', {c: 'num', l2: 'i', t2: 'i'}), K('(−)', '-', {c: 'num', l2: 'ans', t2: 'Ans', aria: 'Negative'}), A('enter', '=', {c: 'eq'})]},
+};
+let L = LAYOUTS.calc84, SCI = L.sci, MAIN = L.main;
+const ANSOPS = ['+', '−', '×', '÷', '/', '^', '²', '³', '⁻¹', '!', 'ᵀ', '→', '►Frac'];
 let alpha = 0; // 0 off, 1 next key only, 2 locked
 const alTag = k => k.al ? `<em class="al" aria-hidden="true">${k.al}</em>` : '';
-const renderSci = () => {
-  $('#sci').innerHTML = SCI.map((k, i) => `<button data-s="${i}" class="${(k.a === '2nd' && second) || (k.a === 'alpha' && alpha) ? 'on' : k.menu ? 'menu' : ''}${k.a === 'alpha' ? ' alk' : ''}" aria-label="${k.aria || k.l}${k.l2 ? `, 2nd: ${k.l2}` : ''}${k.al ? `, alpha: ${k.al}` : ''}">${alTag(k)}<small>${k.l2 || ''}</small><span>${k.a === 'alpha' && alpha === 2 ? 'A-lock' : k.l}</span></button>`).join('');
-  $('#sci').classList.toggle('sec', second);
-  pad.classList.toggle('alp', !!alpha);
+function keyHTML(k, i, sec) {
+  const on = (k.a === '2nd' && second) || (k.a === 'alpha' && alpha);
+  const cls = [k.c, on && 'on', k.menu && 'menu', k.a === 'alpha' && 'alk', k.d && 'd-' + k.d].filter(Boolean).join(' ');
+  const aria = `${k.aria || k.l}${k.l2 ? `, 2nd: ${k.l2}` : ''}${k.al ? `, alpha: ${k.al}` : ''}`;
+  return `<button data-${sec}="${i}" class="${cls}" aria-label="${esc(aria)}">${alTag(k)}<small>${k.l2 || ''}</small><span>${k.a === 'alpha' && alpha === 2 ? 'A-lock' : k.l}</span></button>`;
+}
+function gridHTML(keys, sec) {
+  let h = '';
+  for (let i = 0; i < keys.length; i++) {
+    if (keys[i].d === 'u') { h += `<div class="dpad">${[0, 1, 2, 3].map(j => keyHTML(keys[i + j], i + j, sec)).join('')}</div>`; i += 3 }
+    else h += keyHTML(keys[i], i, sec);
+  }
+  return h;
+}
+function renderSci() {
+  $('#sci').innerHTML = gridHTML(SCI, 's'); $('#main').innerHTML = gridHTML(MAIN, 'k');
+  pad.classList.toggle('sec', second); pad.classList.toggle('alp', !!alpha);
   ind();
-};
-$('#main').innerHTML = MAIN.map((k, i) => `<button data-k="${i}" class="${k.c || ''}" aria-label="${k.aria || k.l}${k.al ? `, alpha: ${k.al}` : ''}">${alTag(k)}${k.l}</button>`).join('');
+}
+function applyLayout() {
+  L = LAYOUTS[S.opt.layout] || LAYOUTS.calc84; SCI = L.sci; MAIN = L.main; alpha = 0; second = false;
+  $('#sci').style.setProperty('--cols', L.cols[0]); $('#main').style.setProperty('--cols', L.cols[1]);
+  pad.classList.toggle('phys', !L.flat); pad.dataset.layout = L === LAYOUTS.calc84 ? 'calc84' : S.opt.layout;
+  renderSci();
+}
 const isLine = t => t === ex || t === mf;
+// what the calculator-style keys do here (each does something real; none are dead keys)
+const flash = msg => { pv.className = ''; pv.textContent = msg };
+function memAdd(sign) { // Casio M+ / M−: evaluate the line (if any), then add/subtract Ans to memory M
+  if (line.raw().trim()) enter();
+  try { S.vars.M = (sign > 0 ? m.add : m.subtract)(S.vars.M ?? 0, S.vars.Ans); save(); flash(`M = ${fnum(S.vars.M)}`) } catch (e) { flash(e.message) }
+}
+const ACTS = {
+  stats: () => tab('stats'), table: () => tab('table'), graph: () => tab('graph'), quit: () => tab('calc'),
+  tblset: () => { tab('table'); $('#tstart').focus() },
+  yeq: () => { tab('graph'); $('#ylist').hidden = false; $('#yeq').classList.add('on'); $('[data-y="0"]').focus(); sched() },
+  window: () => { tab('graph'); $('#wedit').hidden = false; $('#wbtn').classList.add('on'); fillWin(); sched() },
+  trace: () => { tab('graph'); gs = null; const i = S.ys.findIndex((_, j) => S.on[j] && yfun(j)); if (i >= 0) { tr = {i, x: (S.win.xmin + S.win.xmax) / 2, lab: ''}; sched() } },
+  gcalc: () => { ACTS.trace(); $('#gcalc').scrollIntoView({block: 'nearest'}) },
+  zoom: () => openSheet('ZOOM'), apps: () => openSheet('APPS'), mode: () => $('#optb').click(),
+  entry: () => { const h = S.hist.at(-1); if (h) recall(h, true) },
+  sd: () => { const h = S.hist.at(-1); if (!h) return; h.f = h.f === true || (h.f !== 'dec' && S.opt.ans === 'frac') ? 'dec' : true; renderHist(); save() },
+  eng: () => { S.opt.nf = S.opt.nf === 'eng' ? 'norm' : 'eng'; renderHist(); save(); flash(S.opt.nf === 'eng' ? 'Engineering notation on' : 'Engineering notation off') },
+  mplus: () => memAdd(1), mminus: () => memAdd(-1),
+  approx: () => { enter(); const h = S.hist.at(-1); if (h) { h.f = 'dec'; renderHist(); save() } },
+};
 function press(k) {
   if (S.opt.haptic) navigator.vibrate?.(5);
   if (k.a === '2nd') { second = !second; return renderSci() }
@@ -900,7 +1039,8 @@ function press(k) {
   if (alpha && k.al) { if (alpha === 1) alpha = 0; second = false; renderSci(); k = {t: k.al} }
   if (second && k.l2) { second = false; renderSci(); k = {t: k.t2, a: k.a2, cat: k.cat2} } // use the key's 2nd function
   if (k.cat) return openSheet(k.cat);
-  if (k.a === 'stats') return tab('stats');
+  if (ACTS[k.a]) return ACTS[k.a]();
+  if (k.a === 'up' || k.a === 'down') { const d = k.a === 'up' ? -1 : 1; return isLine(tgt) && tgt.offsetParent ? line.vert(d) : tab('calc') }
   let t = tgt;
   if (!t.isConnected || !t.offsetParent || (isLine(t) && t !== line.el())) { tab('calc'); t = tgt = line.el() }
   if (k.a === 'AC') { justEval = false; return isLine(t) ? line.clear() : (t.value = '', fire(t)) }
@@ -971,13 +1111,18 @@ const MENU = {
       ['V', 'volt'], ['A', 'ampere'], ['Ω', 'ohm'], ['F', 'farad'], ['H', 'henry'], ['Hz', 'hertz'], ['C', 'coulomb'], ['rad'], ['deg']].map(([l, t = l]) => F(l, t))],
   LIST: [...[1, 2, 3, 4, 5, 6].map(i => F('L' + i, 'L' + i)), F('{', '{'), F('}', '}'), F('mean(', 'mean('), F('median(', 'median('), F('stdDev(', 'stdDev(', 'sample'), F('variance(', 'variance(', 'sample'),
     F('sum(', 'sum('), F('prod(', 'prod('), F('min(', 'min('), F('max(', 'max('), F('sortA(', 'sortA('), F('sortD(', 'sortD('), F('dim(', 'dim(', 'length'), F('cumSum(', 'cumSum('), F('seq(', 'seq(', 'seq(expr, X, a, b, step)')],
+  ZOOM: [['ZStd', null, 'x and y from −10 to 10', () => { tab('graph'); zoom('std') }], ['ZTrig', null, 'one period of sin/cos', () => { tab('graph'); zoom('trig') }],
+    ['ZFit', null, 'fit y to the graphs', () => { tab('graph'); zoom('fit') }], ['Zoom in', null, '×2 around the center', () => zoomBy(0.5)], ['Zoom out', null, '×½ around the center', () => zoomBy(2)]],
+  APPS: [['Calculate', null, '', () => tab('calc')], ['Graph', null, '', () => tab('graph')], ['Table', null, '', () => tab('table')],
+    ['Matrix', null, '', () => tab('matrix')], ['Statistics', null, '', () => tab('stats')]],
   VARS: [F('Ans', 'Ans', 'last answer'), ...AZ.map(c => F(c, c)), ...[1, 2, 3, 4, 5, 6].map(i => F(`Y${i}(`, `Y${i}(`, 'graph function'))],
 };
-const CATN = {MATH: 'Math', CALC: 'Calculus', MATRIX: 'Matrix', LIST: 'List', DISTR: 'Distributions', PRB: 'Probability', CPLX: 'Complex', ENG: 'Engineering', CONST: 'Constants', UNITS: 'Units', VARS: 'Variables'};
+const CATN = {MATH: 'Math', CALC: 'Calculus', MATRIX: 'Matrix', LIST: 'List', DISTR: 'Distributions', PRB: 'Probability', CPLX: 'Complex', ENG: 'Engineering', CONST: 'Constants', UNITS: 'Units', VARS: 'Variables', ZOOM: 'Zoom', APPS: 'Screens'};
 let cat = 'MATH';
+const HIDDEN = new Set(['ZOOM', 'APPS']);
 function openSheet(c = cat) {
   cat = c;
-  $('#cats').innerHTML = Object.keys(MENU).map(c => `<button data-cat="${c}" class="${c === cat ? 'on' : ''}">${CATN[c]}</button>`).join('') + '<button data-x class="x" aria-label="Close menu">✕</button>';
+  $('#cats').innerHTML = Object.keys(MENU).filter(k => !HIDDEN.has(k) || k === cat).map(c => `<button data-cat="${c}" class="${c === cat ? 'on' : ''}">${CATN[c]}</button>`).join('') + '<button data-x class="x" aria-label="Close menu">✕</button>';
   $('#cats .on')?.scrollIntoView({inline: 'center', block: 'nearest'});
   $('#items').innerHTML = MENU[cat].map(([l, , d], i) => `<button data-it="${i}">${esc(l)}${d ? `<small>${esc(d)}</small>` : ''}</button>`).join('');
   if ($('#sheet').hidden) overlay();
@@ -992,12 +1137,13 @@ $('#sheet').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   if (b.dataset.cat) return openSheet(b.dataset.cat);
   $('#sheet').hidden = true; unOverlay();
-  if (b.dataset.it) press({t: MENU[cat][b.dataset.it][1]});
+  if (b.dataset.it) { const it = MENU[cat][b.dataset.it]; it[3] ? it[3]() : press({t: it[1]}) }
 });
 
 /* ---------- options ---------- */
 const dlg = $('#opts'), form = dlg.querySelector('form');
-const THEMES = [['system', 'Match system'], ['paper', 'Paper'], ['night', 'Night'], ['blueprint', 'Blueprint'], ['chalk', 'Chalkboard'], ['handheld', 'Handheld'], ['contrast', 'High contrast']];
+const DEVICE_THEMES = ['ti84', 'classwiz', 'ti30'];
+const THEMES = [['system', 'Match system'], ['paper', 'Paper'], ['night', 'Night'], ['blueprint', 'Blueprint'], ['chalk', 'Chalkboard'], ['handheld', 'Handheld'], ['contrast', 'High contrast'], ['ti84', 'TI-84 CE'], ['classwiz', 'ClassWiz'], ['ti30', 'TI-30XS']];
 $('#sws').innerHTML = THEMES.map(([v, n]) => `<label class="sw"><input type="radio" name="theme" value="${v}"><span class="swp${v === 'system' ? ' sys' : ''}"${v === 'system' ? '' : ` data-theme="${v}"`}><span class="scr">84<i></i></span><span class="kp2"><b></b><b></b><b></b><b></b></span></span><span class="swn">${n}</span></label>`).join('');
 function applyOpts() {
   const r = document.documentElement;
@@ -1021,7 +1167,7 @@ function syncBars() {
 }
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { syncBars(); sched() }); // phone switched light/dark
 $('#optb').onclick = () => {
-  form.pretty.value = S.opt.pretty ? '1' : '0'; form.deg.value = S.deg ? '1' : '0'; form.ans.value = S.opt.ans; form.nf.value = S.opt.nf;
+  form.pretty.value = S.opt.pretty ? '1' : '0'; form.deg.value = S.deg ? '1' : '0'; form.ans.value = S.opt.ans; form.nf.value = S.opt.nf; form.layout.value = S.opt.layout;
   form.fix.value = S.opt.fix; form.theme.value = S.opt.theme; form.preview.checked = S.opt.preview; form.haptic.checked = S.opt.haptic; form.split.checked = S.opt.split; form.hold.checked = S.opt.hold;
   dlg.showModal(); overlay();
 };
@@ -1030,6 +1176,10 @@ form.addEventListener('change', e => {
   const n = e.target.name, v = e.target.value;
   if (n === 'deg') S.deg = v === '1';
   else if (n === 'pretty') { S.opt.pretty = v === '1'; line.clear() }
+  else if (n === 'layout') { // each calculator layout brings its matching theme (still changeable below)
+    S.opt.layout = v; S.opt.theme = LAYOUTS[v].theme || (DEVICE_THEMES.includes(S.opt.theme) ? 'system' : S.opt.theme);
+    form.theme.value = S.opt.theme; applyLayout();
+  }
   else if (n === 'fix') S.opt.fix = +v;
   else if (['preview', 'haptic', 'split', 'hold'].includes(n)) { S.opt[n] = e.target.checked; placeGraph() }
   else S.opt[n] = v;
@@ -1045,7 +1195,8 @@ function tab(name) {
   $$('.tab').forEach(s => s.hidden = s.id !== 'tab-' + name);
   $$('#tabs [data-tab]').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
   if (name === 'calc') tgt = line.el();
-  sciShow(name === 'calc' ? S.sci : matchMedia('(min-width:900px),(min-width:560px) and (max-height:560px)').matches); // stacked phones: give other screens the room
+  // stacked phones: give other screens the room, except on calculator layouts, whose top keys (y=, window, zoom…) are needed there
+  sciShow(name === 'calc' ? S.sci : !L.flat || matchMedia('(min-width:900px),(min-width:560px) and (max-height:560px)').matches);
   placeGraph();
   if (name === 'table') renderTable();
   if (name === 'matrix') renderMat();
@@ -1089,6 +1240,10 @@ $('#wedit').addEventListener('input', e => {
   const k = e.target.dataset.w;
   try { const v = num(evalStr(e.target.value)); if (isFinite(v)) { S.win[k] = v; sched(); save() } } catch {}
 });
+function zoomBy(f) {
+  tab('graph'); const w = S.win, cx = (w.xmin + w.xmax) / 2, cy = (w.ymin + w.ymax) / 2;
+  S.win = {xmin: cx - (cx - w.xmin) * f, xmax: cx + (w.xmax - cx) * f, ymin: cy - (cy - w.ymin) * f, ymax: cy + (w.ymax - cy) * f}; fillWin(); sched(); save();
+}
 function zoom(z) {
   if (z === 'std') S.win = {xmin: -10, xmax: 10, ymin: -10, ymax: 10};
   if (z === 'trig') { const a = S.deg ? 360 : 2 * Math.PI; S.win = {xmin: -a, xmax: a, ymin: -4, ymax: 4} }
@@ -1375,9 +1530,11 @@ function selfTest() {
 
 /* ---------- init ---------- */
 pad.hidden = !S.kp;
+$('#lays').innerHTML = Object.entries(LAYOUTS).map(([v, l]) => `<label><input type="radio" name="layout" value="${v}"><span>${l.name}</span></label>`).join('');
+applyLayout();
 applyOpts(); tab(S.tab);
 // web version only: work offline and be installable (the Windows and Android apps already have their files)
-if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !window.Capacitor) navigator.serviceWorker.register('sw.js').catch(() => {});
+if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !window.Capacitor && location.hostname !== 'localhost') navigator.serviceWorker.register('sw.js').catch(() => {}); // not on localhost: keeps local testing fresh
 if (location.hash === '#test') { const r = selfTest(); console.log('selftest', r); pv.textContent = 'Self-test: ' + (Array.isArray(r) ? r.join(' | ') : r) }
 </script>
 </body>
