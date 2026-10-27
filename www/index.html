@@ -67,6 +67,26 @@
   --hl:#ffde00;--hlink:#000;--hlband:#ffde00;
   --c1:#0033cc;--c2:#cc0000;--c3:#007a33;--c4:#7a00cc;--c5:#b35900;--c6:#000;color-scheme:light;
 }
+[data-theme=material]{
+  --alpha:oklch(from var(--seed) .5 .13 calc(h + 120));
+  --paper:oklch(from var(--seed) .975 .012 h);--grid:oklch(from var(--seed) .925 .02 h);--grid2:oklch(from var(--seed) .86 .03 h);--ink:oklch(from var(--seed) .22 .02 h);
+  --graphite:oklch(from var(--seed) .46 .03 h);--sheet:oklch(from var(--seed) .95 .016 h);--err:#ba1a1a;
+  --padbg:oklch(from var(--seed) .94 .022 h);--key:oklch(from var(--seed) .99 .006 h);--keyink:oklch(from var(--seed) .22 .02 h);--edge:oklch(from var(--seed) .87 .03 h);
+  --op:oklch(from var(--seed) .88 .06 h);--opink:oklch(from var(--seed) .3 .1 h);--sci:oklch(from var(--seed) .4 .03 h);--red:#410002;--redbg:#ffdad6;
+  --hl:oklch(from var(--seed) .5 min(c, .2) h);--hlink:#fff;--hlband:oklch(from var(--seed) .86 .08 h);
+  --c1:oklch(from var(--seed) .5 .17 h);--c2:oklch(from var(--seed) .55 .17 calc(h + 150));--c3:oklch(from var(--seed) .5 .14 calc(h + 75));
+  --c4:oklch(from var(--seed) .55 .17 calc(h + 225));--c5:oklch(from var(--seed) .6 .15 calc(h + 300));--c6:oklch(from var(--seed) .35 .03 h);color-scheme:light;
+}
+@media (prefers-color-scheme:dark){[data-theme=material]{
+  --alpha:oklch(from var(--seed) .8 .1 calc(h + 120));
+  --paper:oklch(from var(--seed) .17 .012 h);--grid:oklch(from var(--seed) .22 .016 h);--grid2:oklch(from var(--seed) .29 .02 h);--ink:oklch(from var(--seed) .93 .01 h);
+  --graphite:oklch(from var(--seed) .74 .02 h);--sheet:oklch(from var(--seed) .21 .016 h);--err:#ffb4ab;
+  --padbg:oklch(from var(--seed) .2 .016 h);--key:oklch(from var(--seed) .26 .02 h);--keyink:oklch(from var(--seed) .93 .01 h);--edge:oklch(from var(--seed) .33 .02 h);
+  --op:oklch(from var(--seed) .36 .07 h);--opink:oklch(from var(--seed) .9 .05 h);--sci:oklch(from var(--seed) .8 .02 h);--red:#ffdad6;--redbg:#93000a;
+  --hl:oklch(from var(--seed) .8 min(c, .14) h);--hlink:oklch(from var(--seed) .25 .08 h);--hlband:oklch(from var(--seed) .45 .1 h / .55);
+  --c1:oklch(from var(--seed) .8 .13 h);--c2:oklch(from var(--seed) .78 .13 calc(h + 150));--c3:oklch(from var(--seed) .8 .12 calc(h + 75));
+  --c4:oklch(from var(--seed) .78 .13 calc(h + 225));--c5:oklch(from var(--seed) .82 .12 calc(h + 300));--c6:oklch(from var(--seed) .85 .02 h);color-scheme:dark;
+}}
 [data-theme=ti84]{
   --alpha:#5fd08a;--alphan:#17703b;
   --paper:#f6f7f5;--grid:#e4e7e2;--grid2:#cfd4cc;--ink:#111418;--graphite:#555b55;--sheet:#fff;--err:#b3261e;
@@ -288,11 +308,18 @@ button.svres:hover{border-color:var(--ink)}
 .swp .kp2 b:last-child{background:var(--hl);border-color:transparent}
 .swp.sys{background:linear-gradient(135deg,#edf1ec 50%,#141a18 50%)}
 .swp.sys .scr,.swp.sys .kp2{background:transparent}
+.swp.sys .scr{color:#18231f}
 .sw span.swn{display:block;font-size:.8125rem;margin-top:4px;color:var(--graphite)}
 .sw input:checked+.swp{border-color:var(--ink);box-shadow:0 0 0 2px var(--hl)}
 .sw input:checked~.swn{color:var(--ink);font-weight:700}
 .sw input:focus-visible+.swp{outline:2px solid var(--opink);outline-offset:2px}
 .chk{display:flex;align-items:center;gap:10px;padding:4px 0}
+.seeds{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.seeds button,.seeds label{width:32px;height:32px;border-radius:50%;background:var(--s);border:2px solid var(--grid2);cursor:pointer;position:relative}
+.seeds .on{box-shadow:0 0 0 2px var(--sheet),0 0 0 4px var(--ink)}
+.seeds .wall{width:auto;padding:0 12px;border-radius:16px;background:var(--paper);color:var(--ink);font-size:.8125rem}
+.seeds label{background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red)}
+.seeds input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
 .chk input{width:18px;height:18px;accent-color:var(--ink)}
 .acts{display:flex;gap:8px;flex-wrap:wrap;padding-top:14px}
 .acts button{padding:8px 14px;border-radius:10px;border:1px solid var(--grid2);background:var(--sheet)}
@@ -372,7 +399,9 @@ button.svres:hover{border-color:var(--ink)}
   <fieldset><legend>Decimal places</legend>
    <select name="fix" class="fld"><option value="-1">Automatic (up to 10 digits)</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></fieldset>
   <fieldset><legend>Theme</legend>
-   <div class="sws" id="sws"></div></fieldset>
+   <div class="sws" id="sws"></div>
+   <div class="seeds" id="seeds" role="group" aria-label="Material theme color"></div>
+   <p id="seedhint">Material builds the whole theme from one color. Picking a color switches to it.</p></fieldset>
   <fieldset><legend>Behavior</legend>
    <label class="chk"><input type="checkbox" name="preview">Show the answer while typing</label>
    <label class="chk"><input type="checkbox" name="split">Show the graph on the Calc screen</label>
@@ -393,7 +422,7 @@ const def = () => ({
   ys: ['', '', '', '', '', ''], on: [1, 1, 1, 1, 1, 1], win: {xmin: -10, xmax: 10, ymin: -10, ymax: 10},
   tbl: {start: 0, step: 1},
   sv: {mode: 'poly', n: 2, p2: ['1', '-3', '2'], p3: ['1', '-6', '11', '-6'], s2: [['1', '1', '3'], ['1', '-1', '1']], s3: [['1', '1', '1', '6'], ['0', '2', '5', '-4'], ['2', '5', '-1', '27']]}, deg: false, sci: true, kp: true, tab: 'calc',
-  opt: {pretty: true, ans: 'dec', nf: 'norm', fix: -1, theme: 'system', preview: true, haptic: true, split: false, hold: true, layout: 'calc84'}
+  opt: {pretty: true, ans: 'dec', nf: 'norm', fix: -1, theme: 'system', preview: true, haptic: true, split: false, hold: true, layout: 'calc84', seed: '#6750a4'}
 });
 let S = def();
 try { const L = JSON.parse(localStorage.getItem('calc84'), m.reviver); if (L) { Object.assign(S, L); S.opt = {...def().opt, ...L.opt} } } catch {}
@@ -1176,7 +1205,7 @@ $('#sheet').addEventListener('click', e => {
 /* ---------- options ---------- */
 const dlg = $('#opts'), form = dlg.querySelector('form');
 const DEVICE_THEMES = ['ti84', 'classwiz', 'ti36'];
-const THEMES = [['system', 'Match system'], ['paper', 'Paper'], ['night', 'Night'], ['blueprint', 'Blueprint'], ['chalk', 'Chalkboard'], ['handheld', 'Handheld'], ['contrast', 'High contrast'], ['ti84', 'TI-84 CE'], ['classwiz', 'ClassWiz'], ['ti36', 'TI-36X Pro']];
+const THEMES = [['system', 'Match system'], ['paper', 'Paper'], ['night', 'Night'], ['blueprint', 'Blueprint'], ['chalk', 'Chalkboard'], ['handheld', 'Handheld'], ['contrast', 'High contrast'], ['ti84', 'TI-84 CE'], ['classwiz', 'ClassWiz'], ['ti36', 'TI-36X Pro'], ['material', 'Material']];
 $('#sws').innerHTML = THEMES.map(([v, n]) => `<label class="sw"><input type="radio" name="theme" value="${v}"><span class="swp${v === 'system' ? ' sys' : ''}"${v === 'system' ? '' : ` data-theme="${v}"`}><span class="scr">84<i></i></span><span class="kp2"><b></b><b></b><b></b><b></b></span></span><span class="swn">${n}</span></label>`).join('');
 function applyOpts() {
   const r = document.documentElement;
@@ -1184,14 +1213,31 @@ function applyOpts() {
   if (S.opt.theme === 'system') delete r.dataset.theme; else r.dataset.theme = S.opt.theme;
   mf.hidden = !S.opt.pretty; ex.hidden = S.opt.pretty;
   if (isLine(tgt)) tgt = line.el();
-  renderSci(); renderHist(); preview(); sched(); syncBars();
+  renderSci(); renderHist(); preview(); applySeed();
 }
+// Material color: the phone's wallpaper accent (Android 12+ app) or a picked color
+const SEEDS = ['#6750a4', '#0b57d0', '#006a6a', '#386a20', '#8b5000', '#b3261e', '#984061', '#5d5f5f'];
+const dynColor = () => window.Capacitor?.Plugins?.DynamicColor?.get().then(r => r.accent).catch(() => null) ?? Promise.resolve(null);
+let wallpaper = null; // accent color, when the phone offers one
+async function applySeed() {
+  wallpaper = await dynColor();
+  const seed = S.opt.seed === 'dynamic' ? wallpaper || SEEDS[0] : S.opt.seed;
+  document.documentElement.style.setProperty('--seed', seed);
+  renderSeeds(); sched(); syncBars();
+}
+function renderSeeds() {
+  $('#seeds').innerHTML = (wallpaper ? `<button type="button" class="wall" data-seed="dynamic" style="--s:${wallpaper}">Wallpaper (Material You)</button>` : '') +
+    SEEDS.map(c => `<button type="button" data-seed="${c}" style="--s:${c}" aria-label="Color ${c}"></button>`).join('') +
+    `<label aria-label="Custom color"><input type="color" id="seedc" value="${S.opt.seed.startsWith('#') ? S.opt.seed : SEEDS[0]}"></label>`;
+  const on = S.opt.theme === 'material' && ($(`#seeds [data-seed="${S.opt.seed}"]`) || $('#seedc').parentNode);
+  if (on) on.classList.add('on');
+}
+function pickSeed(v) { S.opt.seed = v; S.opt.theme = 'material'; form.theme.value = 'material'; applyOpts(); save() }
+$('#seeds').addEventListener('click', e => { const b = e.target.closest('[data-seed]'); if (b) pickSeed(b.dataset.seed) });
+$('#seeds').addEventListener('input', e => pickSeed(e.target.value));
+document.addEventListener('visibilitychange', () => { if (!document.hidden && S.opt.seed === 'dynamic') applySeed() }); // wallpaper may have changed
 // status bar / navigation bar: dark icons on light themes, light icons on dark themes (phone app only)
-function lum(name) {
-  const x = document.createElement('canvas').getContext('2d'); x.fillStyle = css(name);
-  const h = x.fillStyle.match(/^#(..)(..)(..)$/), [r, g, b] = h ? h.slice(1).map(v => parseInt(v, 16)) : x.fillStyle.match(/[\d.]+/g).map(Number);
-  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-}
+function lum(name) { const [r, g, b] = css(name).match(/[\d.]+/g).map(Number); return (0.299 * r + 0.587 * g + 0.114 * b) / 255 }
 function syncBars() {
   document.querySelector('meta[name=theme-color]').content = css('--paper');
   const SB = window.Capacitor?.Plugins?.SystemBars; if (!SB) return;
@@ -1207,6 +1253,7 @@ $('#optb').onclick = () => {
 dlg.addEventListener('close', unOverlay);
 form.addEventListener('change', e => {
   const n = e.target.name, v = e.target.value;
+  if (!n) return; // the Material color picker handles itself
   if (n === 'deg') S.deg = v === '1';
   else if (n === 'pretty') { S.opt.pretty = v === '1'; line.clear() }
   else if (n === 'layout') { // each calculator layout brings its matching theme (still changeable below)
@@ -1254,7 +1301,13 @@ document.addEventListener('focusin', e => { const t = e.target; if (t.closest?.(
 document.addEventListener('click', e => { if (e.target === freshCell) e.target.select(); freshCell = null });
 
 /* ---------- graph ---------- */
-const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+// theme color → "rgb(r, g, b)": paint 1px so computed colors (oklch, relative colors) come out as plain rgb for canvas, the status bar and lum()
+const px = document.createElement('canvas').getContext('2d', {willReadFrequently: true}), probe = document.body.appendChild(document.createElement('i'));
+probe.hidden = true;
+function css(n) {
+  probe.style.color = `var(${n})`; px.clearRect(0, 0, 1, 1); px.fillStyle = getComputedStyle(probe).color; px.fillRect(0, 0, 1, 1);
+  const [r, g, b] = px.getImageData(0, 0, 1, 1).data; return `rgb(${r}, ${g}, ${b})`;
+}
 const col = i => css(`--c${i + 1}`);
 const cache = {};
 function yfun(i) {

@@ -1,6 +1,6 @@
 // Offline support for the web version: answer from the cache instantly, refresh the cache in the background
 // (so a new version shows up on the next visit). Bump CACHE to force everyone onto a fresh copy.
-const CACHE = 'calc84-v3';
+const CACHE = 'calc84-v4';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {

@@ -1,7 +1,7 @@
 {
   "name": "calc84",
   "productName": "Calc 84",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Graphing calculator: Google-calculator ergonomics with TI-84 CE features",
   "main": "electron/main.js",
   "scripts": {
